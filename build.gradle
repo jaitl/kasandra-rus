@@ -20,5 +20,7 @@ subprojects {
 }
 
 project('kasandra-core') {
-
+    dependencies {
+        compile 'ru.stachek66.nlp:mystem-scala:0.1.4'
+    }
 }
