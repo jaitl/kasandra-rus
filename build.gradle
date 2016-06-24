@@ -11,6 +11,7 @@ subprojects {
     repositories {
         mavenCentral()
         mavenLocal()
+        maven { url "https://jitpack.io" }
     }
 
     dependencies {
@@ -20,10 +21,8 @@ subprojects {
     version = '1.0'
 }
 
-mainClassName = 'Run'
-
 project('kasandra-core') {
     dependencies {
-        compile 'ru.stachek66.nlp:mystem-scala:0.1.5-SNAPSHOT'
+        compile 'com.github.Jaitl:mystem-scala:0.1.5'
     }
 }
