@@ -6,7 +6,7 @@ class TfIdfService(tokenizerService: TokenizerService) {
   var docCount = 0
   val idfMap = scala.collection.mutable.HashMap[String, Int]()
 
-  def fill(documents: List[NewsDocument]): Unit = {
+  def fill(documents: Seq[NewsDocument]): Unit = {
 
     docCount += documents.size
 
