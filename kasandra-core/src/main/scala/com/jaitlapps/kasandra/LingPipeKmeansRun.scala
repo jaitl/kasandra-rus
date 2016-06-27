@@ -19,16 +19,16 @@ object LingPipeKmeansRun extends App {
   val stopWordsService = new StopWordsService()
   val tokenizer = new TokenizerService(mySteamService, stopWordsService)
   val tfIdfService = new TfIdfService(tokenizer)
-  val tdIdfExtractor = new TdIdfFeatureExtractor(tokenizer, tfIdfService)
+  val tdIdfExtractor = new TdIdfFeatureExtractorVector(tokenizer, tfIdfService)
 
   val newsJson = Source.fromURL(getClass.getResource("/data/news.json")).mkString
   val news = JsonNewsParser.parseNews(newsJson)
 
   tfIdfService.fill(news)
 
-  val numClusters = 5
-  val numMaxEpochs = 5
-  val cluster = new KMeansClusterer[NewsDocument](tdIdfExtractor, numClusters, numMaxEpochs, true, 1)
+  val numClusters = 3
+  val numMaxEpochs = 0
+  val cluster = new KMeansClusterer[NewsDocument](tdIdfExtractor, numClusters, numMaxEpochs, true, 0.1)
 
   val result = cluster.cluster(news.toSet.asJava).asScala
 
@@ -48,5 +48,16 @@ class TdIdfFeatureExtractor(val tokenizer: TokenizerService, val tdIdfService: T
     val tokens = tokenizer.tokenize(doc)
 
     tokens.map(t => t.lexeme -> double2Double(tdIdfService.computeTfIdf(t, doc))).toMap.asJava
+  }
+}
+
+class TdIdfFeatureExtractorVector(val tokenizer: TokenizerService, val tdIdfService: TfIdfService) extends FeatureExtractor[NewsDocument] {
+
+  override def features(doc: NewsDocument): util.Map[String, java.lang.Double] = {
+
+    val vector = tdIdfService.computeTfIdfVector(doc).vector
+    val names = tdIdfService.vectorNames()
+
+    vector.zip(names).map{case (v, n) => n -> double2Double(v)}.toMap.asJava
   }
 }
