@@ -1,9 +1,9 @@
 package com.jaitlapps.kasandra.services
 
 import com.jaitlapps.kasandra.configs.MySteamConfig
-import com.jaitlapps.kasandra.models.{Token, NewsDocument}
+import com.jaitlapps.kasandra.models.{NewsDocVector, NewsDocument, Token}
 import com.typesafe.config.ConfigFactory
-import org.scalatest.{Matchers, WordSpec, FunSuite}
+import org.scalatest.{FunSuite, Matchers, WordSpec}
 
 class TfIdfServiceTest extends WordSpec with Matchers {
   val mySteamConfig = MySteamConfig(ConfigFactory.load().getConfig("mysteam"))
@@ -160,6 +160,38 @@ class TfIdfServiceTest extends WordSpec with Matchers {
       val tfidf = service.computeTfIdf(Token("два", "два"), doc1)
 
       tfidf shouldEqual 1.0986 +- 0.0001
+    }
+  }
+
+  "vector names" should {
+    "best names" in {
+      val service = new TfIdfService(tokenizeService)
+
+      val doc1 = new NewsDocument("1", "заголовок", "два два")
+      val doc2 = new NewsDocument("1", "заголовок", "три три пять шесть")
+      val doc3 = new NewsDocument("1", "заголовок", "три три шесть шесть семь")
+
+      service.fill(doc1 :: doc2 :: doc3 :: Nil)
+
+      service.vectorNames() shouldBe Seq("два", "три", "пять", "шесть", "семь")
+    }
+  }
+
+  "vector" should {
+    "work right" in {
+      val service = new TfIdfService(tokenizeService)
+
+      val doc1 = new NewsDocument("1", "заголовок", "один два два")
+      val doc2 = new NewsDocument("2", "заголовок", "три три четыре пять шесть")
+      val doc3 = new NewsDocument("3", "заголовок", "три три шесть шесть семь")
+
+      service.fill(doc1 :: doc2 :: doc3 :: Nil)
+
+      service.vectorNames() shouldBe Seq("один", "два", "три", "четыре", "пять", "шесть", "семь")
+
+      service.computeTfIdfVector(doc1) shouldBe NewsDocVector("1", Seq(0.3662040962227032, 0.7324081924454064, 0, 0, 0, 0, 0))
+      service.computeTfIdfVector(doc2) shouldBe NewsDocVector("2", Seq(0.0, 0.0, 0.16218604324326577, 0.21972245773362198, 0.21972245773362198, 0.08109302162163289, 0))
+      service.computeTfIdfVector(doc3) shouldBe NewsDocVector("3", Seq(0.0, 0.0, 0.16218604324326577, 0.0, 0.0, 0.16218604324326577, 0.21972245773362198))
     }
   }
 }

@@ -1,10 +1,10 @@
 package com.jaitlapps.kasandra.services
 
-import com.jaitlapps.kasandra.models.{Token, NewsDocument}
+import com.jaitlapps.kasandra.models.{NewsDocument, NewsDocVector, Token}
 
 class TfIdfService(tokenizerService: TokenizerService) {
-  var docCount = 0
-  val idfMap = scala.collection.mutable.HashMap[String, Int]()
+  private var docCount = 0
+  private val idfMap = scala.collection.mutable.LinkedHashMap[String, Int]()
 
   def fill(documents: Seq[NewsDocument]): Unit = {
 
@@ -33,4 +33,18 @@ class TfIdfService(tokenizerService: TokenizerService) {
   }
 
   def computeTfIdf(token: Token, document: NewsDocument): Double = computeTf(token, document) * computeIdf(token)
+
+  def vectorNames(): Seq[String] = {
+    idfMap.keySet.toSeq
+  }
+
+  def computeTfIdfVector(document: NewsDocument): NewsDocVector = {
+    val tokens = tokenizerService.tokenize(document)
+    val tokensLexems = tokens.map(_.lexeme)
+
+
+    val vector = idfMap.keySet.toSeq.map(w => if (tokensLexems.contains(w)) {computeTfIdf(Token(w,w), document)} else {0.0})
+
+    NewsDocVector(document.id, vector)
+  }
 }
