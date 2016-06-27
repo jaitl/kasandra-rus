@@ -32,3 +32,11 @@ project('kasandra-core') {
         compile group: 'org.json4s', name: 'json4s-jackson_2.11', version: '3.4.0'
     }
 }
+
+project('kasandra-clustering') {
+    dependencies {
+        compile group: 'junit', name: 'junit', version: '4.12'
+        compile group: 'com.google.guava', name: 'guava', version: '19.0'
+    }
+
+}

@@ -19,3 +19,5 @@ include 'services:webservice'
 rootProject.name = 'kasandra-rus'
 
 include 'kasandra-core'
+
+include 'kasandra-clustering'
