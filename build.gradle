@@ -23,7 +23,7 @@ subprojects {
     version = '1.0'
 }
 
-project('kasandra-core') {
+project('kasandra-nlp') {
     dependencies {
         compile 'com.github.Jaitl:mystem-scala:0.1.5'
         compile group: 'de.julielab', name: 'aliasi-lingpipe', version: '4.1.0'
