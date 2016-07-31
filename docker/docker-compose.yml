@@ -1,0 +1,6 @@
+jupyter-spark:
+        image: jupyter/all-spark-notebook:latest 
+        ports:
+                - 8888:8888 
+        volumes:
+                - /home/jovyan/work/:./ 
