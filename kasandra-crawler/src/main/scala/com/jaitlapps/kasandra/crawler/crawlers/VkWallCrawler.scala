@@ -1,5 +1,7 @@
 package com.jaitlapps.kasandra.crawler.crawlers
 
+
+import scala.util.Try
 import scalaj.http.Http
 
 object VkWallCrawler {
@@ -7,7 +9,7 @@ object VkWallCrawler {
   private val methodName = "wall.get"
   private val params = Map("v" -> "5.53")
 
-  def crawlWall(domain: String, offset: Int, count: Int): Option[String] = {
+  def crawlWall(domain: String, offset: Int, count: Int): Try[String] = Try {
     val response = Http(urlApi + "/" + methodName)
       .params(params)
       .param("domain", domain)
@@ -16,9 +18,9 @@ object VkWallCrawler {
       .asString
 
     if (response.isSuccess) {
-      Some(response.body)
+      response.body
     } else {
-      None
+      throw new Exception(s"response code: ${response.code}")
     }
   }
 }
