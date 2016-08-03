@@ -24,8 +24,6 @@ include 'kasandra-clustering'
 
 include 'kasandra-py'
 
-include 'kasandra-news-downloader'
-
 include 'kasandra-crawler'
 
 include 'kasandra-spark'
