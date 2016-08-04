@@ -12,6 +12,7 @@ class RiaSiteParserTest extends FlatSpec with Matchers {
 
     result.title shouldBe "Посчитали по низам: о чем говорит рейтинг разгула коррупции в России"
     result.annotation should startWith ("МОСКВА, 3 авг. Наталья Дембинская, обозреватель МИА \"Россия сегодня\".")
+    result.annotation should have length 463
     result.content.contains("По данным прокурорской статистики, " +
       "Курская область  - рекордсмен по числу зарегистрированных преступлений")
   }

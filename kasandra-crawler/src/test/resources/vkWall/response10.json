@@ -515,6 +515,47 @@
         "reposts": {
           "count": 3
         }
+      },
+      {
+        "id": 13526713,
+        "from_id": -40316705,
+        "owner_id": -40316705,
+        "date": 1470057765,
+        "post_type": "post",
+        "text": "Виталий Мутко: Новый тренер сборной России по футболу будет назван в ближайшие недели\n\n➡ Читать далее: https://russian.rt.com/article/435345234",
+        "attachments": [
+          {
+            "type": "link",
+            "link": {
+              "url": "https://russian.rt.com/article/435345234",
+              "title": "Брифинг Минобороны РФ по ситуации в Сирии — прямая трансляция",
+              "caption": "russian.rt.com",
+              "description": "Начальник Главного оперативного управления Генштаба Вооружённых сил РФ Сергей Рудской проводит брифинг для журналистов по основным сирийским вопросам.",
+              "photo": {
+                "id": 423425121,
+                "album_id": -2,
+                "owner_id": 4416174,
+                "photo_75": "http://cs626719.vk.me/v626719174/1ba1e/gFz0w5fWvzo.jpg",
+                "photo_130": "http://cs626719.vk.me/v626719174/1ba1f/7Z7vy7XbriU.jpg",
+                "photo_604": "http://cs626719.vk.me/v626719174/1ba20/QqVXBZb_7m8.jpg",
+                "width": 150,
+                "height": 84,
+                "text": "",
+                "date": 1470063135
+              },
+              "is_external": 1
+            }
+          }
+        ],
+        "comments": {
+          "count": 102
+        },
+        "likes": {
+          "count": 60
+        },
+        "reposts": {
+          "count": 3
+        }
       }
     ]
   }

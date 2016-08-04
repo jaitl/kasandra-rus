@@ -20,13 +20,13 @@ class CrawlControllerActor(config: CrawlConfig,
     }
 
     case CrawledWall(urls, site) => {
-      log.info(s"Crawled wall, site: ${site.domain}, count: [${urls.size}]")
+      log.info(s"Crawled wall, site: ${site.domain}, count: [${urls.size}], urls: [${urls.mkString(", ")}]")
       val crawler = siteCrawlers(site.siteType)
       urls.foreach(url => crawler ! CrawlUrl(url, site))
     }
 
     case CrawledPage(page, site) => {
-      log.info(s"Crawled wall, site: ${site.domain}, title: [${page.title}]")
+      log.info(s"Crawled page, site: ${site.domain}, title: [${page.title}]")
       saveActor ! SavePage(page)
     }
   }
@@ -35,7 +35,7 @@ class CrawlControllerActor(config: CrawlConfig,
 object CrawlControllerActor {
   case object StartCrawling
 
-  case class CrawledWall(urls: Seq[CrawledVkUrl], site: CrawlSite)
+  case class CrawledWall(urls: Set[CrawledVkUrl], site: CrawlSite)
   case class CrawledPage(page: CrawledSitePage, site: CrawlSite)
 
   def props(config: CrawlConfig,

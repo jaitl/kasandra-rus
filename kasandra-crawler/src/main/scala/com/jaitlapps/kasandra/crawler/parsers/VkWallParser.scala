@@ -8,10 +8,10 @@ object VkWallParser {
 
   private val regex = "(https?)://[^\\s/$.?#].[^\\s]*".r
 
-  def parseJson(data: String): Seq[CrawledVkUrl] = {
+  def parseJson(data: String): Set[CrawledVkUrl] = {
     val mapper = new ObjectMapper()
     val tree = mapper.readTree(data)
-    val nodes = tree.get("response").get("items").elements().asScala.toSeq
+    val nodes = tree.get("response").get("items").elements().asScala.toSet
 
     nodes.flatMap(jNode => {
       val date = jNode.get("date").asLong()

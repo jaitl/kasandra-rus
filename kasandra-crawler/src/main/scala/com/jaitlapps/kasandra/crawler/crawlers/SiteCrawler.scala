@@ -2,6 +2,7 @@ package com.jaitlapps.kasandra.crawler.crawlers
 
 import java.net.URL
 
+import com.jaitlapps.kasandra.crawler.exceptions.BadUrlException
 import com.jaitlapps.kasandra.crawler.models.{CrawlSite, CrawledVkUrl}
 import com.typesafe.scalalogging.StrictLogging
 
@@ -14,7 +15,7 @@ object SiteCrawler extends StrictLogging {
 
     if (resp.isSuccess && isTrueSite(url.url, site)) {
       resp.body
-    } else if(resp.isRedirect && resp.location.isDefined) {
+    } else if(resp.isRedirect && resp.location.isDefined && isTrueSite(url.url, site)) {
       val newLocation = resp.location.get
       logger.debug(s"redirect from $url to $newLocation")
 
@@ -23,8 +24,8 @@ object SiteCrawler extends StrictLogging {
         case Failure(ex) => throw ex
       }
     } else {
-      logger.warn(s"bad url: $url, code: $resp.code, content: $resp.body")
-      throw new Exception(s"bad url: $url, code: $resp.code, content: $resp.body")
+      logger.warn(s"bad url: $url, code: $resp.code")
+      throw BadUrlException(s"bad url: $url, code: ${resp.code}")
     }
   }
 

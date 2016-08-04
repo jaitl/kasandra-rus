@@ -18,7 +18,7 @@ object RiaSiteParser extends SiteParser {
 
   private def parseTitle(doc: Document) = doc.select("#contentBody h1.b-article__title").text().trim
 
-  private def parseAnnotation(doc: Document) = doc.select("#contentBody .b-article__body").first().text().trim
+  private def parseAnnotation(doc: Document) = doc.select("#contentBody .b-article__body p").first().text().trim
 
   private def parseContent(doc: Document) = doc.select("#contentBody .b-article__body").text().trim
 }
