@@ -1,5 +1,6 @@
 package com.jaitlapps.kasandra.crawler.parsers.impl
 
+import com.jaitlapps.kasandra.crawler.exceptions.ParseException
 import com.jaitlapps.kasandra.crawler.models.ParsedPage
 import com.jaitlapps.kasandra.crawler.parsers.SiteParser
 import org.jsoup.Jsoup
@@ -12,6 +13,10 @@ object RtSiteParser extends SiteParser {
     val title = parseTitle(document)
     val annotation = parseAnnotation(document)
     val content = parseContent(document)
+
+    if (title.isEmpty || annotation.isEmpty || content.isEmpty) {
+      throw ParseException()
+    }
 
     ParsedPage(title, annotation, content)
   }

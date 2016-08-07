@@ -24,7 +24,7 @@ object SiteCrawler extends StrictLogging {
         case Failure(ex) => throw ex
       }
     } else {
-      logger.warn(s"bad url: $url, code: $resp.code")
+      logger.warn(s"bad url: $url, code: ${resp.code}")
       throw BadUrlException(s"bad url: $url, code: ${resp.code}")
     }
   }

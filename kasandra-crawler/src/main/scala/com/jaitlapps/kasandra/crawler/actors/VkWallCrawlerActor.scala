@@ -27,7 +27,6 @@ class VkWallCrawlerActor extends Actor with ActorLogging {
           case Success(data) => {
 
             val urls = VkWallParser.parseJson(data)
-            log.info(s"parsed vk urls: [${urls.mkString(", ")}], data: [$data]")
 
             sender ! CrawledWall(urls, site)
 

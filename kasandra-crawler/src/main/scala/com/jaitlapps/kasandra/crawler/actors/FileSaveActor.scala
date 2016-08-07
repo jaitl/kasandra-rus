@@ -19,11 +19,11 @@ class FileSaveActor(conf: SaveConfig) extends Actor with ActorLogging with JsonE
 
   implicit val formats = Serialization.formats(NoTypeHints) + UUIDSerialiser
 
-  private val dt = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss")
+  private val dt = new SimpleDateFormat("dd.MM.yyyy_HH-mm-ss")
 
   private val file: PrintWriter = {
     val fileName = dt.format(new Date)
-    new PrintWriter(Paths.get(conf.path, fileName).toFile)
+    new PrintWriter(Paths.get(conf.path, fileName + ".json").toFile)
   }
 
   override def receive: Receive = {
