@@ -1,5 +1,6 @@
 package com.jaitlapps.kasandra.crawler.actors
 
+import java.net.{MalformedURLException, SocketTimeoutException}
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
@@ -27,10 +28,12 @@ class SiteCrawlerActor extends Actor with ActorLogging {
             case e: Exception => log.error(s"Unknown parse error, url: $url")
           }
         case Failure(ex) => ex match {
-          case BadUrlException(_) => log.error(ex, s"BadUrlException")
-          case _ => log.error(ex, s"Error during crawl site: ${site.domain}")
+          case BadUrlException(_) => log.error(s"BadUrlException, url: ${url.url}")
+          case _: MalformedURLException => log.error(s"MalformedURLException, url: ${url.url}")
+          case _: SocketTimeoutException => log.error(ex, s"SocketTimeoutException, url: ${url.url}")
             TimeUnit.MILLISECONDS.sleep(1500)
             self ! CrawlUrl(url, site)
+          case _ => log.error(ex, s"Error during crawl url: ${url.url}")
         }
       }
     }
