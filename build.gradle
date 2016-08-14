@@ -46,3 +46,14 @@ project('kasandra-crawler') {
         compile libraries.json4sNative
     }
 }
+
+project('kasandra-spark') {
+
+    apply plugin: 'application'
+
+    mainClassName = "com.github.jaitl.kasandra.Run"
+
+    dependencies {
+        compile libraries.sparkCore
+    }
+}
