@@ -20,8 +20,6 @@ rootProject.name = 'kasandra-rus'
 
 include 'kasandra-nlp'
 
-include 'kasandra-clustering'
-
 include 'kasandra-py'
 
 include 'kasandra-crawler'

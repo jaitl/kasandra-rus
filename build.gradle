@@ -4,9 +4,11 @@ buildscript {
     }
 }
 
+apply from: 'libraries.gradle'
+
 subprojects {
+    apply plugin: 'java'
     apply plugin: 'scala'
-    apply plugin: 'application'
 
     repositories {
         mavenCentral()
@@ -15,8 +17,8 @@ subprojects {
     }
 
     dependencies {
-        compile 'org.scala-lang:scala-library:2.11.7'
-        testCompile group: 'org.scalatest', name: 'scalatest_2.11', version: '2.2.6'
+        compile libraries.scalaLibrary
+        testCompile libraries.scalatest
     }
 
     version = '1.0'
@@ -24,30 +26,23 @@ subprojects {
 
 project('kasandra-nlp') {
     dependencies {
-        compile 'com.github.Jaitl:mystem-scala:0.1.5'
-        compile group: 'de.julielab', name: 'aliasi-lingpipe', version: '4.1.0'
-        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
-        compile group: 'com.typesafe', name: 'config', version: '1.3.0'
-        compile group: 'org.json4s', name: 'json4s-jackson_2.11', version: '3.4.0'
-    }
-}
-
-project('kasandra-clustering') {
-    dependencies {
-        compile group: 'junit', name: 'junit', version: '4.12'
-        compile group: 'com.google.guava', name: 'guava', version: '19.0'
+        compile libraries.mystemScala
+        compile libraries.aliasiLingpipe
+        compile libraries.commonsLang3
+        compile libraries.typesafeConfig
+        compile libraries.json4sNative
     }
 }
 
 project('kasandra-crawler') {
     dependencies {
-        compile group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: '2.4.8'
-        compile group: 'com.typesafe.scala-logging', name: 'scala-logging_2.11', version: '3.4.0'
-        compile group: 'com.typesafe.akka', name: 'akka-slf4j_2.11', version: '2.4.8'
-        compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
-        compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
-        compile group: 'org.scalaj', name: 'scalaj-http_2.11', version: '2.3.0'
-        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.5'
-        compile group: 'org.json4s', name: 'json4s-native_2.11', version: '3.4.0'
+        compile libraries.akkaActors
+        compile libraries.scalaLogging
+        compile libraries.akkaSlf4j
+        compile libraries.logbackClassic
+        compile libraries.jsoup
+        compile libraries.scalajHttp
+        compile libraries.jacksonDatabind
+        compile libraries.json4sNative
     }
 }
