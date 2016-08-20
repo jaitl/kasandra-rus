@@ -1,13 +1,17 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
     }
 }
 
 apply from: 'libraries.gradle'
 
 subprojects {
-    apply plugin: 'java'
     apply plugin: 'scala'
 
     repositories {
@@ -49,11 +53,16 @@ project('kasandra-crawler') {
 
 project('kasandra-spark') {
 
-    apply plugin: 'application'
-
-    mainClassName = "com.github.jaitl.kasandra.Run"
+    apply plugin: 'com.github.johnrengelman.shadow'
 
     dependencies {
         compile libraries.sparkCore
+        compile libraries.json4sNative
+    }
+
+    shadowJar {
+        dependencies {
+            exclude(dependency(libraries.sparkCore))
+        }
     }
 }
