@@ -21,6 +21,7 @@ ext {
             commonsLang3        : "org.apache.commons:commons-lang3:3.4",
             aliasiLingpipe      : "de.julielab:aliasi-lingpipe:4.1.0",
             mystemScala         : "com.github.Jaitl:mystem-scala:0.1.5",
-            sparkCore           : "org.apache.spark:spark-core_${scalaVersion}:${sparkVersion}"
+            sparkCore           : "org.apache.spark:spark-core_${scalaVersion}:${sparkVersion}",
+            sparkMl             : "org.apache.spark:spark-mllib_${scalaVersion}:${sparkVersion}"
     ]
 }
