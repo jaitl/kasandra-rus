@@ -23,5 +23,3 @@ include 'kasandra-nlp'
 include 'kasandra-py'
 
 include 'kasandra-crawler'
-
-include 'kasandra-spark'

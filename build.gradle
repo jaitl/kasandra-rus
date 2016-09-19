@@ -50,23 +50,3 @@ project('kasandra-crawler') {
         compile libraries.json4sNative
     }
 }
-
-project('kasandra-spark') {
-
-    apply plugin: 'com.github.johnrengelman.shadow'
-
-    dependencies {
-        compile libraries.sparkCore
-        compile libraries.sparkMl
-
-        compile project(':kasandra-nlp')
-
-        compile libraries.json4sNative
-    }
-
-    shadowJar {
-        dependencies {
-            exclude(dependency(libraries.sparkCore))
-        }
-    }
-}
