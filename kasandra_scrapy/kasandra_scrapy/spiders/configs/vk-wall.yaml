@@ -1,0 +1,9 @@
+- sites:
+  - rt:
+    name: "RT"
+    domain: "russian.rt.com"
+    group: "rt_russian"
+  - ria:
+    name: "RIA"
+    domain: "ria.ru"
+    group: "ria"
