@@ -1,0 +1,27 @@
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+apply from: 'libraries.gradle'
+apply plugin: 'scala'
+
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile libraries.scalaLibrary
+    compile libraries.akkaActors
+    compile libraries.scalaLogging
+    compile libraries.akkaSlf4j
+    compile libraries.logbackClassic
+    compile libraries.jsoup
+    compile libraries.scalajHttp
+    compile libraries.jacksonDatabind
+    compile libraries.json4sNative
+
+    testCompile libraries.scalatest
+}
