@@ -4,6 +4,7 @@ ext {
     scalaFullVersion = '2.11.8'
     akkaVersion = '2.4.8'
     sparkVersion = '2.0.0'
+    slickVersion = '3.2.0'
 
 
     libraries = [
@@ -22,6 +23,8 @@ ext {
             aliasiLingpipe      : "de.julielab:aliasi-lingpipe:4.1.0",
             mystemScala         : "com.github.Jaitl:mystem-scala:0.1.5",
             sparkCore           : "org.apache.spark:spark-core_${scalaVersion}:${sparkVersion}",
-            sparkMl             : "org.apache.spark:spark-mllib_${scalaVersion}:${sparkVersion}"
+            sparkMl             : "org.apache.spark:spark-mllib_${scalaVersion}:${sparkVersion}",
+            slick               : "com.typesafe.slick:slick_${scalaVersion}:${slickVersion}",
+            slickHikariCp       : "com.typesafe.slick:slick-hikaricp_${scalaVersion}:${slickVersion}",
     ]
 }

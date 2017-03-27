@@ -5,8 +5,8 @@ import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 import akka.actor.{Actor, ActorLogging, Props}
-import com.jaitlapps.kasandra.crawler.actors.CrawlControllerActor.CrawledPage
 import com.jaitlapps.kasandra.crawler.actors.SiteCrawlerActor.CrawlUrl
+import com.jaitlapps.kasandra.crawler.actors.SiteCrawlerActor.CrawledPage
 import com.jaitlapps.kasandra.crawler.crawlers.SiteCrawler
 import com.jaitlapps.kasandra.crawler.exceptions.{BadUrlException, ParseException}
 import com.jaitlapps.kasandra.crawler.models.{CrawlSite, CrawledSitePage, CrawledVkUrl}
@@ -42,6 +42,7 @@ class SiteCrawlerActor extends Actor with ActorLogging {
 
 object SiteCrawlerActor {
   case class CrawlUrl(url: CrawledVkUrl, site: CrawlSite)
+  case class CrawledPage(page: CrawledSitePage, site: CrawlSite)
 
   def props(): Props = Props(new SiteCrawlerActor())
 }

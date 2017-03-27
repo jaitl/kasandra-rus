@@ -1,5 +1,6 @@
 package com.jaitlapps.kasandra.crawler
 
+/*
 import akka.actor.ActorSystem
 import com.jaitlapps.kasandra.crawler.actors.CrawlControllerActor.StartCrawling
 import com.jaitlapps.kasandra.crawler.actors.{CrawlControllerActor, FileSaveActor, SiteCrawlerActor, VkWallCrawlerActor}
@@ -21,3 +22,5 @@ object CrawlerApp extends App {
 
   controllerActor ! StartCrawling
 }
+
+*/

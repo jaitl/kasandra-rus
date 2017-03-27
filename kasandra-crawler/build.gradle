@@ -22,6 +22,8 @@ dependencies {
     compile libraries.scalajHttp
     compile libraries.jacksonDatabind
     compile libraries.json4sNative
+    compile libraries.slick
+    compile libraries.slickHikariCp
 
     testCompile libraries.scalatest
 }

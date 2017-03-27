@@ -33,5 +33,12 @@ object VkWallParser {
     })
   }
 
+  def parseWallSize(data: String): Int = {
+    val mapper = new ObjectMapper()
+    val tree = mapper.readTree(data)
+
+    tree.get("response").get("count").asInt()
+  }
+
   private def parseUrls(text: String): Seq[String] = regex.findAllIn(text).toSeq
 }
