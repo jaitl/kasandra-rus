@@ -11,4 +11,8 @@ class WallLinksDaoSlick(override val dbConnection: DbConnection) extends WallLin
   override def save(wallLink: WallLink): Future[Int] = db.run {
     wallLinkQuery += wallLink
   }
+
+  override def saveBatch(wallLinks: Seq[WallLink]): Future[Option[Int]] = db.run {
+    wallLinkQuery ++= wallLinks
+  }
 }

@@ -14,7 +14,7 @@ object VkWallParser {
     val nodes = tree.get("response").get("items").elements().asScala.toSet
 
     nodes.flatMap(jNode => {
-      val date = jNode.get("date").asLong()
+      val date = jNode.get("date").asLong() * 1000
       val post = jNode.get("text").asText()
 
       val urls = parseUrls(post).map(u => CrawledVkUrl(u, date))

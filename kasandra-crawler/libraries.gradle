@@ -2,7 +2,7 @@ ext {
 
     scalaVersion = '2.11'
     scalaFullVersion = '2.11.8'
-    akkaVersion = '2.4.8'
+    akkaVersion = '2.4.17'
     sparkVersion = '2.0.0'
     slickVersion = '3.2.0'
 
@@ -26,5 +26,6 @@ ext {
             sparkMl             : "org.apache.spark:spark-mllib_${scalaVersion}:${sparkVersion}",
             slick               : "com.typesafe.slick:slick_${scalaVersion}:${slickVersion}",
             slickHikariCp       : "com.typesafe.slick:slick-hikaricp_${scalaVersion}:${slickVersion}",
+            postgreSql          : "org.postgresql:postgresql:42.0.0"
     ]
 }

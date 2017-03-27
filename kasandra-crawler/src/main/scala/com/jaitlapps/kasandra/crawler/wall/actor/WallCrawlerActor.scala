@@ -11,6 +11,7 @@ import com.jaitlapps.kasandra.crawler.crawlers.VkWallCrawler
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.parsers.VkWallParser
 import com.jaitlapps.kasandra.crawler.utils.RandomUtils
+import com.typesafe.config.{Config, ConfigFactory}
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.FiniteDuration
@@ -23,6 +24,8 @@ class WallCrawlerActor(site: CrawlSite, wallDispatcherActor: ActorRef)(implicit 
   with ActorLogging {
 
   import WallCrawlerActor._
+
+  private val config: WallCrawlerConfig = WallCrawlerConfig(ConfigFactory.load().getConfig("wall-crawler"))
 
   var groupWallSize: Option[Int] = None
   var totalUrls = 0
@@ -49,7 +52,7 @@ class WallCrawlerActor(site: CrawlSite, wallDispatcherActor: ActorRef)(implicit 
           log.error(ex, s"Error during crawl site: ${site.domain}, offset: $offset, totalUrls: $totalUrls, " +
             s"groupWallSize: $groupWallSize, currentRetry: $currentRetryCount")
 
-          if (currentRetryCount < maxRetry) {
+          if (currentRetryCount < config.maxRetryCount) {
             currentRetryCount += 1
             self ! ScheduleNextPageCrawl
           }
@@ -63,6 +66,7 @@ class WallCrawlerActor(site: CrawlSite, wallDispatcherActor: ActorRef)(implicit 
           if (groupWallSize.isEmpty) {
             val wallSize = VkWallParser.parseWallSize(html)
             groupWallSize = Some(wallSize)
+            log.info(s"groupWallSize: $groupWallSize")
           }
 
           totalUrls += urls.size
@@ -80,11 +84,14 @@ class WallCrawlerActor(site: CrawlSite, wallDispatcherActor: ActorRef)(implicit 
 
         case Failure(ex) =>
           log.error(ex, s"Error during parse page")
+          if (currentRetryCount < config.maxRetryCount) {
+            currentRetryCount += 1
+            self ! ScheduleNextPageCrawl
+          }
       }
 
     case ScheduleNextPageCrawl =>
-      // TODO: Move to config
-      val delay = FiniteDuration(RandomUtils.range(1000, 3000), TimeUnit.MILLISECONDS)
+      val delay = FiniteDuration(RandomUtils.range(config.delayFrom, config.delayTo), TimeUnit.MILLISECONDS)
       log.info(s"ScheduleNextPageCrawl, delay: $delay millis")
 
       scheduler = context.system.scheduler.scheduleOnce(
@@ -96,14 +103,22 @@ class WallCrawlerActor(site: CrawlSite, wallDispatcherActor: ActorRef)(implicit 
 }
 
 object WallCrawlerActor {
-  // TODO: move to config
   private val vkMaxCount = 100
-  private val maxRetry = 10
 
   case class StartWallCrawl(offset: Int)
   case object CrawlWallPage
   case class ParseCrawlWallPage(html: String)
   case object ScheduleNextPageCrawl
+
+  case class WallCrawlerConfig(delayFrom: Int, delayTo: Int, maxRetryCount: Int)
+
+  object WallCrawlerConfig {
+    def apply(config: Config): WallCrawlerConfig = WallCrawlerConfig(
+      delayFrom = config.getInt("delayFrom"),
+      delayTo = config.getInt("delayTo"),
+      maxRetryCount = config.getInt("maxRetryCount")
+    )
+  }
 
   def props(site: CrawlSite, wallDispatcherActor: ActorRef, executionContext: ExecutionContext): Props =
     Props(new WallCrawlerActor(site, wallDispatcherActor)(executionContext))

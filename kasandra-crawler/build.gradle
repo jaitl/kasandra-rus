@@ -24,6 +24,7 @@ dependencies {
     compile libraries.json4sNative
     compile libraries.slick
     compile libraries.slickHikariCp
+    compile libraries.postgreSql
 
     testCompile libraries.scalatest
 }

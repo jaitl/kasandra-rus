@@ -14,7 +14,9 @@ class VkWallParserTest extends WordSpec with Matchers {
       val result = VkWallParser.parseJson(json)
 
       result should have size 10
-      result should contain(CrawledVkUrl("https://russian.rt.com/article/314862-brifing-minoborony-rf-po-situacii-v-sirii", 1470063137L))
+      result should contain(
+        CrawledVkUrl("https://russian.rt.com/article/314862-brifing-minoborony-rf-po-situacii-v-sirii", 1470063137000L)
+      )
     }
 
     "parse wall size" in {
