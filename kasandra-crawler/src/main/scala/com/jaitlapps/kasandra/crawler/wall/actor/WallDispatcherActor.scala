@@ -12,8 +12,6 @@ import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDao
 import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDao
 import com.jaitlapps.kasandra.crawler.wall.db.table.CrawlWall
 import com.jaitlapps.kasandra.crawler.wall.db.table.WallLink
-import com.typesafe.config.Config
-import com.typesafe.config.ConfigFactory
 
 import scala.concurrent.ExecutionContext
 
@@ -24,8 +22,6 @@ class WallDispatcherActor(
   extends Actor
   with ActorLogging {
   import WallDispatcherActor._
-
-  private val config = WallDispatcherConfig(ConfigFactory.load().getConfig("wall.dispatcher"))
 
   override def receive: Receive = {
     case StartCrawling(sites) =>
@@ -46,9 +42,6 @@ class WallDispatcherActor(
         WallLink(UUID.randomUUID(), new Timestamp(c.date), site.siteType, c.url, isDownloaded = false)).toSeq
       wallLinksDao.saveBatch(wallLinks).pipeTo(self)
 
-    case RawCrawlerPage(page, site) =>
-      log.info(s"Crawled page, site: ${site.domain}, page: $page")
-
     case akka.actor.Status.Failure(ex) =>
       log.error(ex, "Error")
   }
@@ -57,14 +50,6 @@ class WallDispatcherActor(
 object WallDispatcherActor {
   case class StartCrawling(sites: Seq[CrawlWall])
   case class CrawledWall(urls: Set[CrawledVkUrl], site: CrawlWall)
-  case class RawCrawlerPage(page: String, site: CrawlWall)
-
-  case class WallDispatcherConfig(rawDataPath: String)
-  object WallDispatcherConfig {
-    def apply(config: Config): WallDispatcherConfig = WallDispatcherConfig(
-      rawDataPath = config.getString("raw-data-path")
-    )
-  }
 
   def props(wallLinksDao: WallLinksDao, crawlWallDao: CrawlWallDao, executionContext: ExecutionContext): Props =
     Props(new WallDispatcherActor(wallLinksDao, crawlWallDao)(executionContext))

@@ -7,19 +7,20 @@ import akka.actor.ActorLogging
 import akka.actor.ActorRef
 import akka.actor.Cancellable
 import akka.actor.Props
+import akka.pattern.pipe
 import com.jaitlapps.kasandra.crawler.crawlers.VkWallCrawler
 import com.jaitlapps.kasandra.crawler.parsers.VkWallParser
 import com.jaitlapps.kasandra.crawler.utils.RandomUtils
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDao
 import com.jaitlapps.kasandra.crawler.wall.db.table.CrawlWall
-import com.typesafe.config.{Config, ConfigFactory}
+import com.typesafe.config.Config
+import com.typesafe.config.ConfigFactory
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.FiniteDuration
 import scala.util.Failure
 import scala.util.Success
 import scala.util.Try
-import akka.pattern.pipe
 
 class WallCrawlerActor(
   wall: CrawlWall,
@@ -50,7 +51,6 @@ class WallCrawlerActor(
         case Success(data) =>
           log.info(s"crawled page, offset: $offset")
           self ! ParseCrawlWallPage(data)
-          wallDispatcherActor ! WallDispatcherActor.RawCrawlerPage(data, wall)
 
         case Failure(ex) =>
           log.error(ex, s"Error during crawl site: ${wall.domain}, offset: $offset, totalUrls: $totalUrls, " +
