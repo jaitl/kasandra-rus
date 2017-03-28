@@ -9,10 +9,10 @@ import akka.actor.Cancellable
 import akka.actor.Props
 import akka.pattern.pipe
 import com.jaitlapps.kasandra.crawler.crawlers.VkWallCrawler
-import com.jaitlapps.kasandra.crawler.parsers.VkWallParser
 import com.jaitlapps.kasandra.crawler.utils.RandomUtils
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDao
 import com.jaitlapps.kasandra.crawler.wall.db.table.CrawlWall
+import com.jaitlapps.kasandra.crawler.wall.parser.WallParser
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 
@@ -59,7 +59,7 @@ class WallCrawlerActor(
       }
 
     case ParseCrawlWallPage(html) =>
-      Try(VkWallParser.parseJson(html)) match {
+      Try(WallParser.parseJson(html)) match {
         case Success(urls) =>
           val siteUrls = urls.filter(_.url.contains(wall.domain))
           wallDispatcherActor ! WallDispatcherActor.CrawledWall(siteUrls, wall)

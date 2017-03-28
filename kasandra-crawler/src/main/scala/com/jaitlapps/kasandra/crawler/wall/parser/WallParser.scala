@@ -1,10 +1,11 @@
-package com.jaitlapps.kasandra.crawler.parsers
+package com.jaitlapps.kasandra.crawler.wall.parser
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.jaitlapps.kasandra.crawler.models.CrawledVkUrl
-import collection.JavaConverters._
 
-object VkWallParser {
+import scala.collection.JavaConverters._
+
+object WallParser {
 
   private val regex = "(https?)://[^\\s/$.?#].[^\\s]*".r
 
@@ -31,13 +32,6 @@ object VkWallParser {
         urls
       }
     })
-  }
-
-  def parseWallSize(data: String): Int = {
-    val mapper = new ObjectMapper()
-    val tree = mapper.readTree(data)
-
-    tree.get("response").get("count").asInt()
   }
 
   private def parseUrls(text: String): Seq[String] = regex.findAllIn(text).toSeq
