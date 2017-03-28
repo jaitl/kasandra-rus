@@ -42,6 +42,7 @@ class WallCrawlerActor(
 
   override def receive: Receive = {
     case StartWallCrawl =>
+      offset = wall.currentOffset
       self ! ScheduleNextPageCrawl
 
     case CrawlWallPage =>
