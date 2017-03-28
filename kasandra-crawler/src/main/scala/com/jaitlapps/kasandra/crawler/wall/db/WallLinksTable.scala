@@ -23,10 +23,13 @@ trait WallLinksTable {
 
     val url: Rep[String] = column[String]("url")
 
-    override def * : ProvenShape[WallLink] = (id, timestamp, siteType, url) <> (WallLink.tupled, WallLink.unapply)
+    val isDownloaded: Rep[Boolean] = column[Boolean]("isDownloaded")
+
+    override def * : ProvenShape[WallLink] = (id, timestamp, siteType, url,
+      isDownloaded) <> (WallLink.tupled, WallLink.unapply)
   }
 
   protected val wallLinkQuery: TableQuery[WallLinks] = TableQuery[WallLinks]
 }
 
-case class WallLink(id: UUID, timestamp: Timestamp, siteType: SiteType, url: String)
+case class WallLink(id: UUID, timestamp: Timestamp, siteType: SiteType, url: String, isDownloaded: Boolean)

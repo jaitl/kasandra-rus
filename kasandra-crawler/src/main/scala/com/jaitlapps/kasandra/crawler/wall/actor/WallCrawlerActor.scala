@@ -25,7 +25,7 @@ class WallCrawlerActor(site: CrawlSite, wallDispatcherActor: ActorRef)(implicit 
 
   import WallCrawlerActor._
 
-  private val config: WallCrawlerConfig = WallCrawlerConfig(ConfigFactory.load().getConfig("wall-crawler"))
+  private val config: WallCrawlerConfig = WallCrawlerConfig(ConfigFactory.load().getConfig("wall.crawler"))
 
   var groupWallSize: Option[Int] = None
   var totalUrls = 0
