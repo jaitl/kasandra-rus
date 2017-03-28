@@ -3,16 +3,15 @@ package com.jaitlapps.kasandra.crawler.wall.db.table
 import java.sql.Timestamp
 import java.util.UUID
 
+import com.jaitlapps.kasandra.crawler.db.CustomTypes
 import com.jaitlapps.kasandra.crawler.db.DbConnection
 import com.jaitlapps.kasandra.crawler.models.SiteType
 import slick.lifted.ProvenShape
 
-trait WallLinksTable {
+trait WallLinksTable extends CustomTypes {
   val dbConnection: DbConnection
 
   import dbConnection.profile.api._
-
-  implicit val siteTypeType = MappedColumnType.base[SiteType, String](_.name, SiteType.apply)
 
   protected class WallLinks(tag: Tag) extends Table[WallLink](tag, "WallLinks") {
     val id: Rep[UUID] = column[UUID]("id", O.PrimaryKey, O.SqlType("UUID"))

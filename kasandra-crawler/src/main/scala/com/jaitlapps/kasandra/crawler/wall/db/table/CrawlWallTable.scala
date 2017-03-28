@@ -2,6 +2,7 @@ package com.jaitlapps.kasandra.crawler.wall.db.table
 
 import java.util.UUID
 
+import com.jaitlapps.kasandra.crawler.db.CustomTypes
 import com.jaitlapps.kasandra.crawler.db.DbConnection
 import com.jaitlapps.kasandra.crawler.models.SiteType
 import slick.lifted.ProvenShape
@@ -15,12 +16,10 @@ case class CrawlWall(
   currentOffset: Int
 )
 
-trait CrawlWallTable {
+trait CrawlWallTable extends CustomTypes {
   val dbConnection: DbConnection
 
   import dbConnection.profile.api._
-
-  implicit val siteTypeType = MappedColumnType.base[SiteType, String](_.name, SiteType.apply)
 
   protected class CrawlWalls(tag: Tag) extends Table[CrawlWall](tag, "CrawlWalls") {
     val id: Rep[UUID] = column[UUID]("id", O.PrimaryKey, O.SqlType("UUID"))

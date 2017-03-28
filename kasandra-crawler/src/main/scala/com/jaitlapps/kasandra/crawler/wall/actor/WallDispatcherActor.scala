@@ -7,16 +7,20 @@ import akka.actor.Actor
 import akka.actor.ActorLogging
 import akka.actor.Props
 import akka.pattern.pipe
-import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.models.CrawledVkUrl
+import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDao
 import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDao
+import com.jaitlapps.kasandra.crawler.wall.db.table.CrawlWall
 import com.jaitlapps.kasandra.crawler.wall.db.table.WallLink
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 
 import scala.concurrent.ExecutionContext
 
-class WallDispatcherActor(wallLinksDao: WallLinksDao)(implicit executionContext: ExecutionContext)
+class WallDispatcherActor(
+  wallLinksDao: WallLinksDao,
+  crawlWallDao: CrawlWallDao
+)(implicit executionContext: ExecutionContext)
   extends Actor
   with ActorLogging {
   import WallDispatcherActor._
@@ -29,10 +33,10 @@ class WallDispatcherActor(wallLinksDao: WallLinksDao)(implicit executionContext:
 
       sites.foreach { site =>
         val vkWallCrawler = context.actorOf(
-          props = WallCrawlerActor.props(site, self, executionContext),
+          props = WallCrawlerActor.props(site, crawlWallDao, self, executionContext),
           name = WallCrawlerActor.name(site)
         )
-        vkWallCrawler ! WallCrawlerActor.StartWallCrawl(0)
+        vkWallCrawler ! WallCrawlerActor.StartWallCrawl
         log.info(s"Started wall crawler for: ${site.siteType.name}")
       }
 
@@ -51,18 +55,18 @@ class WallDispatcherActor(wallLinksDao: WallLinksDao)(implicit executionContext:
 }
 
 object WallDispatcherActor {
-  case class StartCrawling(sites: Seq[CrawlSite])
-  case class CrawledWall(urls: Set[CrawledVkUrl], site: CrawlSite)
-  case class RawCrawlerPage(page: String, site: CrawlSite)
+  case class StartCrawling(sites: Seq[CrawlWall])
+  case class CrawledWall(urls: Set[CrawledVkUrl], site: CrawlWall)
+  case class RawCrawlerPage(page: String, site: CrawlWall)
 
   case class WallDispatcherConfig(rawDataPath: String)
   object WallDispatcherConfig {
-    def apply(config: Config): WallDispatcherConfig = WallDispatcherConfig (
+    def apply(config: Config): WallDispatcherConfig = WallDispatcherConfig(
       rawDataPath = config.getString("raw-data-path")
     )
   }
 
-  def props(wallLinksDao: WallLinksDao, executionContext: ExecutionContext): Props =
-    Props(new WallDispatcherActor(wallLinksDao)(executionContext))
+  def props(wallLinksDao: WallLinksDao, crawlWallDao: CrawlWallDao, executionContext: ExecutionContext): Props =
+    Props(new WallDispatcherActor(wallLinksDao, crawlWallDao)(executionContext))
   def name(): String = "WallDispatcherActor"
 }
