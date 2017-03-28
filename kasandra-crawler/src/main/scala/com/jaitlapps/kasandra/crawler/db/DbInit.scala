@@ -1,6 +1,6 @@
 package com.jaitlapps.kasandra.crawler.db
 
-import com.jaitlapps.kasandra.crawler.wall.db.WallLinksTable
+import com.jaitlapps.kasandra.crawler.wall.db.table.WallLinksTable
 import slick.jdbc.meta.MTable
 
 import scala.concurrent.ExecutionContext

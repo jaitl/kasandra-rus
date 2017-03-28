@@ -75,7 +75,7 @@ class WallCrawlerActor(site: CrawlSite, wallDispatcherActor: ActorRef)(implicit 
           log.info(s"crawled page, site: ${site.domain}, offset: $offset, totalUrls: $totalUrls," +
             s" groupWallSize: $groupWallSize")
 
-          if (totalUrls < groupWallSize.get) {
+          if (offset < groupWallSize.get) {
             self ! ScheduleNextPageCrawl
           } else {
             log.info(s"crawled end, offset: $offset, totalUrls: $totalUrls, groupWallSize: $groupWallSize")

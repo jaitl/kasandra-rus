@@ -1,6 +1,8 @@
 package com.jaitlapps.kasandra.crawler.wall.db
 
 import com.jaitlapps.kasandra.crawler.db.DbConnection
+import com.jaitlapps.kasandra.crawler.wall.db.table.WallLink
+import com.jaitlapps.kasandra.crawler.wall.db.table.WallLinksTable
 
 import scala.concurrent.Future
 

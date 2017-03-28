@@ -9,8 +9,8 @@ import akka.actor.Props
 import akka.pattern.pipe
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.models.CrawledVkUrl
-import com.jaitlapps.kasandra.crawler.wall.db.WallLink
 import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDao
+import com.jaitlapps.kasandra.crawler.wall.db.table.WallLink
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 
