@@ -8,5 +8,6 @@ import scala.concurrent.Future
 
 trait CrawlWallDao {
   def findNotCrawledWalls(): Future[Seq[CrawlWall]]
+  def getCrawlWallList(): Future[Seq[CrawlWall]]
   def updateOffset(id: UUID, offset: Int): Future[Int]
 }

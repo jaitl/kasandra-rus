@@ -18,6 +18,7 @@ import com.jaitlapps.kasandra.crawler.models.SiteType
 import com.jaitlapps.kasandra.crawler.utils.RandomUtils
 import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDao
 import com.jaitlapps.kasandra.crawler.wall.db.table.WallLink
+import com.typesafe.config.Config
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.FiniteDuration
@@ -129,6 +130,14 @@ object SiteCrawlerActor {
 
 
   case class SiteCrawlerConfig(delayFrom: Int, delayTo: Int, maxRetryCount: Int)
+
+  object SiteCrawlerConfig {
+    def apply(config: Config): SiteCrawlerConfig = SiteCrawlerConfig(
+      delayFrom = config.getInt("delayFrom"),
+      delayTo = config.getInt("delayTo"),
+      maxRetryCount = config.getInt("maxRetryCount")
+    )
+  }
 
   def props(
     site: CrawlSite,

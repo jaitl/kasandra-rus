@@ -1,5 +1,7 @@
 package com.jaitlapps.kasandra.crawler.wall.parser
 
+import java.sql.Timestamp
+
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.jaitlapps.kasandra.crawler.models.CrawledVkUrl
 
@@ -18,13 +20,13 @@ object WallParser {
       val date = jNode.get("date").asLong() * 1000
       val post = jNode.get("text").asText()
 
-      val urls = parseUrls(post).map(u => CrawledVkUrl(u, date))
+      val urls = parseUrls(post).map(u => CrawledVkUrl(u, new Timestamp(date)))
 
       if (jNode.has("attachments")) {
         val link = jNode.get("attachments").asScala.toSeq.find(att => att.get("type").asText() == "link")
         if(link.isDefined) {
           val urlLink = link.get.get("link").get("url").asText()
-          urls :+ CrawledVkUrl(urlLink, date)
+          urls :+ CrawledVkUrl(urlLink, new Timestamp(date))
         } else {
           urls
         }

@@ -19,6 +19,11 @@ class CrawlWallDaoSlick(override val dbConnection: DbConnection) extends CrawlWa
       .result
   }
 
+
+  override def getCrawlWallList(): Future[Seq[CrawlWall]] = db.run {
+    crawlWallsQuery.result
+  }
+
   override def updateOffset(id: UUID, offset: Int): Future[Int] = db.run {
     crawlWallsQuery
       .filter(_.id === id)
