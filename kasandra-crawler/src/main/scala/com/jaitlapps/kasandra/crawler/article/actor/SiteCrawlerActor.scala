@@ -40,8 +40,8 @@ class SiteCrawlerActor(
     case StartCrawlSite =>
       self ! ScheduleUrlSiteCrawl
 
-    case CrawlSiteUrl =>
-      wallLinksDao.findRandomNotDownloadedLink()
+    case FindSiteUrl =>
+      wallLinksDao.findRandomNotDownloadedLink(site.siteType)
         .map {
           case Some(wallLink) => CrawlUrl(wallLink)
           case None => ScheduleUrlSiteCrawl
@@ -87,7 +87,7 @@ class SiteCrawlerActor(
       scheduler = context.system.scheduler.scheduleOnce(
         delay = delay,
         receiver = self,
-        message = CrawlSiteUrl
+        message = FindSiteUrl
       )
 
     case ScheduleRetryUrlSiteCrawl(wallLink) =>
@@ -120,7 +120,7 @@ class SiteCrawlerActor(
 
 object SiteCrawlerActor {
   case object StartCrawlSite
-  case object CrawlSiteUrl
+  case object FindSiteUrl
   case object ScheduleUrlSiteCrawl
   case class ScheduleRetryUrlSiteCrawl(wallLink: WallLink)
 
