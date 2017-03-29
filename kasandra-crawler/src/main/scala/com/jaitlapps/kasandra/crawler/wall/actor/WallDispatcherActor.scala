@@ -3,6 +3,7 @@ package com.jaitlapps.kasandra.crawler.wall.actor
 import akka.actor.Actor
 import akka.actor.ActorLogging
 import akka.actor.Props
+import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDao
 import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDao
 import com.jaitlapps.kasandra.crawler.wall.db.table.CrawlWall
@@ -22,11 +23,13 @@ class WallDispatcherActor(
       log.info(s"Start crawling..., siteCount: ${sites.size}, sites: [${sites.mkString(", ")}]")
 
       sites.foreach { site =>
+        val crawlSite = CrawlSite(site.id, site.siteType, site.domain, site.vkGroup)
+
         val vkWallCrawler = context.actorOf(
-          props = WallCrawlerActor.props(site, crawlWallDao, wallLinksDao, self, executionContext),
+          props = WallCrawlerActor.props(crawlSite, crawlWallDao, wallLinksDao, self, executionContext),
           name = WallCrawlerActor.name(site)
         )
-        vkWallCrawler ! WallCrawlerActor.StartWallCrawl
+        vkWallCrawler ! WallCrawlerActor.StartWallCrawl(site.currentOffset, site.totalWallSize)
         log.info(s"Started wall crawler for: ${site.siteType.name}")
       }
 

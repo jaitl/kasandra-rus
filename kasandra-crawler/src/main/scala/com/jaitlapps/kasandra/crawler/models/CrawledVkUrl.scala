@@ -1,3 +1,5 @@
 package com.jaitlapps.kasandra.crawler.models
 
-case class CrawledVkUrl(url: String, date: Long)
+import java.sql.Timestamp
+
+case class CrawledVkUrl(url: String, date: Timestamp)

@@ -13,16 +13,16 @@ import scala.util.Try
 import scalaj.http.Http
 
 object SiteCrawler extends StrictLogging {
-  def crawl(url: CrawledVkUrl, site: CrawlSite): Try[String] = Try {
-    val resp = Http(url.url).asString
+  def crawl(url: String, site: CrawlSite): Try[String] = Try {
+    val resp = Http(url).asString
 
-    if (resp.isSuccess && isTrueSite(url.url, site)) {
+    if (resp.isSuccess && isTrueSite(url, site)) {
       resp.body
-    } else if(resp.isRedirect && resp.location.isDefined && isTrueSite(url.url, site)) {
+    } else if(resp.isRedirect && resp.location.isDefined && isTrueSite(url, site)) {
       val newLocation = resp.location.get
       logger.debug(s"redirect from $url to $newLocation")
 
-      crawl(url.copy(url = newLocation), site) match {
+      crawl(newLocation, site) match {
         case Success(html) => html
         case Failure(ex) => throw ex
       }

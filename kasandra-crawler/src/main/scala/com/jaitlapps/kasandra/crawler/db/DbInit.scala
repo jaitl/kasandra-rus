@@ -1,5 +1,6 @@
 package com.jaitlapps.kasandra.crawler.db
 
+import com.jaitlapps.kasandra.crawler.article.db.table.CrawledSitePagesTable
 import com.jaitlapps.kasandra.crawler.wall.db.table.CrawlWallTable
 import com.jaitlapps.kasandra.crawler.wall.db.table.WallLinksTable
 import slick.jdbc.meta.MTable
@@ -8,7 +9,9 @@ import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
 class DbInit(override val dbConnection: DbConnection)(implicit val executionContext: ExecutionContext)
-  extends WallLinksTable with CrawlWallTable {
+  extends WallLinksTable
+  with CrawlWallTable
+  with CrawledSitePagesTable {
 
   private val db = dbConnection.db
   import dbConnection.profile.api._
@@ -24,6 +27,11 @@ class DbInit(override val dbConnection: DbConnection)(implicit val executionCont
       }
       _ <- if (!tableNames.contains(crawlWallsQuery.baseTableRow.tableName)) {
         db.run(crawlWallsQuery.schema.create)
+      } else {
+        Future.successful()
+      }
+      _ <- if (!tableNames.contains(crawledSitePagesQuery.baseTableRow.tableName)) {
+        db.run(crawledSitePagesQuery.schema.create)
       } else {
         Future.successful()
       }

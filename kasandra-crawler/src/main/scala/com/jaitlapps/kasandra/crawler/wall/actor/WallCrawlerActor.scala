@@ -1,6 +1,5 @@
 package com.jaitlapps.kasandra.crawler.wall.actor
 
-import java.sql.Timestamp
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
@@ -10,6 +9,7 @@ import akka.actor.ActorRef
 import akka.actor.Cancellable
 import akka.actor.Props
 import akka.pattern.pipe
+import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.utils.RandomUtils
 import com.jaitlapps.kasandra.crawler.wall.crawler.WallCrawler
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDao
@@ -27,7 +27,7 @@ import scala.util.Success
 import scala.util.Try
 
 class WallCrawlerActor(
-  wall: CrawlWall,
+  site: CrawlSite,
   crawlWallDao: CrawlWallDao,
   wallLinksDao: WallLinksDao,
   wallDispatcherActor: ActorRef
@@ -41,25 +41,27 @@ class WallCrawlerActor(
 
   var totalUrls = 0
   var offset = 0
+  var totalWallSize = 0
 
   var currentRetryCount = 0
   var scheduler: Cancellable = _
 
   override def receive: Receive = {
-    case StartWallCrawl =>
-      offset = wall.currentOffset
+    case StartWallCrawl(currentOffset, totalSize) =>
+      offset = currentOffset
+      totalWallSize = totalSize
       self ! ScheduleNextPageCrawl
 
     case CrawlWallPage =>
       log.info(s"Try crawl page, offset: $offset")
 
-      WallCrawler.crawlWall(wall.vkGroup, offset, vkMaxCount) match {
+      WallCrawler.crawlWall(site.vkGroup, offset, vkMaxCount) match {
         case Success(data) =>
           log.info(s"crawled page, offset: $offset")
           self ! ParseCrawlWallPage(data)
 
         case Failure(ex) =>
-          log.error(ex, s"Error during crawl site: ${wall.domain}, offset: $offset, totalUrls: $totalUrls, " +
+          log.error(ex, s"Error during crawl site: ${site.domain}, offset: $offset, totalUrls: $totalUrls, " +
             s"currentRetry: $currentRetryCount")
           retry()
       }
@@ -67,20 +69,20 @@ class WallCrawlerActor(
     case ParseCrawlWallPage(html) =>
       Try(WallParser.parseJson(html)) match {
         case Success(urls) =>
-          val siteUrls = urls.filter(_.url.contains(wall.domain))
+          val siteUrls = urls.filter(_.url.contains(site.domain))
 
           currentRetryCount = 0
           totalUrls += siteUrls.size
-          log.info(s"crawled page, site: ${wall.domain}, totalUrls: $totalUrls")
+          log.info(s"crawled page, site: ${site.domain}, totalUrls: $totalUrls")
 
           val newOffset = offset + vkMaxCount
 
           val wallLinks = siteUrls.map(c =>
-            WallLink(UUID.randomUUID(), new Timestamp(c.date), wall.siteType, c.url, isDownloaded = false)).toSeq
+            WallLink(UUID.randomUUID(), c.date, site.siteType, c.url, isDownloaded = false)).toSeq
 
           val saveResultFuture = for {
-            _ <-  wallLinksDao.saveBatch(wallLinks)
-            _ <- crawlWallDao.updateOffset(wall.id, newOffset)
+            _ <- wallLinksDao.saveBatch(wallLinks)
+            _ <- crawlWallDao.updateOffset(site.id, newOffset)
           } yield UpdateOffset(newOffset)
 
           saveResultFuture.pipeTo(self)
@@ -94,10 +96,10 @@ class WallCrawlerActor(
       log.info(s"UpdateOffset, current offset: $off")
 
       offset = off
-      if (offset < wall.totalWallSize) {
+      if (offset < totalWallSize) {
         self ! ScheduleNextPageCrawl
       } else {
-        log.info(s"crawled end, offset: $offset, totalUrls: $totalUrls, totalWallSize: ${wall.totalWallSize}")
+        log.info(s"crawled end, offset: $offset, totalUrls: $totalUrls, totalWallSize: $totalWallSize")
         context.stop(self)
       }
 
@@ -131,7 +133,7 @@ class WallCrawlerActor(
 object WallCrawlerActor {
   private val vkMaxCount = 100
 
-  case object StartWallCrawl
+  case class StartWallCrawl(currentOffset: Int, totalSize: Int)
   case object CrawlWallPage
   case class ParseCrawlWallPage(html: String)
   case class UpdateOffset(offset: Int)
@@ -148,7 +150,7 @@ object WallCrawlerActor {
   }
 
   def props(
-    site: CrawlWall,
+    site: CrawlSite,
     crawlWallDao: CrawlWallDao,
     wallLinksDao: WallLinksDao,
     wallDispatcherActor: ActorRef,
