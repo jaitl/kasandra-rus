@@ -1,4 +1,4 @@
-package com.jaitlapps.kasandra.crawler.parsers.impl
+package com.jaitlapps.kasandra.crawler.article.parser.impl
 
 import com.jaitlapps.kasandra.crawler.exceptions.ParseException
 import org.scalatest.{FlatSpec, Matchers}

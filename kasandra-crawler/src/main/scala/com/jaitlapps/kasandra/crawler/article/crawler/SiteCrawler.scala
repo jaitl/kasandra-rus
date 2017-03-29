@@ -1,12 +1,15 @@
-package com.jaitlapps.kasandra.crawler.crawlers
+package com.jaitlapps.kasandra.crawler.article.crawler
 
 import java.net.URL
 
 import com.jaitlapps.kasandra.crawler.exceptions.BadUrlException
-import com.jaitlapps.kasandra.crawler.models.{CrawlSite, CrawledVkUrl}
+import com.jaitlapps.kasandra.crawler.models.CrawlSite
+import com.jaitlapps.kasandra.crawler.models.CrawledVkUrl
 import com.typesafe.scalalogging.StrictLogging
 
-import scala.util.{Failure, Success, Try}
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
 import scalaj.http.Http
 
 object SiteCrawler extends StrictLogging {

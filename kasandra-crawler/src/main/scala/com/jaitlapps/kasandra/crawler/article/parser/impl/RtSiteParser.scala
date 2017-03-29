@@ -1,8 +1,8 @@
-package com.jaitlapps.kasandra.crawler.parsers.impl
+package com.jaitlapps.kasandra.crawler.article.parser.impl
 
+import com.jaitlapps.kasandra.crawler.article.parser.ParsedPage
+import com.jaitlapps.kasandra.crawler.article.parser.SiteParser
 import com.jaitlapps.kasandra.crawler.exceptions.ParseException
-import com.jaitlapps.kasandra.crawler.models.ParsedPage
-import com.jaitlapps.kasandra.crawler.parsers.SiteParser
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 

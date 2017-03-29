@@ -1,20 +1,27 @@
-package com.jaitlapps.kasandra.crawler.actors
+package com.jaitlapps.kasandra.crawler.article.actor
 
-import java.net.{MalformedURLException, SocketTimeoutException}
+import java.net.MalformedURLException
+import java.net.SocketTimeoutException
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
-import akka.actor.{Actor, ActorLogging, Props}
-import com.jaitlapps.kasandra.crawler.actors.SiteCrawlerActor.CrawlUrl
-import com.jaitlapps.kasandra.crawler.actors.SiteCrawlerActor.CrawledPage
-import com.jaitlapps.kasandra.crawler.crawlers.SiteCrawler
-import com.jaitlapps.kasandra.crawler.exceptions.{BadUrlException, ParseException}
-import com.jaitlapps.kasandra.crawler.models.{CrawlSite, CrawledSitePage, CrawledVkUrl}
-import com.jaitlapps.kasandra.crawler.parsers.ParserFactory
+import akka.actor.Actor
+import akka.actor.ActorLogging
+import akka.actor.Props
+import com.jaitlapps.kasandra.crawler.article.crawler.SiteCrawler
+import com.jaitlapps.kasandra.crawler.article.parser.ParserFactory
+import com.jaitlapps.kasandra.crawler.exceptions.BadUrlException
+import com.jaitlapps.kasandra.crawler.exceptions.ParseException
+import com.jaitlapps.kasandra.crawler.models.CrawlSite
+import com.jaitlapps.kasandra.crawler.models.CrawledSitePage
+import com.jaitlapps.kasandra.crawler.models.CrawledVkUrl
 
-import scala.util.{Failure, Success}
+import scala.util.Failure
+import scala.util.Success
 
 class SiteCrawlerActor extends Actor with ActorLogging {
+  import SiteCrawlerActor._
+
   override def receive: Receive = {
     case CrawlUrl(url, site) => {
       SiteCrawler.crawl(url, site) match {

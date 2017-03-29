@@ -10,8 +10,8 @@ import akka.actor.ActorRef
 import akka.actor.Cancellable
 import akka.actor.Props
 import akka.pattern.pipe
-import com.jaitlapps.kasandra.crawler.crawlers.VkWallCrawler
 import com.jaitlapps.kasandra.crawler.utils.RandomUtils
+import com.jaitlapps.kasandra.crawler.wall.crawler.WallCrawler
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDao
 import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDao
 import com.jaitlapps.kasandra.crawler.wall.db.table.CrawlWall
@@ -53,7 +53,7 @@ class WallCrawlerActor(
     case CrawlWallPage =>
       log.info(s"Try crawl page, offset: $offset")
 
-      VkWallCrawler.crawlWall(wall.vkGroup, offset, vkMaxCount) match {
+      WallCrawler.crawlWall(wall.vkGroup, offset, vkMaxCount) match {
         case Success(data) =>
           log.info(s"crawled page, offset: $offset")
           self ! ParseCrawlWallPage(data)

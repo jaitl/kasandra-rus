@@ -1,6 +1,6 @@
 package com.jaitlapps.kasandra.crawler.apps
 
-import com.jaitlapps.kasandra.crawler.crawlers.SiteCrawler
+import com.jaitlapps.kasandra.crawler.article.crawler.SiteCrawler
 import com.jaitlapps.kasandra.crawler.models.{CrawlSite, CrawledVkUrl, SiteType}
 
 object OnePageCrawler extends App {

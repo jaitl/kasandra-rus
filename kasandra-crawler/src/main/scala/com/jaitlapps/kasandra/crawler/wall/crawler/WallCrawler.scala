@@ -1,10 +1,9 @@
-package com.jaitlapps.kasandra.crawler.crawlers
-
+package com.jaitlapps.kasandra.crawler.wall.crawler
 
 import scala.util.Try
 import scalaj.http.Http
 
-object VkWallCrawler {
+object WallCrawler {
   private val urlApi = "https://api.vk.com/method"
   private val methodName = "wall.get"
   private val params = Map("v" -> "5.53")
