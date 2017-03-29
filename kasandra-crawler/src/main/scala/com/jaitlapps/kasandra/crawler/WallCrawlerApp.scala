@@ -5,7 +5,6 @@ import java.util.concurrent.Executors
 import akka.actor.ActorSystem
 import com.jaitlapps.kasandra.crawler.db.DbConnection
 import com.jaitlapps.kasandra.crawler.db.DbInit
-import com.jaitlapps.kasandra.crawler.models.{CrawlSite, SiteType}
 import com.jaitlapps.kasandra.crawler.wall.actor.WallDispatcherActor
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDaoSlick
 import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDaoSlick

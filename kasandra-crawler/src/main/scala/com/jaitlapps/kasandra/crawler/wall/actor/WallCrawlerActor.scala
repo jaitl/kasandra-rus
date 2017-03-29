@@ -1,5 +1,7 @@
 package com.jaitlapps.kasandra.crawler.wall.actor
 
+import java.sql.Timestamp
+import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 import akka.actor.Actor
@@ -11,7 +13,9 @@ import akka.pattern.pipe
 import com.jaitlapps.kasandra.crawler.crawlers.VkWallCrawler
 import com.jaitlapps.kasandra.crawler.utils.RandomUtils
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDao
+import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDao
 import com.jaitlapps.kasandra.crawler.wall.db.table.CrawlWall
+import com.jaitlapps.kasandra.crawler.wall.db.table.WallLink
 import com.jaitlapps.kasandra.crawler.wall.parser.WallParser
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
@@ -25,6 +29,7 @@ import scala.util.Try
 class WallCrawlerActor(
   wall: CrawlWall,
   crawlWallDao: CrawlWallDao,
+  wallLinksDao: WallLinksDao,
   wallDispatcherActor: ActorRef
 )(implicit executionContext: ExecutionContext)
   extends Actor
@@ -63,16 +68,22 @@ class WallCrawlerActor(
       Try(WallParser.parseJson(html)) match {
         case Success(urls) =>
           val siteUrls = urls.filter(_.url.contains(wall.domain))
-          wallDispatcherActor ! WallDispatcherActor.CrawledWall(siteUrls, wall)
 
           currentRetryCount = 0
           totalUrls += siteUrls.size
           log.info(s"crawled page, site: ${wall.domain}, totalUrls: $totalUrls")
 
           val newOffset = offset + vkMaxCount
-          crawlWallDao.updateOffset(wall.id, newOffset)
-            .map(_ => UpdateOffset(newOffset))
-            .pipeTo(self)
+
+          val wallLinks = siteUrls.map(c =>
+            WallLink(UUID.randomUUID(), new Timestamp(c.date), wall.siteType, c.url, isDownloaded = false)).toSeq
+
+          val saveResultFuture = for {
+            _ <-  wallLinksDao.saveBatch(wallLinks)
+            _ <- crawlWallDao.updateOffset(wall.id, newOffset)
+          } yield UpdateOffset(newOffset)
+
+          saveResultFuture.pipeTo(self)
 
         case Failure(ex) =>
           log.error(ex, s"Error during parse page")
@@ -139,10 +150,11 @@ object WallCrawlerActor {
   def props(
     site: CrawlWall,
     crawlWallDao: CrawlWallDao,
+    wallLinksDao: WallLinksDao,
     wallDispatcherActor: ActorRef,
     executionContext: ExecutionContext
   ): Props =
-    Props(new WallCrawlerActor(site, crawlWallDao, wallDispatcherActor)(executionContext))
+    Props(new WallCrawlerActor(site, crawlWallDao, wallLinksDao, wallDispatcherActor)(executionContext))
 
   def name(site: CrawlWall): String = s"WallCrawlerActor-${site.siteType.name}"
 }
