@@ -21,10 +21,10 @@ object RiaSiteParser extends SiteParser {
     ParsedPage(title, annotation, content)
   }
 
-  private def parseTitle(doc: Document) = doc.select("#contentBody h1.b-article__title").text().trim
+  private def parseTitle(doc: Document) = doc.select(".b-content-body h1.b-article__title").text().trim
 
   private def parseAnnotation(doc: Document) = {
-    val ann = Option(doc.select("#contentBody .b-article__body p").first())
+    val ann = Option(doc.select(".b-content-body .b-article__body p strong").parents().first())
 
     if (ann.isDefined && !ann.get.text().trim.isEmpty) {
       ann.get.text().trim
@@ -41,9 +41,9 @@ object RiaSiteParser extends SiteParser {
   }
 
   private def parseContent(doc: Document) = {
-    val content = doc.select("#contentBody .b-article__body") //.text().trim
+    val content = doc.select(".b-content-body .b-article__body") //.text().trim
 
-    val spam = Option(content.select("div.b-inject__article"))
+    val spam = Option(content.select("div.b-inject"))
 
     if (spam.isDefined) {
       spam.get.remove()
