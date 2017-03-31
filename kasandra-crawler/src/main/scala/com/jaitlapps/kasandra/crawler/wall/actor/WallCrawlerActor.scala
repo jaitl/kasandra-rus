@@ -9,7 +9,10 @@ import akka.actor.ActorRef
 import akka.actor.Cancellable
 import akka.actor.Props
 import akka.pattern.pipe
+import com.jaitlapps.kasandra.crawler.db.dao.RawCrawledPagesDao
+import com.jaitlapps.kasandra.crawler.db.table.RawCrawledPage
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
+import com.jaitlapps.kasandra.crawler.models.CrawlType
 import com.jaitlapps.kasandra.crawler.utils.RandomUtils
 import com.jaitlapps.kasandra.crawler.wall.crawler.WallCrawler
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDao
@@ -30,6 +33,7 @@ class WallCrawlerActor(
   site: CrawlSite,
   crawlWallDao: CrawlWallDao,
   wallLinksDao: WallLinksDao,
+  rawCrawledPagesDao: RawCrawledPagesDao,
   wallDispatcherActor: ActorRef
 )(implicit executionContext: ExecutionContext)
   extends Actor
@@ -58,7 +62,10 @@ class WallCrawlerActor(
       WallCrawler.crawlWall(site.vkGroup, offset, vkMaxCount) match {
         case Success(data) =>
           log.info(s"crawled page, offset: $offset")
-          self ! ParseCrawlWallPage(data)
+          val raw = RawCrawledPage(UUID.randomUUID(), site.siteType, CrawlType.Wall, offset.toString, data)
+          rawCrawledPagesDao.save(raw)
+            .map(_ => ParseCrawlWallPage(data))
+            .pipeTo(self)
 
         case Failure(ex) =>
           log.error(ex, s"Error during crawl site: ${site.domain}, offset: $offset, totalUrls: $totalUrls, " +
@@ -153,10 +160,12 @@ object WallCrawlerActor {
     site: CrawlSite,
     crawlWallDao: CrawlWallDao,
     wallLinksDao: WallLinksDao,
+    rawCrawledPagesDao: RawCrawledPagesDao,
     wallDispatcherActor: ActorRef,
     executionContext: ExecutionContext
-  ): Props =
-    Props(new WallCrawlerActor(site, crawlWallDao, wallLinksDao, wallDispatcherActor)(executionContext))
+  ): Props = Props(
+    new WallCrawlerActor(site, crawlWallDao, wallLinksDao, rawCrawledPagesDao, wallDispatcherActor)(executionContext)
+  )
 
   def name(site: CrawlWall): String = s"WallCrawlerActor-${site.siteType.name}"
 }

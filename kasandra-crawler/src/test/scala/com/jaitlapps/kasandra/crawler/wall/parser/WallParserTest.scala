@@ -2,7 +2,7 @@ package com.jaitlapps.kasandra.crawler.wall.parser
 
 import java.sql.Timestamp
 
-import com.jaitlapps.kasandra.crawler.models.CrawledVkUrl
+import com.jaitlapps.kasandra.crawler.models.CrawledWallUrl
 import org.scalatest.Matchers
 import org.scalatest.WordSpec
 
@@ -17,7 +17,7 @@ class WallParserTest extends WordSpec with Matchers {
 
       result should have size 10
       result should contain(
-        CrawledVkUrl("https://russian.rt.com/article/314862-brifing-minoborony-rf-po-situacii-v-sirii", new Timestamp(1470063137000L))
+        CrawledWallUrl("https://russian.rt.com/article/314862-brifing-minoborony-rf-po-situacii-v-sirii", new Timestamp(1470063137000L))
       )
     }
   }
