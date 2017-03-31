@@ -9,10 +9,10 @@ import akka.actor.ActorRef
 import akka.actor.Cancellable
 import akka.actor.Props
 import akka.pattern.pipe
-import com.jaitlapps.kasandra.crawler.db.dao.RawCrawledPagesDao
-import com.jaitlapps.kasandra.crawler.db.table.RawCrawledPage
+import com.jaitlapps.kasandra.crawler.raw.db.table.RawCrawledPage
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.models.CrawlType
+import com.jaitlapps.kasandra.crawler.raw.db.RawCrawledPagesDao
 import com.jaitlapps.kasandra.crawler.utils.RandomUtils
 import com.jaitlapps.kasandra.crawler.wall.crawler.WallCrawler
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDao

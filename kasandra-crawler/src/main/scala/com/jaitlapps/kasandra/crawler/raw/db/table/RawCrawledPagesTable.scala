@@ -1,4 +1,4 @@
-package com.jaitlapps.kasandra.crawler.db.table
+package com.jaitlapps.kasandra.crawler.raw.db.table
 
 import java.util.UUID
 

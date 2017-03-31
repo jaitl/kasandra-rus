@@ -1,8 +1,8 @@
-package com.jaitlapps.kasandra.crawler.db.dao
+package com.jaitlapps.kasandra.crawler.raw.db
 
 import com.jaitlapps.kasandra.crawler.db.DbConnection
-import com.jaitlapps.kasandra.crawler.db.table.RawCrawledPage
-import com.jaitlapps.kasandra.crawler.db.table.RawCrawledPagesTable
+import com.jaitlapps.kasandra.crawler.raw.db.table.RawCrawledPage
+import com.jaitlapps.kasandra.crawler.raw.db.table.RawCrawledPagesTable
 
 import scala.concurrent.Future
 

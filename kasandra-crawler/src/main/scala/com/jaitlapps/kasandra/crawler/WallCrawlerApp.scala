@@ -8,8 +8,8 @@ import akka.actor.ActorSystem
 import com.jaitlapps.kasandra.crawler.actor.ActorCreator
 import com.jaitlapps.kasandra.crawler.db.DbConnection
 import com.jaitlapps.kasandra.crawler.db.DbInit
-import com.jaitlapps.kasandra.crawler.db.dao.RawCrawledPagesDaoSlick
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
+import com.jaitlapps.kasandra.crawler.raw.db.RawCrawledPagesDaoSlick
 import com.jaitlapps.kasandra.crawler.wall.actor.WallCrawlerActor
 import com.jaitlapps.kasandra.crawler.wall.actor.WallDispatcherActor
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDaoSlick
