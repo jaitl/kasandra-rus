@@ -33,7 +33,7 @@ trait RawCrawledPagesTable extends CustomTypes {
     val url: Rep[Option[String]] = column[Option[String]]("url")
     val offset: Rep[Option[String]] = column[Option[String]]("offset")
     val linkId: Rep[Option[UUID]] = column[Option[UUID]]("linkId")
-    val content: Rep[String] = column[String]("content")
+    val content: Rep[String] = column[String]("content", O.SqlType("TEXT"))
     val crawlTime: Rep[Timestamp] = column[Timestamp]("crawlTime")
     val isParsed: Rep[Boolean] = column[Boolean]("isParsed")
 
