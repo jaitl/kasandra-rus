@@ -10,6 +10,7 @@ import com.jaitlapps.kasandra.crawler.db.DbConnection
 import com.jaitlapps.kasandra.crawler.db.DbInit
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.raw.db.RawCrawledPagesDaoSlick
+import com.jaitlapps.kasandra.crawler.site.actor.SiteCrawlerActor.SiteCrawlerConfig
 import com.jaitlapps.kasandra.crawler.wall.actor.WallCrawlerActor
 import com.jaitlapps.kasandra.crawler.wall.actor.WallCrawlerActor.WallCrawlerConfig
 import com.jaitlapps.kasandra.crawler.wall.actor.WallDispatcherActor
@@ -26,7 +27,9 @@ object WallCrawlerApp extends App with StrictLogging {
   val system = ActorSystem("KasandraWallCrawlerSystem")
   implicit val executionContext = ExecutionContext.fromExecutor(Executors.newWorkStealingPool(10))
 
-  val config: WallCrawlerConfig = WallCrawlerConfig(ConfigFactory.load().getConfig("wall.crawler"))
+  val config = ConfigFactory.load()
+  val wallConfig = config.getConfig("wall")
+  val wallCrawlerConfig = WallCrawlerConfig(wallConfig.getConfig("crawler"))
 
   val dbConnection = new DbConnection
   val dbInit = new DbInit(dbConnection)
@@ -42,7 +45,7 @@ object WallCrawlerApp extends App with StrictLogging {
           crawlWallDao = crawlWallDao,
           wallLinksDao = wallLinksDao,
           rawCrawledPagesDao = rawCrawledPagesDao,
-          config = config,
+          config = wallCrawlerConfig,
           executionContext = executionContext
         ),
         name = name

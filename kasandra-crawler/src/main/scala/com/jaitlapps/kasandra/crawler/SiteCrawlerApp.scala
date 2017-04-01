@@ -5,16 +5,15 @@ import java.util.concurrent.Executors
 import akka.actor.ActorRef
 import akka.actor.ActorRefFactory
 import akka.actor.ActorSystem
-import com.jaitlapps.kasandra.crawler.WallCrawlerApp.dbConnection
 import com.jaitlapps.kasandra.crawler.actor.ActorCreator
-import com.jaitlapps.kasandra.crawler.site.actor.SiteCrawlerActor
-import com.jaitlapps.kasandra.crawler.site.actor.SiteCrawlerActor.SiteCrawlerConfig
-import com.jaitlapps.kasandra.crawler.site.actor.SiteDispatcherActor
-import com.jaitlapps.kasandra.crawler.site.db.CrawledSitePagesDaoSlick
 import com.jaitlapps.kasandra.crawler.db.DbConnection
 import com.jaitlapps.kasandra.crawler.db.DbInit
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.raw.db.RawCrawledPagesDaoSlick
+import com.jaitlapps.kasandra.crawler.site.actor.SiteCrawlerActor
+import com.jaitlapps.kasandra.crawler.site.actor.SiteCrawlerActor.SiteCrawlerConfig
+import com.jaitlapps.kasandra.crawler.site.actor.SiteDispatcherActor
+import com.jaitlapps.kasandra.crawler.site.db.CrawledSitePagesDaoSlick
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDaoSlick
 import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDaoSlick
 import com.typesafe.config.ConfigFactory
@@ -54,7 +53,10 @@ object SiteCrawlerApp extends App with StrictLogging {
       )
   }
 
-  val siteDispatcherActor = system.actorOf(SiteDispatcherActor.props(siteCrawlerActorCreator))
+  val siteDispatcherActor = system.actorOf(
+    props = SiteDispatcherActor.props(siteCrawlerActorCreator),
+    name = SiteDispatcherActor.name()
+  )
 
   dbInit.init()
     .flatMap(_ => crawlWallDao.getCrawlWallList()

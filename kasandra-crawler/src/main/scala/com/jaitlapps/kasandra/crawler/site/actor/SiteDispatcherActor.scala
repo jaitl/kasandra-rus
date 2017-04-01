@@ -25,4 +25,6 @@ object SiteDispatcherActor {
 
   def props(siteCrawlerActorCreator: ActorCreator[CrawlSite]): Props =
     Props(new SiteDispatcherActor(siteCrawlerActorCreator))
+
+  def name(): String = "SiteDispatcherActor"
 }
