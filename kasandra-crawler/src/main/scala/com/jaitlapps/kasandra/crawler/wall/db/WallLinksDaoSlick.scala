@@ -40,4 +40,11 @@ class WallLinksDaoSlick(
       .map(_.isDownloaded)
       .update(true)
   }
+
+  override def markAsFailed(id: UUID): Future[Int] = db.run {
+    wallLinkQuery
+      .filter(_.id === id)
+      .map(_.isFailed)
+      .update(true)
+  }
 }

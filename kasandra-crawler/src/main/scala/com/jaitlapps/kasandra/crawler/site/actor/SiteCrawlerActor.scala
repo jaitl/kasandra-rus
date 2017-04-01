@@ -103,7 +103,10 @@ class SiteCrawlerActor(
     } else {
       log.info(s"Stop, currentRetryCount: $currentRetryCount")
       currentRetryCount = 0
-      self ! ScheduleUrlSiteCrawl
+      wallLinksDao
+        .markAsFailed(wallLink.id)
+        .map(_ => ScheduleUrlSiteCrawl)
+        .pipeTo(self)
     }
   }
 }

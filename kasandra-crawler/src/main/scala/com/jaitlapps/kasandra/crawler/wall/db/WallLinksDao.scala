@@ -12,4 +12,5 @@ trait WallLinksDao {
   def saveBatch(wallLinks: Seq[WallLink]): Future[Option[Int]]
   def findRandomNotDownloadedLink(siteType: SiteType): Future[Option[WallLink]]
   def markAsDownloaded(id: UUID): Future[Int]
+  def markAsFailed(id: UUID): Future[Int]
 }

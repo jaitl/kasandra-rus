@@ -8,6 +8,15 @@ import com.jaitlapps.kasandra.crawler.db.DbConnection
 import com.jaitlapps.kasandra.crawler.models.SiteType
 import slick.lifted.ProvenShape
 
+case class WallLink(
+  id: UUID,
+  timestamp: Timestamp,
+  siteType: SiteType,
+  url: String,
+  isDownloaded: Boolean = false,
+  isFailed: Boolean = false
+)
+
 trait WallLinksTable extends CustomTypes {
   val dbConnection: DbConnection
 
@@ -24,11 +33,11 @@ trait WallLinksTable extends CustomTypes {
 
     val isDownloaded: Rep[Boolean] = column[Boolean]("isDownloaded")
 
+    val isFailed: Rep[Boolean] = column[Boolean]("isFailed")
+
     override def * : ProvenShape[WallLink] = (id, timestamp, siteType, url,
-      isDownloaded) <> (WallLink.tupled, WallLink.unapply)
+      isDownloaded, isFailed) <> (WallLink.tupled, WallLink.unapply)
   }
 
   protected val wallLinkQuery: TableQuery[WallLinks] = TableQuery[WallLinks]
 }
-
-case class WallLink(id: UUID, timestamp: Timestamp, siteType: SiteType, url: String, isDownloaded: Boolean)
