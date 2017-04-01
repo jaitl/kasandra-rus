@@ -1,5 +1,7 @@
 package com.jaitlapps.kasandra.crawler.wall.actor
 
+import java.sql.Timestamp
+import java.time.Instant
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
@@ -60,7 +62,16 @@ class WallCrawlerActor(
         case Success(data) =>
           log.info(s"crawled page, offset: $offset")
           val rawId = UUID.randomUUID()
-          val raw = RawCrawledPage(rawId, site.siteType, CrawlType.Wall, offset.toString, data, isParsed = false)
+          val raw = RawCrawledPage(
+            id = rawId,
+            siteType = site.siteType,
+            crawlType = CrawlType.Wall,
+            url = None,
+            offset = Some(offset.toString),
+            linkId = None,
+            content = data,
+            crawlTime = Timestamp.from(Instant.now())
+          )
 
           rawCrawledPagesDao.save(raw)
             .map(_ => ParseCrawlWallPage(data, rawId))
@@ -84,7 +95,7 @@ class WallCrawlerActor(
           val newOffset = offset + vkMaxCount
 
           val wallLinks = siteUrls.map(c =>
-            WallLink(UUID.randomUUID(), c.date, site.siteType, c.url, isDownloaded = false)).toSeq
+            WallLink(UUID.randomUUID(), c.date, site.siteType, c.url)).toSeq
 
           val saveResultFuture = for {
             _ <- wallLinksDao.saveBatch(wallLinks)

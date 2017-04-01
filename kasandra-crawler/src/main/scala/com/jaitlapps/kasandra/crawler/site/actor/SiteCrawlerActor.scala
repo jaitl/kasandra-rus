@@ -1,5 +1,7 @@
 package com.jaitlapps.kasandra.crawler.site.actor
 
+import java.sql.Timestamp
+import java.time.Instant
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
@@ -55,7 +57,14 @@ class SiteCrawlerActor(
         case Success(html) =>
           log.info(s"Crawl url: ${wallLink.url}")
           val raw = RawCrawledPage(
-            UUID.randomUUID(), site.siteType, CrawlType.Site, wallLink.url, html, isParsed = false
+            id = UUID.randomUUID(),
+            siteType = site.siteType,
+            crawlType = CrawlType.Site,
+            url = Some(wallLink.url),
+            offset = None,
+            linkId = Some(wallLink.id),
+            content = html,
+            crawlTime = Timestamp.from(Instant.now())
           )
 
           val saveResultFuture = for {

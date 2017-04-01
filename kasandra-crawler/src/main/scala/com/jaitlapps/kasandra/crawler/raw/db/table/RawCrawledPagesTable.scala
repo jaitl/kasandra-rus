@@ -1,5 +1,6 @@
 package com.jaitlapps.kasandra.crawler.raw.db.table
 
+import java.sql.Timestamp
 import java.util.UUID
 
 import com.jaitlapps.kasandra.crawler.db.CustomTypes
@@ -12,9 +13,12 @@ case class RawCrawledPage(
   id: UUID,
   siteType: SiteType,
   crawlType: CrawlType,
-  url: String,
+  url: Option[String],
+  offset: Option[String],
+  linkId: Option[UUID],
   content: String,
-  isParsed: Boolean
+  crawlTime: Timestamp,
+  isParsed: Boolean = false
 )
 
 trait RawCrawledPagesTable extends CustomTypes {
@@ -26,12 +30,15 @@ trait RawCrawledPagesTable extends CustomTypes {
     val id: Rep[UUID] = column[UUID]("id", O.PrimaryKey, O.SqlType("UUID"))
     val siteType: Rep[SiteType] = column[SiteType]("siteType")
     val crawlType: Rep[CrawlType] = column[CrawlType]("crawlType")
-    val url: Rep[String] = column[String]("url")
+    val url: Rep[Option[String]] = column[Option[String]]("url")
+    val offset: Rep[Option[String]] = column[Option[String]]("offset")
+    val linkId: Rep[Option[UUID]] = column[Option[UUID]]("linkId")
     val content: Rep[String] = column[String]("content")
+    val crawlTime: Rep[Timestamp] = column[Timestamp]("crawlTime")
     val isParsed: Rep[Boolean] = column[Boolean]("isParsed")
 
-    override def * : ProvenShape[RawCrawledPage] = (id, siteType, crawlType, url,
-      content, isParsed) <> (RawCrawledPage.tupled, RawCrawledPage.unapply)
+    override def * : ProvenShape[RawCrawledPage] = (id, siteType, crawlType, url, offset, linkId,
+      content, crawlTime, isParsed) <> (RawCrawledPage.tupled, RawCrawledPage.unapply)
   }
 
   protected val rawCrawledPagesQuery: TableQuery[RawCrawledPages] = TableQuery[RawCrawledPages]
