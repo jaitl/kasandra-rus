@@ -8,7 +8,14 @@ import com.jaitlapps.kasandra.crawler.models.CrawlType
 import com.jaitlapps.kasandra.crawler.models.SiteType
 import slick.lifted.ProvenShape
 
-case class RawCrawledPage(id: UUID, siteType: SiteType, crawlType: CrawlType, url: String, content: String)
+case class RawCrawledPage(
+  id: UUID,
+  siteType: SiteType,
+  crawlType: CrawlType,
+  url: String,
+  content: String,
+  isParsed: Boolean
+)
 
 trait RawCrawledPagesTable extends CustomTypes {
   val dbConnection: DbConnection
@@ -21,9 +28,10 @@ trait RawCrawledPagesTable extends CustomTypes {
     val crawlType: Rep[CrawlType] = column[CrawlType]("crawlType")
     val url: Rep[String] = column[String]("url")
     val content: Rep[String] = column[String]("content")
+    val isParsed: Rep[Boolean] = column[Boolean]("isParsed")
 
     override def * : ProvenShape[RawCrawledPage] = (id, siteType, crawlType, url,
-      content) <> (RawCrawledPage.tupled, RawCrawledPage.unapply)
+      content, isParsed) <> (RawCrawledPage.tupled, RawCrawledPage.unapply)
   }
 
   protected val rawCrawledPagesQuery: TableQuery[RawCrawledPages] = TableQuery[RawCrawledPages]

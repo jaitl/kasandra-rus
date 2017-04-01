@@ -1,4 +1,4 @@
-package com.jaitlapps.kasandra.crawler.article.actor
+package com.jaitlapps.kasandra.crawler.site.actor
 
 import akka.actor.Actor
 import akka.actor.ActorLogging

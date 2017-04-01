@@ -2,7 +2,7 @@ package com.jaitlapps.kasandra.crawler.apps
 
 import java.util.UUID
 
-import com.jaitlapps.kasandra.crawler.article.crawler.SiteCrawler
+import com.jaitlapps.kasandra.crawler.site.crawler.SiteCrawler
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.models.SiteType
 

@@ -1,6 +1,6 @@
 package com.jaitlapps.kasandra.crawler.db
 
-import com.jaitlapps.kasandra.crawler.article.db.table.CrawledSitePagesTable
+import com.jaitlapps.kasandra.crawler.site.db.table.CrawledSitePagesTable
 import com.jaitlapps.kasandra.crawler.raw.db.table.RawCrawledPagesTable
 import com.jaitlapps.kasandra.crawler.wall.db.table.CrawlWallTable
 import com.jaitlapps.kasandra.crawler.wall.db.table.WallLinksTable

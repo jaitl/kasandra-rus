@@ -5,15 +5,15 @@ import java.util.concurrent.TimeUnit
 
 import akka.actor.Actor
 import akka.actor.ActorLogging
-import akka.actor.ActorRef
 import akka.actor.Cancellable
 import akka.actor.Props
 import akka.pattern.pipe
-import com.jaitlapps.kasandra.crawler.raw.db.table.RawCrawledPage
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.models.CrawlType
 import com.jaitlapps.kasandra.crawler.raw.db.RawCrawledPagesDao
+import com.jaitlapps.kasandra.crawler.raw.db.table.RawCrawledPage
 import com.jaitlapps.kasandra.crawler.utils.RandomUtils
+import com.jaitlapps.kasandra.crawler.wall.actor.WallCrawlerActor.WallCrawlerConfig
 import com.jaitlapps.kasandra.crawler.wall.crawler.WallCrawler
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDao
 import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDao
@@ -21,7 +21,6 @@ import com.jaitlapps.kasandra.crawler.wall.db.table.CrawlWall
 import com.jaitlapps.kasandra.crawler.wall.db.table.WallLink
 import com.jaitlapps.kasandra.crawler.wall.parser.WallParser
 import com.typesafe.config.Config
-import com.typesafe.config.ConfigFactory
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.FiniteDuration
@@ -34,14 +33,12 @@ class WallCrawlerActor(
   crawlWallDao: CrawlWallDao,
   wallLinksDao: WallLinksDao,
   rawCrawledPagesDao: RawCrawledPagesDao,
-  wallDispatcherActor: ActorRef
+  config: WallCrawlerConfig
 )(implicit executionContext: ExecutionContext)
   extends Actor
   with ActorLogging {
 
   import WallCrawlerActor._
-
-  private val config: WallCrawlerConfig = WallCrawlerConfig(ConfigFactory.load().getConfig("wall.crawler"))
 
   var totalUrls = 0
   var offset = 0
@@ -62,9 +59,11 @@ class WallCrawlerActor(
       WallCrawler.crawlWall(site.vkGroup, offset, vkMaxCount) match {
         case Success(data) =>
           log.info(s"crawled page, offset: $offset")
-          val raw = RawCrawledPage(UUID.randomUUID(), site.siteType, CrawlType.Wall, offset.toString, data)
+          val rawId = UUID.randomUUID()
+          val raw = RawCrawledPage(rawId, site.siteType, CrawlType.Wall, offset.toString, data, isParsed = false)
+
           rawCrawledPagesDao.save(raw)
-            .map(_ => ParseCrawlWallPage(data))
+            .map(_ => ParseCrawlWallPage(data, rawId))
             .pipeTo(self)
 
         case Failure(ex) =>
@@ -73,7 +72,7 @@ class WallCrawlerActor(
           retry()
       }
 
-    case ParseCrawlWallPage(html) =>
+    case ParseCrawlWallPage(html, rawId) =>
       Try(WallParser.parseJson(html)) match {
         case Success(urls) =>
           val siteUrls = urls.filter(_.url.contains(site.domain))
@@ -90,6 +89,7 @@ class WallCrawlerActor(
           val saveResultFuture = for {
             _ <- wallLinksDao.saveBatch(wallLinks)
             _ <- crawlWallDao.updateOffset(site.id, newOffset)
+            _ <- rawCrawledPagesDao.markAsParsed(rawId)
           } yield UpdateOffset(newOffset)
 
           saveResultFuture.pipeTo(self)
@@ -142,7 +142,7 @@ object WallCrawlerActor {
 
   case class StartWallCrawl(currentOffset: Int, totalSize: Int)
   case object CrawlWallPage
-  case class ParseCrawlWallPage(html: String)
+  case class ParseCrawlWallPage(html: String, rawId: UUID)
   case class UpdateOffset(offset: Int)
   case object ScheduleNextPageCrawl
 
@@ -161,10 +161,10 @@ object WallCrawlerActor {
     crawlWallDao: CrawlWallDao,
     wallLinksDao: WallLinksDao,
     rawCrawledPagesDao: RawCrawledPagesDao,
-    wallDispatcherActor: ActorRef,
+    config: WallCrawlerConfig,
     executionContext: ExecutionContext
   ): Props = Props(
-    new WallCrawlerActor(site, crawlWallDao, wallLinksDao, rawCrawledPagesDao, wallDispatcherActor)(executionContext)
+    new WallCrawlerActor(site, crawlWallDao, wallLinksDao, rawCrawledPagesDao, config)(executionContext)
   )
 
   def name(site: CrawlWall): String = s"WallCrawlerActor-${site.siteType.name}"

@@ -1,4 +1,4 @@
-package com.jaitlapps.kasandra.crawler.article.parser.impl
+package com.jaitlapps.kasandra.crawler.site.parser.impl
 
 import org.scalatest.{FlatSpec, Matchers}
 

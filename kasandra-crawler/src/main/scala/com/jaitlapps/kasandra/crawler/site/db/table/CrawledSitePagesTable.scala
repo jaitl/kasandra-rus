@@ -1,4 +1,4 @@
-package com.jaitlapps.kasandra.crawler.article.db.table
+package com.jaitlapps.kasandra.crawler.site.db.table
 
 import java.sql.Timestamp
 import java.util.UUID

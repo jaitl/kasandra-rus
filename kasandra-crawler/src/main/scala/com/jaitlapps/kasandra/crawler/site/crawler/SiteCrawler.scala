@@ -1,4 +1,4 @@
-package com.jaitlapps.kasandra.crawler.article.crawler
+package com.jaitlapps.kasandra.crawler.site.crawler
 
 import java.net.URL
 

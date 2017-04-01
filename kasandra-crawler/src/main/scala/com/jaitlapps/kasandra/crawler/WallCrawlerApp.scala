@@ -11,9 +11,11 @@ import com.jaitlapps.kasandra.crawler.db.DbInit
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.raw.db.RawCrawledPagesDaoSlick
 import com.jaitlapps.kasandra.crawler.wall.actor.WallCrawlerActor
+import com.jaitlapps.kasandra.crawler.wall.actor.WallCrawlerActor.WallCrawlerConfig
 import com.jaitlapps.kasandra.crawler.wall.actor.WallDispatcherActor
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDaoSlick
 import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDaoSlick
+import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.StrictLogging
 
 import scala.concurrent.ExecutionContext
@@ -24,26 +26,27 @@ object WallCrawlerApp extends App with StrictLogging {
   val system = ActorSystem("KasandraWallCrawlerSystem")
   implicit val executionContext = ExecutionContext.fromExecutor(Executors.newWorkStealingPool(10))
 
+  val config: WallCrawlerConfig = WallCrawlerConfig(ConfigFactory.load().getConfig("wall.crawler"))
+
   val dbConnection = new DbConnection
   val dbInit = new DbInit(dbConnection)
   val wallLinksDao = new WallLinksDaoSlick(dbConnection)
   val crawlWallDao = new CrawlWallDaoSlick(dbConnection)
   val rawCrawledPagesDao = new RawCrawledPagesDaoSlick(dbConnection)
 
-  val wallCrawlerActorCreator: ActorCreator[(ActorRef, CrawlSite)] = new ActorCreator[(ActorRef, CrawlSite)] {
-    override def create(factory: ActorRefFactory, name: String): ((ActorRef, CrawlSite)) => ActorRef = {
-      case (dispatcher, site) => factory.actorOf(
+  val wallCrawlerActorCreator: ActorCreator[CrawlSite] = new ActorCreator[CrawlSite] {
+    override def create(factory: ActorRefFactory, name: String): (CrawlSite) => ActorRef =
+      site => factory.actorOf(
         props = WallCrawlerActor.props(
           site = site,
           crawlWallDao = crawlWallDao,
           wallLinksDao = wallLinksDao,
           rawCrawledPagesDao = rawCrawledPagesDao,
-          wallDispatcherActor = dispatcher,
+          config = config,
           executionContext = executionContext
         ),
         name = name
       )
-    }
   }
 
   val wallDispatcherActor = system.actorOf(
