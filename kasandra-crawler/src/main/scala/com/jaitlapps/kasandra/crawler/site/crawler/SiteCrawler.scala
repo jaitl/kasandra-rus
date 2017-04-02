@@ -22,7 +22,7 @@ object SiteCrawler extends StrictLogging {
     } else if(resp.isRedirect && resp.location.isDefined && isTrueSite(url)) {
       val newLocation = resp.location.get
 
-      val newUrl = if (isTrueSite(newLocation)) {
+      val newUrl = if (isUrl(newLocation)) {
         newLocation
       } else {
         logger.info(s"Recover url: $newLocation")
@@ -49,6 +49,8 @@ object SiteCrawler extends StrictLogging {
       case _: Exception => false
     }
   }
+
+  private def isUrl(url: String): Boolean = Try(new URL(url).getHost).isSuccess
 
   private def recoverUrl(newUrl: String, oldUrl: String)(implicit site: CrawlSite): String = {
     val oldUrlData = new URL(oldUrl)
