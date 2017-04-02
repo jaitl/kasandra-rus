@@ -1,5 +1,6 @@
 package com.jaitlapps.kasandra.crawler.site.crawler
 
+import java.net.MalformedURLException
 import java.net.URL
 
 import com.jaitlapps.kasandra.crawler.exceptions.BadUrlException
@@ -13,15 +14,25 @@ import scalaj.http.Http
 
 object SiteCrawler extends StrictLogging {
   def crawl(url: String, site: CrawlSite): Try[String] = Try {
+    implicit val crawlSite: CrawlSite = site
+
     val resp = Http(url).asString
 
-    if (resp.isSuccess && isTrueSite(url, site)) {
+    if (resp.isSuccess && isTrueSite(url)) {
       resp.body
-    } else if(resp.isRedirect && resp.location.isDefined && isTrueSite(url, site)) {
+    } else if(resp.isRedirect && resp.location.isDefined && isTrueSite(url)) {
       val newLocation = resp.location.get
-      logger.debug(s"redirect from $url to $newLocation")
 
-      crawl(newLocation, site) match {
+      val newUrl = if (isTrueSite(newLocation)) {
+        newLocation
+      } else {
+        logger.info(s"Recover url: $newLocation")
+        recoverUrl(newLocation, url)
+      }
+
+      logger.info(s"redirect from $url to $newUrl")
+
+      crawl(newUrl, site) match {
         case Success(html) => html
         case Failure(ex) => throw ex
       }
@@ -31,8 +42,18 @@ object SiteCrawler extends StrictLogging {
     }
   }
 
-  private def isTrueSite(actual: String, site: CrawlSite): Boolean = {
-    val url = new URL(actual).getHost
-    url.contains(site.domain)
+  private def isTrueSite(actual: String)(implicit site: CrawlSite): Boolean = {
+    try {
+      val url = new URL(actual).getHost
+      url.contains(site.domain)
+    } catch {
+      case _: Exception => false
+    }
+  }
+
+  private def recoverUrl(newUrl: String, oldUrl: String)(implicit site: CrawlSite): String = {
+    val oldUrlData = new URL(oldUrl)
+
+    new URL(oldUrlData.getProtocol, oldUrlData.getHost, newUrl).toString
   }
 }
