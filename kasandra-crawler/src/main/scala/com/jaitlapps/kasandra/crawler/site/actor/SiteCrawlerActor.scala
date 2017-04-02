@@ -10,6 +10,7 @@ import akka.actor.ActorLogging
 import akka.actor.Cancellable
 import akka.actor.Props
 import akka.pattern.pipe
+import com.jaitlapps.kasandra.crawler.exceptions.BadUrlException
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.models.CrawlType
 import com.jaitlapps.kasandra.crawler.models.SiteType
@@ -76,7 +77,13 @@ class SiteCrawlerActor(
 
         case Failure(ex) =>
           log.error(ex, s"Crawl site page error, url: ${wallLink.url}")
-          retry(wallLink)
+
+          ex match {
+            case badUrl: BadUrlException if badUrl.code == 404 =>
+              wallLinksDao.markAsFailed(wallLink.id).map(_ => ScheduleUrlSiteCrawl).pipeTo(self)
+            case _ =>
+              retry(wallLink)
+          }
       }
 
     case ScheduleUrlSiteCrawl =>

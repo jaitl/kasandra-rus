@@ -29,6 +29,7 @@ class WallLinksDaoSlick(
   override def findRandomNotDownloadedLink(siteType: SiteType): Future[Option[WallLink]] = {
     val linkQuery = wallLinkQuery
       .filter(_.siteType === siteType)
+      .filterNot(_.isFailed)
 
     db.run(linkQuery.result)
       .map(links => Random.shuffle(links).headOption)

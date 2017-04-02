@@ -1,6 +1,5 @@
 package com.jaitlapps.kasandra.crawler.site.crawler
 
-import java.net.MalformedURLException
 import java.net.URL
 
 import com.jaitlapps.kasandra.crawler.exceptions.BadUrlException
@@ -38,7 +37,7 @@ object SiteCrawler extends StrictLogging {
       }
     } else {
       logger.warn(s"bad url: $url, code: ${resp.code}")
-      throw BadUrlException(s"bad url: $url, code: ${resp.code}")
+      throw BadUrlException(s"bad url: $url, code: ${resp.code}", resp.code)
     }
   }
 
