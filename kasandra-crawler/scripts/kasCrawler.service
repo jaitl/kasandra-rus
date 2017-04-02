@@ -1,0 +1,8 @@
+[Unit]
+Description=Kasandra Crawler
+[Service]
+ExecStart=/data/kasandra/runCrawler.sh
+Type=simple
+User=root
+[Install]
+WantedBy=multi-user.target
