@@ -6,7 +6,7 @@
 ```
 ## Build jar
 ```bash
-./gradlew shadowJar
+./gradlew clean shadowJar
 
 ```
 ## Run jar
