@@ -33,6 +33,6 @@ object SiteCrawler extends StrictLogging {
 
   private def isTrueSite(actual: String, site: CrawlSite): Boolean = {
     val url = new URL(actual).getHost
-    url.equals(site.domain)
+    url.contains(site.domain)
   }
 }
