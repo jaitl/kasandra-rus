@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+    }
+}
+
 repositories {
     mavenCentral()
     jcenter()
@@ -5,12 +14,13 @@ repositories {
 
 apply from: 'libraries.gradle'
 apply plugin: 'scala'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
 
 version = '1.0'
 
-repositories {
-    mavenCentral()
-}
+mainClassName = 'com.jaitlapps.kasandra.crawler.CrawlerApp'
 
 dependencies {
     compile libraries.scalaLibrary
