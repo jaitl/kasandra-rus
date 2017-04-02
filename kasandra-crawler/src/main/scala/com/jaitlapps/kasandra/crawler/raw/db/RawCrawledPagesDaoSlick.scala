@@ -3,6 +3,7 @@ package com.jaitlapps.kasandra.crawler.raw.db
 import java.util.UUID
 
 import com.jaitlapps.kasandra.crawler.db.DbConnection
+import com.jaitlapps.kasandra.crawler.models.CrawlType
 import com.jaitlapps.kasandra.crawler.models.SiteType
 import com.jaitlapps.kasandra.crawler.raw.db.table.RawCrawledPage
 import com.jaitlapps.kasandra.crawler.raw.db.table.RawCrawledPagesTable
@@ -31,9 +32,19 @@ class RawCrawledPagesDaoSlick(
       .update(true)
   }
 
-  override def crawledPagesWithLink(siteType: SiteType): Future[Seq[(RawCrawledPage, WallLink)]] = {
+  override def markAsFailed(id: UUID): Future[Int] = db.run {
+    rawCrawledPagesQuery
+      .filter(_.id === id)
+      .map(_.isFailed)
+      .update(true)
+  }
+
+  override def crawledPagesWithLink(siteTypes: Set[SiteType]): Future[Seq[(RawCrawledPage, WallLink)]] = {
     val query = rawCrawledPagesQuery
-      .filter(_.siteType === siteType)
+      .filter(_.siteType inSet siteTypes)
+      .filter(_.crawlType === CrawlType.Site.asInstanceOf[CrawlType])
+      .filterNot(_.isFailed)
+      .filterNot(_.isParsed)
       .join(wallLinkQuery)
       .on(_.linkId === _.id)
 

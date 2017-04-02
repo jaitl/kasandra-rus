@@ -10,7 +10,6 @@ import com.jaitlapps.kasandra.crawler.db.DbConnection
 import com.jaitlapps.kasandra.crawler.db.DbInit
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.raw.db.RawCrawledPagesDaoSlick
-import com.jaitlapps.kasandra.crawler.site.actor.SiteCrawlerActor.SiteCrawlerConfig
 import com.jaitlapps.kasandra.crawler.wall.actor.WallCrawlerActor
 import com.jaitlapps.kasandra.crawler.wall.actor.WallCrawlerActor.WallCrawlerConfig
 import com.jaitlapps.kasandra.crawler.wall.actor.WallDispatcherActor

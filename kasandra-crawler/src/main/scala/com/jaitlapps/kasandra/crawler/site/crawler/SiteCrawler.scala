@@ -4,7 +4,6 @@ import java.net.URL
 
 import com.jaitlapps.kasandra.crawler.exceptions.BadUrlException
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
-import com.jaitlapps.kasandra.crawler.models.CrawledWallUrl
 import com.typesafe.scalalogging.StrictLogging
 
 import scala.util.Failure

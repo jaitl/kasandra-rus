@@ -16,6 +16,8 @@ dependencies {
     compile libraries.scalaLibrary
     compile libraries.akkaActors
     compile libraries.scalaLogging
+    compile libraries.akkaStream
+
     compile libraries.akkaSlf4j
     compile libraries.logbackClassic
     compile libraries.jsoup

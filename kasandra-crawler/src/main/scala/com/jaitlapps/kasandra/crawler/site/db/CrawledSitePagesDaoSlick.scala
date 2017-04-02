@@ -1,8 +1,8 @@
 package com.jaitlapps.kasandra.crawler.site.db
 
+import com.jaitlapps.kasandra.crawler.db.DbConnection
 import com.jaitlapps.kasandra.crawler.site.db.table.CrawledSitePage
 import com.jaitlapps.kasandra.crawler.site.db.table.CrawledSitePagesTable
-import com.jaitlapps.kasandra.crawler.db.DbConnection
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future

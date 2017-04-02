@@ -18,7 +18,8 @@ case class RawCrawledPage(
   linkId: Option[UUID],
   content: String,
   crawlTime: Timestamp,
-  isParsed: Boolean = false
+  isParsed: Boolean = false,
+  isFailed: Boolean = false
 )
 
 trait RawCrawledPagesTable extends CustomTypes {
@@ -36,9 +37,10 @@ trait RawCrawledPagesTable extends CustomTypes {
     val content: Rep[String] = column[String]("content", O.SqlType("TEXT"))
     val crawlTime: Rep[Timestamp] = column[Timestamp]("crawlTime")
     val isParsed: Rep[Boolean] = column[Boolean]("isParsed")
+    val isFailed: Rep[Boolean] = column[Boolean]("isFailed")
 
     override def * : ProvenShape[RawCrawledPage] = (id, siteType, crawlType, url, offset, linkId,
-      content, crawlTime, isParsed) <> (RawCrawledPage.tupled, RawCrawledPage.unapply)
+      content, crawlTime, isParsed, isFailed) <> (RawCrawledPage.tupled, RawCrawledPage.unapply)
   }
 
   protected val rawCrawledPagesQuery: TableQuery[RawCrawledPages] = TableQuery[RawCrawledPages]

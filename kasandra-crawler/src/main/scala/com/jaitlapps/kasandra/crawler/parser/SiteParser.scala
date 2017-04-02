@@ -1,4 +1,4 @@
-package com.jaitlapps.kasandra.crawler.parser.parser
+package com.jaitlapps.kasandra.crawler.parser
 
 trait SiteParser {
   def parse(html: String): ParsedPage

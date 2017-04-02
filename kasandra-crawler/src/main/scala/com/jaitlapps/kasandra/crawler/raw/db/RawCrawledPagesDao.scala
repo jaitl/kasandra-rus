@@ -11,5 +11,6 @@ import scala.concurrent.Future
 trait RawCrawledPagesDao {
   def save(raw: RawCrawledPage): Future[Int]
   def markAsParsed(id: UUID): Future[Int]
-  def crawledPagesWithLink(siteType: SiteType): Future[Seq[(RawCrawledPage, WallLink)]]
+  def markAsFailed(id: UUID): Future[Int]
+  def crawledPagesWithLink(siteTypes: Set[SiteType]): Future[Seq[(RawCrawledPage, WallLink)]]
 }
