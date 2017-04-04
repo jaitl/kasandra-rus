@@ -11,6 +11,7 @@ import akka.actor.Cancellable
 import akka.actor.Props
 import akka.pattern.pipe
 import com.jaitlapps.kasandra.crawler.exceptions.BadUrlException
+import com.jaitlapps.kasandra.crawler.exceptions.TooManyRedirect
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.models.CrawlType
 import com.jaitlapps.kasandra.crawler.models.SiteType
@@ -80,6 +81,8 @@ class SiteCrawlerActor(
 
           ex match {
             case badUrl: BadUrlException if badUrl.code == 404 =>
+              wallLinksDao.markAsFailed(wallLink.id).map(_ => ScheduleUrlSiteCrawl).pipeTo(self)
+            case TooManyRedirect() =>
               wallLinksDao.markAsFailed(wallLink.id).map(_ => ScheduleUrlSiteCrawl).pipeTo(self)
             case _ =>
               retry(wallLink)

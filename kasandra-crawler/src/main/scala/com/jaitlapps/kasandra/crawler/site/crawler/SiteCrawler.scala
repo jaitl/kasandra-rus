@@ -3,6 +3,7 @@ package com.jaitlapps.kasandra.crawler.site.crawler
 import java.net.URL
 
 import com.jaitlapps.kasandra.crawler.exceptions.BadUrlException
+import com.jaitlapps.kasandra.crawler.exceptions.TooManyRedirect
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.typesafe.scalalogging.StrictLogging
 
@@ -12,8 +13,14 @@ import scala.util.Try
 import scalaj.http.Http
 
 object SiteCrawler extends StrictLogging {
-  def crawl(url: String, site: CrawlSite): Try[String] = Try {
+  private val maxRedirect = 10
+
+  def crawl(url: String, site: CrawlSite, redirectCount: Int = 0): Try[String] = Try {
     implicit val crawlSite: CrawlSite = site
+
+    if (redirectCount > maxRedirect) {
+      throw TooManyRedirect()
+    }
 
     val resp = Http(url).asString
 
@@ -31,7 +38,7 @@ object SiteCrawler extends StrictLogging {
 
       logger.info(s"redirect from $url to $newUrl")
 
-      crawl(newUrl, site) match {
+      crawl(newUrl, site, redirectCount + 1) match {
         case Success(html) => html
         case Failure(ex) => throw ex
       }
