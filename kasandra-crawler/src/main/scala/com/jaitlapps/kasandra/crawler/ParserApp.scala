@@ -34,13 +34,13 @@ object ParserApp extends App with StrictLogging {
   val wallLinksDao = new WallLinksDaoSlick(dbConnection)
   val crawledSitePagesDao = new CrawledSitePagesDaoSlick(dbConnection)
 
-  val rawDataFuture = rawCrawledPagesDao.crawledPagesWithLink(Set(SiteType.RiaSite))
+  val rawDataFuture = rawCrawledPagesDao.crawledPagesWithLink(Set(SiteType.RiaSite, SiteType.RtSite))
 
   val parseFlow = Flow[(RawCrawledPage, WallLink)]
     .mapAsync(10) {
       case (raw, link) => Try(ParserFactory.getParser(link.siteType).parse(raw.content)) match {
         case Success(page) =>
-          logger.info(s"Parsed page: ${raw.id}")
+          logger.info(s"Parsed page: siteType: ${link.siteType}, id: ${raw.id}, url: ${link.url}")
           val crawledSitePage = CrawledSitePage(
             UUID.randomUUID(), link.timestamp, page.title, page.annotation, page.content, link.url
           )
