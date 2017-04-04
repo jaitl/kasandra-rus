@@ -30,6 +30,7 @@ class WallLinksDaoSlick(
     val linkQuery = wallLinkQuery
       .filter(_.siteType === siteType)
       .filterNot(_.isFailed)
+      .filterNot(_.isDownloaded)
 
     db.run(linkQuery.result)
       .map(links => Random.shuffle(links).headOption)
