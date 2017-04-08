@@ -20,6 +20,7 @@ import com.jaitlapps.kasandra.crawler.wall.db.table.WallLink
 import com.typesafe.scalalogging.StrictLogging
 
 import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 import scala.util.Failure
 import scala.util.Success
 import scala.util.Try
@@ -34,31 +35,48 @@ object ParserApp extends App with StrictLogging {
   val wallLinksDao = new WallLinksDaoSlick(dbConnection)
   val crawledSitePagesDao = new CrawledSitePagesDaoSlick(dbConnection)
 
-  val rawDataFuture = rawCrawledPagesDao.crawledPagesWithLink(SiteType.list)
+  val sites: Set[SiteType] = SiteType.list
+  val limit = 1000
+
+  val siteFuture = rawCrawledPagesDao.size(sites)
+
+  val pageFlow = Flow[Int]
+    .mapAsync(1) { page =>
+      val offset = limit * page
+      logger.info(s"page: $page, offset: $offset, limit: $limit")
+
+      rawCrawledPagesDao.crawledPagesWithLink(SiteType.list, offset, limit)
+    }
 
   val parseFlow = Flow[(RawCrawledPage, WallLink)]
     .mapAsync(4) {
-      case (raw, link) => Try(ParserFactory.getParser(link.siteType).parse(raw.content)) match {
-        case Success(page) =>
-          logger.info(s"Parsed page: siteType: ${link.siteType}, id: ${raw.id}, url: ${link.url}")
-          val crawledSitePage = CrawledSitePage(
-            UUID.randomUUID(), link.timestamp, page.title, page.content, link.url
-          )
+      case (raw, link) if !raw.isParsed && !raw.isFailed =>
+        Try(ParserFactory.getParser(link.siteType).parse(raw.content)) match {
+          case Success(page) =>
+            logger.info(s"Parsed page: siteType: ${link.siteType}, id: ${raw.id}, url: ${link.url}")
+            val crawledSitePage = CrawledSitePage(
+              UUID.randomUUID(), link.timestamp, page.title, page.content, link.url
+            )
 
-          for {
-            _ <- crawledSitePagesDao.save(crawledSitePage)
-            _ <- rawCrawledPagesDao.markAsParsed(raw.id)
-          } yield ()
-        case Failure(ex) =>
-          logger.error("Error during parse", ex)
-          rawCrawledPagesDao.markAsFailed(raw.id)
-      }
+            for {
+              _ <- crawledSitePagesDao.save(crawledSitePage)
+              _ <- rawCrawledPagesDao.markAsParsed(raw.id)
+            } yield ()
+          case Failure(ex) =>
+            logger.error("Error during parse", ex)
+            rawCrawledPagesDao.markAsFailed(raw.id)
+        }
+      case (raw, link) =>
+        logger.warn(s"Already Parsed page: siteType: ${link.siteType}, id: ${raw.id}, url: ${link.url}")
+        Future.successful()
     }
 
-  val parseResultFuture = Source.fromFuture(rawDataFuture)
-    .mapConcat(_.toList)
-    .via(parseFlow)
-    .runWith(Sink.ignore)
+  val parseResultFuture = for {
+    size <- siteFuture
+    pages = (Math.ceil(size / limit) + 1).toInt
+    range = Range(0, pages)
+    parseResult <- Source(range).via(pageFlow).mapConcat(_.toList).via(parseFlow).runWith(Sink.ignore)
+  } yield parseResult
 
   parseResultFuture.onComplete {
     case Success(_) =>

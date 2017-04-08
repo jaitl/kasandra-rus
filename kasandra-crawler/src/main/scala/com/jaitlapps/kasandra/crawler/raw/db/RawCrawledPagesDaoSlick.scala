@@ -39,15 +39,25 @@ class RawCrawledPagesDaoSlick(
       .update(true)
   }
 
-  override def crawledPagesWithLink(siteTypes: Set[SiteType]): Future[Seq[(RawCrawledPage, WallLink)]] = {
+  override def crawledPagesWithLink(
+    siteTypes: Set[SiteType], offset: Int, limit: Int
+  ): Future[Seq[(RawCrawledPage, WallLink)]] = {
     val query = rawCrawledPagesQuery
       .filter(_.siteType inSet siteTypes)
       .filter(_.crawlType === CrawlType.Site.asInstanceOf[CrawlType])
-      .filterNot(_.isFailed)
-      .filterNot(_.isParsed)
+      .sortBy(_.id asc)
+      .drop(offset)
+      .take(limit)
       .join(wallLinkQuery)
       .on(_.linkId === _.id)
 
     db.run(query.result)
+  }
+
+  override def size(siteTypes: Set[SiteType]): Future[Int] = db.run {
+    rawCrawledPagesQuery
+      .filter(_.siteType inSet siteTypes)
+      .size
+      .result
   }
 }

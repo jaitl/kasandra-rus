@@ -12,5 +12,6 @@ trait RawCrawledPagesDao {
   def save(raw: RawCrawledPage): Future[Int]
   def markAsParsed(id: UUID): Future[Int]
   def markAsFailed(id: UUID): Future[Int]
-  def crawledPagesWithLink(siteTypes: Set[SiteType]): Future[Seq[(RawCrawledPage, WallLink)]]
+  def crawledPagesWithLink(siteTypes: Set[SiteType], offset: Int, limit: Int): Future[Seq[(RawCrawledPage, WallLink)]]
+  def size(siteTypes: Set[SiteType]): Future[Int]
 }
