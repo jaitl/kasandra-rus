@@ -40,3 +40,9 @@ dependencies {
 
     testCompile libraries.scalatest
 }
+
+shadowJar {
+    transform(com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer) {
+        resource = 'reference.conf'
+    }
+}
