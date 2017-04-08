@@ -6,6 +6,7 @@ import com.jaitlapps.kasandra.crawler.parser.SiteParser
 import com.jaitlapps.kasandra.crawler.utils.HtmlUtils
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.select.Elements
 
 object RtSiteParser extends SiteParser {
   override def parse(html: String): ParsedPage = {
@@ -26,7 +27,17 @@ object RtSiteParser extends SiteParser {
   private def parseContent(doc: Document) = {
     val article = doc.select(".article")
 
-    val summary = Option(article.select(".article__summary")).map(e => HtmlUtils.trim(e.text()))
+    val opinion = article.select("p em")
+
+    if (!opinion.isEmpty) {
+      opinion.last().remove()
+    }
+
+    val summary = article.select(".article__summary") match {
+      case el: Elements if el.isEmpty => None
+      case el: Elements => Some(HtmlUtils.trim(el.text()))
+    }
+
     val text = HtmlUtils.trim(article.select(".article__text").text())
 
     summary.map(s => s"$s $text").getOrElse(text)

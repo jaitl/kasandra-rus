@@ -35,4 +35,15 @@ class RiaSiteParserTest extends FunSuite with Matchers {
 
     the [ParseException] thrownBy RiaSiteParser.parse(html)
   }
+
+  test("parse ria 4") {
+    val html = Source.fromURL(getClass.getResource("/newsSites/ria/ria4.html")).mkString
+
+    val result = RiaSiteParser.parse(html)
+    val content = result.content
+
+    result.title shouldBe "Минтранс ограничил полеты таджикской авиакомпании \"Сомон Эйр\" в Россию"
+    content.startsWith("Россия с понедельника вводит ограничения на полеты таджикской") shouldBe true
+    content.endsWith("но по данным перевозчика, его заявка до сих пор не согласована.") shouldBe true
+  }
 }

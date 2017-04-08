@@ -1,6 +1,5 @@
 package com.jaitlapps.kasandra.crawler.parser.impl
 
-import org.scalatest.FlatSpec
 import org.scalatest.FunSuite
 import org.scalatest.Matchers
 
@@ -29,5 +28,16 @@ class RtSiteParserTest extends FunSuite with Matchers {
     content.startsWith("Проведение кибератак от третьего лица — не единственный вариант использования") shouldBe true
     content.contains("Говорят на одном языке") shouldBe true
     content.endsWith("Госдепартамента и курируют регионы Европы, Ближнего Востока и Африки.") shouldBe true
+  }
+
+  test("parse rt site 3") {
+    val html = Source.fromURL(getClass.getResource("/newsSites/rt/rt3.html")).mkString
+
+    val result = RtSiteParser.parse(html)
+    val content = result.content
+
+    result.title shouldBe "Революция ботов"
+    content.startsWith("В конгресс США внесён законопроект о введении очередных стопятьсотых санкций") shouldBe true
+    content.endsWith("Факты? Что это? Кому нужны факты?") shouldBe true
   }
 }

@@ -35,6 +35,12 @@ object RiaSiteParser extends SiteParser {
     strong.foreach(element => element.remove())
     spam.foreach(element => element.remove())
 
-    HtmlUtils.trim(content.text())
+    val article = if (content.text().startsWith(".")) {
+      content.text().substring(1)
+    } else {
+      content.text()
+    }
+
+    HtmlUtils.trim(article)
   }
 }
