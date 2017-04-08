@@ -3,6 +3,11 @@ package com.jaitlapps.kasandra.crawler.models
 abstract sealed class SiteType(val name: String)
 
 object SiteType {
+  val list: Set[SiteType] = Set(
+    RtSite, RiaSite, LifeSite, OneTvSite, LentaSite, RbcSite, KpSite, VestiSite
+  )
+
+
   def apply(name: String) : SiteType = name match {
     case RtSite.name => RtSite
     case RiaSite.name => RiaSite

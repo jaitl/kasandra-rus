@@ -3,10 +3,12 @@ package com.jaitlapps.kasandra.crawler.parser
 import com.jaitlapps.kasandra.crawler.models.SiteType
 import com.jaitlapps.kasandra.crawler.parser.impl.KpSiteParser
 import com.jaitlapps.kasandra.crawler.parser.impl.LentaSiteParser
+import com.jaitlapps.kasandra.crawler.parser.impl.LifeSiteParser
 import com.jaitlapps.kasandra.crawler.parser.impl.OneTvSiteParser
 import com.jaitlapps.kasandra.crawler.parser.impl.RbcSiteParser
 import com.jaitlapps.kasandra.crawler.parser.impl.RiaSiteParser
 import com.jaitlapps.kasandra.crawler.parser.impl.RtSiteParser
+import com.jaitlapps.kasandra.crawler.parser.impl.VestiSiteParser
 
 object ParserFactory {
   def getParser(site: SiteType): SiteParser = site match {
@@ -16,5 +18,7 @@ object ParserFactory {
     case SiteType.LentaSite => LentaSiteParser
     case SiteType.RbcSite => RbcSiteParser
     case SiteType.KpSite => KpSiteParser
+    case SiteType.VestiSite => VestiSiteParser
+    case SiteType.LifeSite => LifeSiteParser
   }
 }
