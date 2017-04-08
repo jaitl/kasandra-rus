@@ -3,6 +3,9 @@ package com.jaitlapps.kasandra.crawler.parser.impl
 import com.jaitlapps.kasandra.crawler.exceptions.ParseException
 import com.jaitlapps.kasandra.crawler.parser.ParsedPage
 import com.jaitlapps.kasandra.crawler.parser.SiteParser
+import com.jaitlapps.kasandra.crawler.utils.HtmlUtils
+import org.apache.commons.lang3.StringEscapeUtils
+import org.apache.commons.lang3.StringUtils
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
@@ -11,44 +14,27 @@ object RiaSiteParser extends SiteParser {
     val document = Jsoup.parse(html)
 
     val title = parseTitle(document)
-    val annotation = parseAnnotation(document)
     val content = parseContent(document)
 
-    if (title.isEmpty || annotation.isEmpty || content.isEmpty) {
+    if (title.isEmpty || content.isEmpty) {
       throw ParseException()
     }
 
-    ParsedPage(title, annotation, content)
+    ParsedPage(title, content)
   }
 
-  private def parseTitle(doc: Document) = doc.select(".b-content-body h1.b-article__title").text().trim
+  private def parseTitle(doc: Document): String =
+    HtmlUtils.trim(doc.select(".b-content-body h1.b-article__title").text())
 
-  private def parseAnnotation(doc: Document) = {
-    val ann = Option(doc.select(".b-content-body .b-article__body p strong").parents().first())
+  private def parseContent(doc: Document): String = {
+    val content = doc.select(".b-content-body .b-article__body")
 
-    if (ann.isDefined && !ann.get.text().trim.isEmpty) {
-      ann.get.text().trim
-    } else {
-      val content = parseContent(doc)
-
-      if (content.length > 500) {
-        content.substring(0, 500)
-      } else {
-        content
-      }
-    }
-
-  }
-
-  private def parseContent(doc: Document) = {
-    val content = doc.select(".b-content-body .b-article__body") //.text().trim
-
+    val strong = Option(content.select("strong"))
     val spam = Option(content.select("div.b-inject"))
 
-    if (spam.isDefined) {
-      spam.get.remove()
-    }
+    strong.foreach(element => element.remove())
+    spam.foreach(element => element.remove())
 
-    content.text().trim
+    HtmlUtils.trim(content.text())
   }
 }

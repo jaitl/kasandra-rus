@@ -6,7 +6,7 @@ import java.util.UUID
 import com.jaitlapps.kasandra.crawler.db.DbConnection
 import slick.lifted.ProvenShape
 
-case class CrawledSitePage(id: UUID, date: Timestamp, title: String, annotation: String, content: String, url: String)
+case class CrawledSitePage(id: UUID, date: Timestamp, title: String, content: String, url: String)
 
 trait CrawledSitePagesTable {
   val dbConnection: DbConnection
@@ -20,14 +20,12 @@ trait CrawledSitePagesTable {
 
     val title: Rep[String] = column[String]("title")
 
-    val annotation: Rep[String] = column[String]("annotation")
-
     val content: Rep[String] = column[String]("content")
 
     val url: Rep[String] = column[String]("url")
 
-    override def * : ProvenShape[CrawledSitePage] = (id, date, title, annotation, content,
-      url) <> (CrawledSitePage.tupled, CrawledSitePage.unapply)
+    override def * : ProvenShape[CrawledSitePage] = (id, date, title, content,
+      url)<> (CrawledSitePage.tupled, CrawledSitePage.unapply)
   }
 
   protected val crawledSitePagesQuery: TableQuery[CrawledSitePages] = TableQuery[CrawledSitePages]

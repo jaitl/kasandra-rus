@@ -4,4 +4,4 @@ trait SiteParser {
   def parse(html: String): ParsedPage
 }
 
-case class ParsedPage (title: String, annotation: String, content: String)
+case class ParsedPage (title: String, content: String)

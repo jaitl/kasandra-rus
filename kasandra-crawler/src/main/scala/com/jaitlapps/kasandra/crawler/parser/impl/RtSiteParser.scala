@@ -11,19 +11,16 @@ object RtSiteParser extends SiteParser {
     val document = Jsoup.parse(html)
 
     val title = parseTitle(document)
-    val annotation = parseAnnotation(document)
     val content = parseContent(document)
 
-    if (title.isEmpty || annotation.isEmpty || content.isEmpty) {
+    if (title.isEmpty || content.isEmpty) {
       throw ParseException()
     }
 
-    ParsedPage(title, annotation, content)
+    ParsedPage(title, content)
   }
 
   private def parseTitle(doc: Document) = doc.select(".article h1.article__heading").text().trim
-
-  private def parseAnnotation(doc: Document) = doc.select(".article .article__summary").text().trim
 
   private def parseContent(doc: Document) = doc.select(".article .article__text").text().trim
 }
