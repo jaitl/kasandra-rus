@@ -3,12 +3,14 @@ package com.jaitlapps.kasandra.crawler.site.db.table
 import java.sql.Timestamp
 import java.util.UUID
 
+import com.jaitlapps.kasandra.crawler.db.CustomTypes
 import com.jaitlapps.kasandra.crawler.db.DbConnection
+import com.jaitlapps.kasandra.crawler.models.SiteType
 import slick.lifted.ProvenShape
 
-case class CrawledSitePage(id: UUID, date: Timestamp, title: String, content: String, url: String)
+case class CrawledSitePage(id: UUID, date: Timestamp, title: String, content: String, url: String, siteType: SiteType)
 
-trait CrawledSitePagesTable {
+trait CrawledSitePagesTable extends CustomTypes {
   val dbConnection: DbConnection
 
   import dbConnection.profile.api._
@@ -24,8 +26,10 @@ trait CrawledSitePagesTable {
 
     val url: Rep[String] = column[String]("url")
 
+    val siteType: Rep[SiteType] = column[SiteType]("siteType")
+
     override def * : ProvenShape[CrawledSitePage] = (id, date, title, content,
-      url)<> (CrawledSitePage.tupled, CrawledSitePage.unapply)
+      url, siteType) <> (CrawledSitePage.tupled, CrawledSitePage.unapply)
   }
 
   protected val crawledSitePagesQuery: TableQuery[CrawledSitePages] = TableQuery[CrawledSitePages]

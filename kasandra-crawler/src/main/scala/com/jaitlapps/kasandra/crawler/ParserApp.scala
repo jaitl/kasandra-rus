@@ -55,7 +55,7 @@ object ParserApp extends App with StrictLogging {
           case Success(page) =>
             logger.info(s"Parsed page: siteType: ${link.siteType}, id: ${raw.id}, url: ${link.url}")
             val crawledSitePage = CrawledSitePage(
-              UUID.randomUUID(), link.timestamp, page.title, page.content, link.url
+              UUID.randomUUID(), link.timestamp, page.title, page.content, link.url, link.siteType
             )
 
             for {
