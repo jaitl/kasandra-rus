@@ -7,10 +7,9 @@ import com.jaitlapps.kasandra.crawler.models.SiteType
 import com.jaitlapps.kasandra.crawler.site.crawler.SiteCrawler
 
 object OnePageCrawler extends App {
-  val url: String = "http://ria.ru/videoclub/20160806/1473770118.html"
+  val url: String = "https://russian.rt.com/world/article/374171-wikileaks-hakery-ssha-cru"
 
-  val html = SiteCrawler.crawl(url, CrawlSite(UUID.randomUUID(), SiteType.RiaSite, "ria.ru", "ria"))
+  val html = SiteCrawler.crawl(url, CrawlSite(UUID.randomUUID(), SiteType.RiaSite, "rt.com", "ria"))
 
-  println(html)
-  println("end")
+  println(html.get)
 }
