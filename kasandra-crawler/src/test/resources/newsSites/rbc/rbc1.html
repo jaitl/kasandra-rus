@@ -1,0 +1,2327 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie8"> <![endif]-->
+<!--[if IE 9]>
+<html class="no-js ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(2),u=e(3),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}finally{f.emit("fn-end",[c.now()],t)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now()])}},{}],2:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],3:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],4:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=m(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){v[e]=m(e).concat(n)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(t)}function g(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var v={},y={},b={on:l,emit:t,get:w,listeners:m,context:n,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(2),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=h.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+h.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===d.readyState&&i()}function i(){f("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),f=e("handle"),c=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1026.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=n.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),f("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
+    <link rel="icon" type="image/png" href="http://s.rbk.ru/v8_top_static/rbc7-8.2.4/images/favicon.png">
+    <!--[if IE]><link rel="shortcut icon" href="http://s.rbk.ru/v8_top_static/rbc7-8.2.4/images/favicon.ico"/><![endif]-->
+
+    <link rel="apple-touch-icon" href="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="40x40" href="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/apple-touch-icon-40x40.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/apple-touch-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="80x80" href="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/apple-touch-icon-80x80.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/apple-touch-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/apple-touch-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/apple-touch-icon-180x180.png"/>
+
+    <meta name="application-name" content="РБК"/>
+    <meta name="msapplication-tooltip" content="&quot;РосБизнесКонсалтинг&quot; - ведущая российская компания, работающая в сферах масс-медиа и информационных технологий."/>
+
+    <meta name="msapplication-TileColor" content="#00CEA6"/>
+    <meta name="msapplication-TileImage" content="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/msapplication-310x150.png"/>
+    <meta name="msapplication-square70x70logo" content="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/msapplication-70x70.png"/>
+    <meta name="msapplication-square150x150logo" content="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/msapplication-150x150.png"/>
+    <meta name="msapplication-square310x310logo" content="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/msapplication-310x310.png"/>
+    <meta name="msapplication-wide310x150logo" content="http://s.rbk.ru/v8_top_static/common/common-8.2.4/images/msapplication-310x150.png"/>
+
+
+    <title>Презентация багги чеченского производства Кадырову :: Общество :: РБК</title>
+    <meta name="Description" content="В субботу на&amp;nbsp;заводе &amp;laquo;Чеченавто&amp;raquo; в&amp;nbsp;городе Аргун&amp;nbsp;​прошла презентация легких вездеходов двойного назначения. Первым образец боевого багги протестировал сам глава Чечни Рамзан Кадыров. На официальной церемонии также&amp;nbsp;присутствовали депутат Госдумы Адам Делимханов, спикер чеченского парламента Магомед Даудов и&amp;nbsp;руководитель администрации главы и правительства республики Султан Тагаев.
+
+Трехместный багги &amp;laquo;Чаборз&amp;raquo; на&amp;nbsp;95% состоит из&amp;nbsp;российских комплектующих. Предварительная стоимость военного автомобиля составляет&amp;nbsp;1,5 млн&amp;nbsp;руб, гражданского&amp;nbsp;&amp;mdash;&amp;nbsp;около&amp;nbsp;1,1&amp;nbsp;млн. Разработка проекта принадлежит Международному учебному центру сил специального назначения и&amp;nbsp;инжиниринговой компании &amp;laquo;Ф-МоторСпорт&amp;raquo;. Производит автомобили завод &amp;laquo;Чеченавто&amp;raquo;.
+
+Вторая часть презентации прошла на&amp;nbsp;территории учебного центра в&amp;nbsp;городе Гудермес, инструкторы которого провели тест-драйв. В частности, были отработаны прыжки по&amp;nbsp;бездорожью и&amp;nbsp;скоростное управление в&amp;nbsp;условиях сильно пересеченной местности."/>
+    <meta name="Keywords" content="Презентация, Учебный, Назначение, Чеченавто, Правительство, Международный, Гудермес, Официальный, Отработать, Инструктор, Разработка, Церемония, Автомобиль, Бездорожь, Автомобиль, Двойной, Компания, Военный, Чеченский, Делимхан"/>
+
+    <meta name="title" content="Презентация багги чеченского производства Кадырову" />
+    <meta property="og:url" content="http://www.rbc.ru/photoreport/04/03/2017/58badd539a7947237c09eeb4" />
+    <meta property="og:site_name" content="РБК" />
+    <meta property="og:title" content="Презентация багги чеченского производства Кадырову" />
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="В субботу на&amp;nbsp;заводе &amp;laquo;Чеченавто&amp;raquo; в&amp;nbsp;городе Аргун&amp;nbsp;​прошла презентация легких вездеходов двойного назначения. Первым образец боевого багги протестировал сам глава Чечни Рамзан Кадыров. На официальной церемонии также&amp;nbsp;присутствовали депутат Госдумы Адам Делимханов, спикер чеченского парламента Магомед Даудов и&amp;nbsp;руководитель администрации главы и правительства республики Султан Тагаев.
+
+Трехместный багги &amp;laquo;Чаборз&amp;raquo; на&amp;nbsp;95% состоит из&amp;nbsp;российских комплектующих. Предварительная стоимость военного автомобиля составляет&amp;nbsp;1,5 млн&amp;nbsp;руб, гражданского&amp;nbsp;&amp;mdash;&amp;nbsp;около&amp;nbsp;1,1&amp;nbsp;млн. Разработка проекта принадлежит Международному учебному центру сил специального назначения и&amp;nbsp;инжиниринговой компании &amp;laquo;Ф-МоторСпорт&amp;raquo;. Производит автомобили завод &amp;laquo;Чеченавто&amp;raquo;.
+
+Вторая часть презентации прошла на&amp;nbsp;территории учебного центра в&amp;nbsp;городе Гудермес, инструкторы которого провели тест-драйв. В частности, были отработаны прыжки по&amp;nbsp;бездорожью и&amp;nbsp;скоростное управление в&amp;nbsp;условиях сильно пересеченной местности." />
+    <meta property="og:image" content="http://s0.rbk.ru/v6_top_pics/resized/1440xH/media/img/4/84/754886428968844.jpg" /><link rel="http://s0.rbk.ru/v6_top_pics/resized/1440xH/media/img/4/84/754886428968844.jpg">    <meta name="twitter:card" content="photo">
+    <meta name="twitter:site" content="@ru_rbc">
+    <meta name="twitter:creator" content="@ru_rbc">
+    <meta name="twitter:title" content="Презентация багги чеченского производства Кадырову">
+    <meta name="twitter:description" content="В субботу на&amp;nbsp;заводе &amp;laquo;Чеченавто&amp;raquo; в&amp;nbsp;городе Аргун&amp;nbsp;​прошла презентация легких вездеходов двойного назначения. Первым образец боевого багги протестировал сам глава Чечни Рамзан Кадыров. На официальной церемонии также&amp;nbsp;присутствовали депутат Госдумы Адам Делимханов, спикер чеченского парламента Магомед Даудов и&amp;nbsp;руководитель администрации главы и правительства республики Султан Тагаев.
+
+Трехместный багги &amp;laquo;Чаборз&amp;raquo; на&amp;nbsp;95% состоит из&amp;nbsp;российских комплектующих. Предварительная стоимость военного автомобиля составляет&amp;nbsp;1,5 млн&amp;nbsp;руб, гражданского&amp;nbsp;&amp;mdash;&amp;nbsp;около&amp;nbsp;1,1&amp;nbsp;млн. Разработка проекта принадлежит Международному учебному центру сил специального назначения и&amp;nbsp;инжиниринговой компании &amp;laquo;Ф-МоторСпорт&amp;raquo;. Производит автомобили завод &amp;laquo;Чеченавто&amp;raquo;.
+
+Вторая часть презентации прошла на&amp;nbsp;территории учебного центра в&amp;nbsp;городе Гудермес, инструкторы которого провели тест-драйв. В частности, были отработаны прыжки по&amp;nbsp;бездорожью и&amp;nbsp;скоростное управление в&amp;nbsp;условиях сильно пересеченной местности.">
+
+    <meta itemprop="name" content="Презентация багги чеченского производства Кадырову">
+    <meta itemprop="description" content="В субботу на&amp;nbsp;заводе &amp;laquo;Чеченавто&amp;raquo; в&amp;nbsp;городе Аргун&amp;nbsp;​прошла презентация легких вездеходов двойного назначения. Первым образец боевого багги протестировал сам глава Чечни Рамзан Кадыров. На официальной церемонии также&amp;nbsp;присутствовали депутат Госдумы Адам Делимханов, спикер чеченского парламента Магомед Даудов и&amp;nbsp;руководитель администрации главы и правительства республики Султан Тагаев.
+
+Трехместный багги &amp;laquo;Чаборз&amp;raquo; на&amp;nbsp;95% состоит из&amp;nbsp;российских комплектующих. Предварительная стоимость военного автомобиля составляет&amp;nbsp;1,5 млн&amp;nbsp;руб, гражданского&amp;nbsp;&amp;mdash;&amp;nbsp;около&amp;nbsp;1,1&amp;nbsp;млн. Разработка проекта принадлежит Международному учебному центру сил специального назначения и&amp;nbsp;инжиниринговой компании &amp;laquo;Ф-МоторСпорт&amp;raquo;. Производит автомобили завод &amp;laquo;Чеченавто&amp;raquo;.
+
+Вторая часть презентации прошла на&amp;nbsp;территории учебного центра в&amp;nbsp;городе Гудермес, инструкторы которого провели тест-драйв. В частности, были отработаны прыжки по&amp;nbsp;бездорожью и&amp;nbsp;скоростное управление в&amp;nbsp;условиях сильно пересеченной местности.">
+
+    <link rel="stylesheet" href="http://s.rbk.ru/v8_top_static/common/common-8.2.4/styles/build/_common.css"  media="screen"/>
+    <link rel="stylesheet" href="http://s.rbk.ru/v8_top_static/common/common-8.2.4/styles/build/_print.css"  media="print"/>
+    <link rel="stylesheet" href="http://s.rbk.ru/v8_top_static/rbc7-8.2.4/styles/build/_main.css"  media="screen"/>
+    <link rel="stylesheet" href="http://s.rbk.ru/v8_top_static/rbc7-8.2.4/styles/build/_print.css"  media="print"/>
+
+    <script src="http://s.rbk.ru/v8_top_static/common/common-8.2.4/scripts/build/_common.js"></script>
+    <script src="http://s.rbk.ru/v8_top_static/common/common-8.2.4/scripts/vendor/jwplayer/jwplayer.js"></script>
+    <script>
+        window.jwplayer.key = 't3/gzoTw74tQdZgYlxSwzsrmSt96w0Y8EcIVQw==';
+    </script>
+    <script>
+        window.bannersVersion = 'v8';
+        RA.config.set('develop', false);
+        RA.config.set('layout.mainMenuHeight', 100);
+        RA.config.set('layout.topTeasersHeight', 50);
+        RA.config.set('layout.mobile', false);
+        RA.config.set('layout.templatePath', 'public');
+        RA.config.set('urls.common_static', 'http://s.rbk.ru/v8_top_static/common/common-8.2.4/');
+        RA.config.set('urls.static', 'http://s.rbk.ru/v8_top_static/rbc7-8.2.4/');
+        RA.config.set('commonStatic', 'http://s.rbk.ru/v8_top_static/common/common-8.2.4/');
+        RA.config.set('urls.image', 'http://s.rbk.ru/v8_top_static/current/images/');
+    </script>
+    <script src="//engine.rbc.medialand.ru/code?pid=2393&gid=2"></script>
+
+    <script>
+        RA.config.set('story', []);
+    </script>
+    <script>
+        RA.config.set('project', 'rbc7');
+        RA.config.set('loadCheckad', true);
+
+        RA.config.set('abtest', '8B');
+
+    </script>
+
+
+    <script>RA.config.set('counters.ga.mediaPrefix', 'RBC');</script>
+
+
+    <!-- google analytics -->
+
+    <script type="text/javascript">
+        function recordOutboundLink(link, category, action) {
+            try {
+                _gat._createTracker("UA-35962676-1","myT");
+                _gat._getTrackerByName("myT")._trackEvent(category, action);
+            } catch(err) {}
+        }
+    </script>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(
+            ['_setAccount', 'UA-35962676-1']
+            , ['_setDomainName', 'top.rbc.ru']
+            , ['_trackPageview']
+            // Счетчик Медиа-1
+            ,['RBC._setAccount', 'UA-8487723-7']
+            ,['RBC._setDomainName', 'rbc.ru']
+            ,['RBC._setAllowLinker', true]
+            ,['RBC._trackPageview']
+        );
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+    <script type="text/javascript">
+
+        function checkCookieDevice() {
+            return ( document.cookie.indexOf( "toprbc_device" ) >= 0 ) ? 1 : 0;
+        }
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-35962676-1', 'auto');
+        ga('send', 'event', 'device', 'web', checkCookieDevice());
+        window.pageType = 'second';
+    </script>
+
+    <!-- /google analytics -->
+    <!-- Media2/dfp_rbcnews_head -->
+
+    <script type='text/javascript'>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+        (function() {
+            var gads = document.createElement('script');
+            gads.async = true;
+            gads.type = 'text/javascript';
+            var useSSL = 'https:' == document.location.protocol;
+            gads.src = (useSSL ? 'https:' : 'http:') +
+                '//www.googletagservices.com/tag/js/gpt.js';
+            var node = document.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(gads, node);
+        })();
+    </script>
+
+    <!--script>
+    if (/^\/textonlines\//.test(location.pathname)) {
+      window.rbc_dfp = {
+        addSlot : function() {},
+        display : function() {}
+      };
+    }
+    </script-->
+
+    <script type="text/javascript" src="http://content.rbc.medialand.ru/templates_2/dfp/dfp_utils.js?20170309"></script>
+
+    <script type='text/javascript'>
+        googletag.cmd.push(function() {
+            var slot_billboard_news = googletag.defineSlot('/52237517/RBCNews_Billboard', [1160, 250], 'div-gpt-ad-1436366404862-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_billboard_news, false, {'story_enable': true});
+
+            var slot_branding_news = googletag.defineSlot('/52237517/RBCNews_Branding', [1, 1], 'div-gpt-ad-1436367492182-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_branding_news, false, {'story_enable': true});
+
+            var slot_240x400_left_news = googletag.defineSlot('/52237517/RBCNews_240x400_LEFT', [240, 400], 'div-gpt-ad-1436366263460-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_240x400_left_news, false, {'story_enable': true});
+
+            var slot_240x400_right1_news = googletag.defineSlot('/52237517/RBCNews_240*400_1st_right', ((window.bannersVersion == 'v8' && !window.deviceType) ? [[240, 400], [300, 600]] : [240, 400]), 'div-gpt-ad-1436366531196-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_240x400_right1_news, false, {'story_enable': true});
+
+            var slot_240x400_right2_news = googletag.defineSlot('/52237517/RBCNews_240*400_2nd_right', ((window.bannersVersion == 'v8' && !window.deviceType) ? [[240, 400], [300, 600]] : [240, 400]), 'div-gpt-ad-1436366619557-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_240x400_right2_news, true, {'story_enable': true, 'sync_vars': [], 'exclusive_vars': ['s1']});
+
+            var slot_filmstrip_news = googletag.defineSlot('/52237517/RBCNews_Filmstrip', [1160, 250], 'div-gpt-ad-1436366028349-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_filmstrip_news, true, {'story_enable': true, 'sync_vars': [], 'exclusive_vars': ['s1']});
+
+            var slot_fullscreen_news = googletag.defineSlot('/52237517/RBCNews_fullscreen', [3, 3], 'div-gpt-ad-1457944039646-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_fullscreen_news, false, {'story_enable' : true});
+
+            var slot_nativeroll_news = googletag.defineSlot('/52237517/RBCNews_native', [580, 400], 'div-gpt-ad-1457944235947-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_nativeroll_news, false, {'story_enable' : true});
+
+            var showBillboard = !/^https?:\/\/(news-clck|m\.news)\.yandex\.ru\/.*/i.test(document.referrer);
+
+            /* mobile|tablet */
+
+            var rbcnews_mobile_billboard = googletag.defineSlot('/52237517/RBCNews_mobile_billboard', (showBillboard ? [[300, 250],[240, 400]] : [300, 250]), 'div-gpt-ad-1436453027903-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_mobile_billboard, false, {'story_enable': true});
+
+            var rbcnews_mobile_billboard_2 = googletag.defineSlot('/52237517/RBCNews_mobile_billboard_2', (showBillboard ? [[300, 250],[240, 400]] : [300, 250]), 'div-gpt-ad-1466005578685-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_mobile_billboard_2, true, {'story_enable': true});
+
+            var rbcnews_mobile_billboard_3 = googletag.defineSlot('/52237517/RBCNews_mobile_billboard_3', (showBillboard ? [[300, 250],[240, 400]] : [300, 250]), 'div-gpt-ad-1466005609391-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_mobile_billboard_3, true, {'story_enable': true});
+
+            var rbcnews_mobile_billboard_4 = googletag.defineSlot('/52237517/RBCNews_mobile_billboard_4', (showBillboard ? [[300, 250],[240, 400]] : [300, 250]), 'div-gpt-ad-1466005642054-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_mobile_billboard_4, true, {'story_enable': true});
+
+            var rbcnews_mobile_filmstrip = googletag.defineSlot('/52237517/RBCNews_mobile_filmstrip', [300, 250], 'div-gpt-ad-1436453090607-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_mobile_filmstrip, true, {'story_enable': true});
+
+            var rbcnews_mobile_filmstrip_2 = googletag.defineSlot('/52237517/RBCNews_mobile_filmstrip_2', [300, 250], 'div-gpt-ad-1466005676397-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_mobile_filmstrip_2, true, {'story_enable': true});
+
+            var rbcnews_tablet_billboard = googletag.defineSlot('/52237517/RBCNews_tablet_billboard', [1160, 250], 'div-gpt-ad-1438346563983-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_tablet_billboard, false, {'story_enable': true});
+
+            var rbcnews_tablet_billboard_2 = googletag.defineSlot('/52237517/RBCNews_tablet_billboard_2', [1160, 250], 'div-gpt-ad-1466005427964-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_tablet_billboard_2, true, {'story_enable': true});
+
+            var rbcnews_tablet_billboard_3 = googletag.defineSlot('/52237517/RBCNews_tablet_billboard_3', [1160, 250], 'div-gpt-ad-1466005458964-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_tablet_billboard_3, true, {'story_enable': true});
+
+            var rbcnews_tablet_billboard_4 = googletag.defineSlot('/52237517/RBCNews_tablet_billboard_4', [1160, 250], 'div-gpt-ad-1466005485037-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_tablet_billboard_4, true, {'story_enable': true});
+
+            var rbcnews_tablet_240x400_left = googletag.defineSlot('/52237517/RBCNews_tablet_240x400_left', [240, 400], 'div-gpt-ad-1438347006651-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_tablet_240x400_left, true, {'story_enable': true, 'eventObject': '.g-scroll-touch'});
+
+            var rbcnews_tablet_filmstrip = googletag.defineSlot('/52237517/RBCNews_tablet_filmstrip', [1160, 250], 'div-gpt-ad-1438347164078-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_tablet_filmstrip, true, {'story_enable': true});
+
+            var rbcnews_tablet_filmstrip_2 = googletag.defineSlot('/52237517/RBCNews_tablet_filmstrip_2', [1160, 250], 'div-gpt-ad-1466005514831-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_tablet_filmstrip_2, true, {'story_enable': true});
+
+            var rbcmain_mobile_full = googletag.defineSlot('/52237517/RBC_mobile_full', [3, 3], 'div-gpt-ad-1465382419885-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcmain_mobile_full, false, {'story_enable': true});
+
+            var rbcnews_mobile_240x400 = googletag.defineSlot('/52237517/RBCNews_mobile_240x400', [240, 400], 'div-gpt-ad-1465581247595-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_mobile_240x400, true, {'story_enable': true});
+
+            var rbcnews_mobile_240x400_2 = googletag.defineSlot('/52237517/RBCNews_mobile_240x400_2', [240, 400], 'div-gpt-ad-1465581285428-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_mobile_240x400_2, true, {'story_enable': true});
+
+            var rbcnews_mobile_240x400_3 = googletag.defineSlot('/52237517/RBCNews_mobile_240x400_3', [240, 400], 'div-gpt-ad-1465581326335-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_mobile_240x400_3, true, {'story_enable': true});
+
+            var rbcnews_mobile_240x400_4 = googletag.defineSlot('/52237517/RBCNews_mobile_240x400_4', [240, 400], 'div-gpt-ad-1465581357645-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbcnews_mobile_240x400_4, true, {'story_enable': true});
+
+            var rbc_mobile_240x400_3rd = googletag.defineSlot('/52237517/rbc_mobile_240x400_3rd', [240, 400], 'div-gpt-ad-1488215924634-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbc_mobile_240x400_3rd, true, {'eventObject': '.right-column__scroll', 'sync_vars': [], 'exclusive_vars': ['s1']});
+
+            var rbc_mobile_240x400_4th = googletag.defineSlot('/52237517/rbc_mobile_240x400_4th', [240, 400], 'div-gpt-ad-1488215980218-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(rbc_mobile_240x400_4th, true, {'eventObject': '.right-column__scroll', 'sync_vars': [], 'exclusive_vars': ['s1']});
+
+            /* slides */
+            var slot_billboard_news_1 = googletag.defineSlot('/52237517/RBCNews_Billboard_1', [1160, 250], 'div-gpt-ad-1473235882033-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_billboard_news_1, true, {'story_enable': true});
+
+            var slot_billboard_news_2 = googletag.defineSlot('/52237517/RBCNews_Billboard_2', [1160, 250], 'div-gpt-ad-1441894772433-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_billboard_news_2, true, {'story_enable': true});
+
+            var slot_billboard_news_3 = googletag.defineSlot('/52237517/RBCNews_Billboard_3', [1160, 250], 'div-gpt-ad-1441894704480-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_billboard_news_3, true, {'story_enable': true});
+
+            var slot_billboard_news_4 = googletag.defineSlot('/52237517/RBCNews_Billboard_4', [1160, 250], 'div-gpt-ad-1441894604588-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_billboard_news_4, true, {'story_enable': true});
+
+            var slot_billboard_news_5 = googletag.defineSlot('/52237517/RBCNews_Billboard_5', [1160, 250], 'div-gpt-ad-1472548625038-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_billboard_news_5, true, {'story_enable': true});
+
+            var slot_billboard_news_6 = googletag.defineSlot('/52237517/RBCNews_Billboard_6', [1160, 250], 'div-gpt-ad-1472548679614-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_billboard_news_6, true, {'story_enable': true});
+
+            var slot_billboard_news_7 = googletag.defineSlot('/52237517/RBCNews_Billboard_7', [1160, 250], 'div-gpt-ad-1472548760906-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_billboard_news_7, true, {'story_enable': true});
+
+            var slot_billboard_news_8 = googletag.defineSlot('/52237517/RBCNews_Billboard_8', [1160, 250], 'div-gpt-ad-1472548801141-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_billboard_news_8, true, {'story_enable': true});
+
+            var slot_240x400_right2_news_2 = googletag.defineSlot('/52237517/RBCNews_240*400_2nd_right_2', ((window.bannersVersion == 'v8' && !window.deviceType) ? [[240, 400], [300, 600]] : [240, 400]), 'div-gpt-ad-1441889359959-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_240x400_right2_news_2, true, {'story_enable': true});
+
+            var slot_240x400_right2_news_3 = googletag.defineSlot('/52237517/RBCNews_240*400_2nd_right_3', ((window.bannersVersion == 'v8' && !window.deviceType) ? [[240, 400], [300, 600]] : [240, 400]), 'div-gpt-ad-1441889452139-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_240x400_right2_news_3, true, {'story_enable': true});
+
+            var slot_240x400_right2_news_4 = googletag.defineSlot('/52237517/RBCNews_240*400_2nd_right_4', ((window.bannersVersion == 'v8' && !window.deviceType) ? [[240, 400], [300, 600]] : [240, 400]), 'div-gpt-ad-1441889763799-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_240x400_right2_news_4, true, {'story_enable': true});
+
+            var slot_filmstrip_news_2 = googletag.defineSlot('/52237517/RBCNews_Filmstrip_2', [1160, 250], 'div-gpt-ad-1442495550932-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_filmstrip_news_2, true, {'story_enable': true});
+
+            var slot_filmstrip_news_3 = googletag.defineSlot('/52237517/RBCNews_Filmstrip_3', [1160, 250], 'div-gpt-ad-1442495513571-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_filmstrip_news_3, true, {'story_enable': true});
+
+            var slot_filmstrip_news_4 = googletag.defineSlot('/52237517/RBCNews_Filmstrip_4', [1160, 250], 'div-gpt-ad-1442495368251-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(slot_filmstrip_news_4, true, {'story_enable': true});
+
+            /* billboard traffic */
+            var billboard_all_test = googletag.defineSlot('/52237517/blillboard_all_test', [1, 1], 'div-gpt-ad-1449648123736-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(billboard_all_test, false);
+
+            var billboard_test_slide_1 = googletag.defineSlot('/52237517/blillboard_test_slide_1', [1, 1], 'div-gpt-ad-1473243795772-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(billboard_test_slide_1, true);
+
+            var billboard_test_slide_2 = googletag.defineSlot('/52237517/blillboard_test_slide_2', [1, 1], 'div-gpt-ad-1449830755003-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(billboard_test_slide_2, true);
+
+            var billboard_test_slide_3 = googletag.defineSlot('/52237517/blillboard_test_slide_3', [1, 1], 'div-gpt-ad-1449830965262-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(billboard_test_slide_3, true);
+
+            var billboard_test_slide_4 = googletag.defineSlot('/52237517/blillboard_test_slide_4', [1, 1], 'div-gpt-ad-1449831063166-0').addService(googletag.pubads());
+            rbc_dfp.addSlot(billboard_test_slide_4, true);
+
+            /* targets */
+            traffic_map = {
+                'gismeteo.ru' : /\butm_source=gismeteo\b/
+                ,'news.mail.ru': /\butm_source=newsmail\b.*\butm_medium=news\b/
+                ,'news.mail.ru_barter': /\butm_source=newsmail\b.*\butm_medium=informer\b/
+            };
+
+            for (var i in traffic_map) {
+                if (!traffic_map.hasOwnProperty(i)) continue;
+                if (traffic_map[i].test(location.href)) {
+                    googletag.pubads().setTargeting('traffic_source', i);
+                    break;
+                }
+            }
+            if (/^http:\/\/yandex\.ru\/clck\/jsredir.+/i.test(document.referrer)) {
+                googletag.pubads().setTargeting('traffic_source', 'yandex_search');
+            }
+
+
+            function weboramaTarget(weboramaObj, postfix) {
+                try {
+                    for (var key in weboramaObj) {
+                        if (!weboramaObj.hasOwnProperty(key)) continue;
+                        if (typeof weboramaObj[key] == 'object') {
+                            weboramaTarget(weboramaObj[key], key);
+                        } else {
+                            var wvalue = weboramaObj[key] ? "1" : "0";
+                            googletag.pubads().setTargeting('weborama_' + key, wvalue);
+                            if ('socio' == postfix) {
+                                googletag.pubads().setTargeting('weborama_' + postfix + '_' + key, wvalue);
+                            }
+                        }
+                    }
+                } catch(e) {}
+            }
+
+            function weboramaTargetNew(weboramaObj) {
+                try {
+                    function reduceValue(obj) {
+                        var res = [];
+                        for (var k in obj) {
+                            var wvalue = obj[k] ? "1" : "0";
+                            if (parseInt(wvalue)) {
+                                res.push(k);
+                            }
+                        }
+                        return res;
+                    }
+                    for (var key in weboramaObj) {
+                        if (!weboramaObj.hasOwnProperty(key)) continue;
+                        if (typeof weboramaObj[key] == 'object') {
+                            switch(key) {
+                                case "socio":
+                                    var socioArr = reduceValue(weboramaObj[key]);
+                                    if (socioArr.length) {
+                                        googletag.pubads().setTargeting('weborama_socio', socioArr);
+                                    }
+                                    break;
+                                case "interests":
+                                    var interestsArr = reduceValue(weboramaObj[key]);
+                                    if (interestsArr.length) {
+                                        googletag.pubads().setTargeting('weborama_interests', interestsArr);
+                                    }
+                                    break;
+                                case "segments":
+                                    var segmentsArr = reduceValue(weboramaObj[key]);
+                                    if (segmentsArr.length) {
+                                        googletag.pubads().setTargeting('weborama_segments', segmentsArr);
+                                    }
+                                    break;
+                                default  : break;
+                            }
+                        }
+                    }
+                } catch(e) {}
+            }
+
+            try {
+                if(window.localStorage.storagePixelWeborama) {
+                    var storagePixelWeborama = localStorage.getItem('storagePixelWeborama');
+                    var storagePixelWeborama_obj = JSON.parse(storagePixelWeborama);
+                    weboramaTarget(storagePixelWeborama_obj);
+                    weboramaTargetNew(storagePixelWeborama_obj);
+                }
+            } catch(e) {}
+
+            try {
+                var nuggjson = JSON.parse(localStorage.getItem('NUGGjson'));
+                if (nuggjson && typeof nuggjson == 'object') {
+                    for (var nuggkey in nuggjson) {
+                        googletag.pubads().setTargeting(nuggkey, nuggjson[nuggkey]);
+                    }
+                }
+            } catch(e) {}
+
+            try {
+                var rbc_split = window.RA.config.get('abtest').replace(/["'=!+#*~;^\(\)<>\[\] ]/g, '_').replace(/_{2,}/g, '_');
+            } catch (e) { rbc_split = ''; }
+            if (rbc_split) {
+                googletag.pubads().setTargeting("split_version", rbc_split);
+            }
+
+            googletag.pubads().setTargeting("expandable", [2, 3]);
+            googletag.pubads().setTargeting("video", ['video', 'video30', 'video60']);
+
+            googletag.pubads().setTargeting("domain", 'rbc_ru');
+            googletag.pubads().setTargeting("site_zone", 'rbcnews');
+
+            try {
+                var domain_mask = {
+                    "vo.rbc.ru" : "vo_rbc_ru"
+                    ,"rostov.rbc.ru" : "rostov_rbc_ru"
+                    ,"kuban.rbc.ru" : "kuban_rbc_ru"
+                    ,"perm.rbc.ru" : "perm_rbc_ru"
+                    ,"ufa.rbc.ru" : "ufa_rbc_ru"
+                    ,"rt.rbc.ru" : "rt_rbc_ru"
+                    ,"ekb.rbc.ru" : "ekb_rbc_ru"
+                    ,"nn.rbc.ru" : "nn_rbc_ru"
+                };
+
+                for(var d in domain_mask) {
+                    if (!domain_mask.hasOwnProperty(d) || !domain_mask[d]) continue;
+                    if (RegExp("^\/" + d + "\/").test(location.pathname)) {
+                        googletag.pubads().setTargeting("domain", domain_mask[d]);
+                        break;
+                    }
+                }
+            } catch(e) {}
+
+            googletag.pubads().setTargeting("url", location.href.replace(/(#|\?).*$/, ''));
+
+            if (/#screen$/.test(location.href)) {
+                googletag.pubads().setTargeting("screen", "1");
+            }
+
+            if (/\bgoogle_preview=/.test(location.href)) {
+                googletag.pubads().setTargeting("google_preview", "1");
+            }
+
+            googletag.pubads().enableSingleRequest();
+            googletag.pubads().disableInitialLoad();
+            googletag.pubads().collapseEmptyDivs(true);
+            googletag.enableServices();
+        });
+    </script>
+
+</head>
+<body class="news" data-autorun="" data-top-secret-key="b44c7535">
+<script async src="https://cdn.onthe.io/io.js?k6rtDKrNVwkr"></script>
+<div class="banner " data-banner-id="news_spec">
+    <!--BEGIN Medialand FullScreen F=1 (Fullscreen)-->
+
+    <!-- /52237517/RBCNews_fullscreen -->
+    <div id='div-gpt-ad-1457944039646-0'>
+        <script type='text/javascript'>
+            if (!/^https?:\/\/(rbc|www|test|staging|feature[^.]+)\./i.test(location.href) || (window.bannersVersion == 'v8' && /^\/search\/?/.test(location.pathname))) {
+                /* франшиза или страница поиска */
+                googletag.cmd.push(function() { rbc_dfp.display('div-gpt-ad-1457944039646-0'); });
+            }
+        </script>
+    </div>
+
+    <!--BEGIN Medialand Брендирование новостной страницы/фреймы(боковые поля) (inline)-->
+    <!-- /52237517/RBCNews_Branding -->
+    <div class="banner">
+        <div id='div-gpt-ad-1436367492182-0'>
+            <script type='text/javascript'>
+                if (!/^https?:\/\/(rbc|www|test|staging|feature[^.]+)\./i.test(location.href) || (window.bannersVersion == 'v8' && /^\/search\/?/.test(location.pathname))) {
+                    /* франшиза или страница поиска*/
+                    var __width = 0;
+                    try {
+                        if (typeof window.innerWidth != 'undefined') {
+                            __width = window.innerWidth;
+                        } else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
+                            // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+                            __width = document.documentElement.clientWidth;
+                        } else {  // older versions of IE
+                            __width = document.getElementsByTagName('body')[0].clientWidth;
+                        }
+                    } catch(e) {}
+                    if (__width >= 1590) {
+                        var random = Math.floor(Math.random() * 1000000000);
+                        var dreferrer = document.referrer; try { dreferrer = window.parent.document.referrer } catch(e) {}
+                        try { dreferrer = dreferrer.substr(0, 256) } catch(e) { dreferrer = "" }
+                        document.write('<scr' + 'ipt language="JavaScript" src="http://engine.rbc.medialand.ru/code?pid=1691&gid=2&oin=1&rid=' + random +'&dreferer='+escape(dreferrer)+'"></scr' + 'ipt>');
+                    }
+                } else {
+                    /* disabled by synhron
+                     googletag.cmd.push(function() { rbc_dfp.display('div-gpt-ad-1436367492182-0'); });
+                     */
+                }
+            </script>
+        </div>
+    </div>
+
+
+    <!--BEGIN Medialand backscreen 500x400 | 600x500 (Popunder & FlyMedia)-->
+    <div id="medialand_adland_inline_div_1128" class="banner"></div>
+    <script language="JavaScript">
+        <!--
+        (function() {
+            var random = Math.floor(Math.random() * 1000000000);
+            var dreferrer = document.referrer; try { dreferrer = window.parent.document.referrer } catch(e) {}
+            try { dreferrer = dreferrer.substr(0, 256) } catch(e) { dreferrer = "" }
+
+            var d = document.getElementById('medialand_adland_inline_div_1128');
+            if (d) {
+                (function(d, url) {
+                    if (window.dfp_sync_var) return;
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.src = url;
+                    d.parentNode.insertBefore(s, d);
+                })(d, 'http://engine.rbc.medialand.ru/code?pid=1128&gid=4&oin=1&rid=' + random +'&dreferer='+escape(dreferrer))
+            }
+        })();// -->
+    </script>
+    <!--END Medialand -->
+
+
+    <!--BEGIN Medialand Все страницы нижний баннер floorAd (inline)-->
+    <div id="medialand_adland_inline_div_2038" class="banner"></div>
+    <script language="JavaScript">
+        <!--
+        (function() {
+            var random = Math.floor(Math.random() * 1000000000);
+            var dreferrer = document.referrer; try { dreferrer = window.parent.document.referrer } catch(e) {}
+            try { dreferrer = dreferrer.substr(0, 256) } catch(e) { dreferrer = "" }
+
+            var d = document.getElementById('medialand_adland_inline_div_2038');
+            if (d) {
+                (function(d, url) {
+                    if (window.dfp_sync_var) return;
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.src = url;
+                    d.parentNode.insertBefore(s, d);
+                })(d, 'http://engine.rbc.medialand.ru/code?pid=2038&gid=2&oin=1&rid=' + random +'&dreferer='+escape(dreferrer))
+            }
+        })();
+        // -->
+    </script>
+    <!--END Medialand -->
+
+    <!--BEGIN Medialand брэндирование плеера РБК ТВ на новостных страницах РБК (inline)-->
+    <div id="medialand_adland_inline_div_2164" class="banner"></div>
+    <script language="JavaScript">
+        <!--
+        (function() {
+            var random = Math.floor(Math.random() * 1000000000);
+            var dreferrer = document.referrer; try { dreferrer = window.parent.document.referrer } catch(e) {}
+            try { dreferrer = dreferrer.substr(0, 256) } catch(e) { dreferrer = "" }
+
+            var d = document.getElementById('medialand_adland_inline_div_2164');
+            if (d) {
+                (function(d, url) {
+                    if (window.dfp_sync_var) return;
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.src = url;
+                    d.parentNode.insertBefore(s, d);
+                })(d, 'http://engine.rbc.medialand.ru/code?pid=2164&gid=2&oin=1&rid=' + random +'&dreferer='+escape(dreferrer))
+            }
+        })();
+        // -->
+    </script>
+    <!--END Medialand -->
+</div>
+<div class="live-tv__video-container live-tv_opened js-live-tv_opened">
+    <span class="live-tv__control live-tv__control-mute js-live-tv__control js-live-tv__mute-big"><span class="live-tv__control-mute-icon"></span></span>
+    <span class="live-tv__control live-tv__control-close js-live-tv__control js-live-tv__big-close"></span>
+    <a class="live-tv__conteiner" id="live-tv-big"></a>
+</div>
+<div class="live-tv__overlay js-live-tv__big-close"></div>    <div class="feedback__outer g-noprint">
+    <div class="feedback js-feedback-block" data-region="world">
+        <div class="feedback__title">Отправить редакции rbc.ru сообщение о тексте</div>
+        <form class="feedback__form">
+            <div class="feedback__form-group">
+                <div class="feedback__label">Текст</div>
+                <div class="feedback__text feedback__control js-feedback-text">Ничего не выделено</div>
+            </div>
+            <div class="feedback__form-group">
+                <div class="feedback__label">Сообщение <span class="feedback__limit"><span class="js-feedback-limit">300 символов</span></span></div>
+                <div class="feedback__comment-wrap feedback__control">
+                    <textarea class="feedback__comment js-feedback-comment"></textarea>
+                </div>
+            </div>
+            <div class="js-feedback-captcha-container">
+                <div class="feedback__form-group">
+                    <div class="feedback__label"></div>
+                    <div class="js-feedback-captcha-image"></div>
+                </div>
+                <div class="feedback__form-group">
+                    <div class="feedback__label">Введите текст с картинки <span class="feedback__error"><span class="js-feedback-captcha-error"></span></span></div>
+                    <div class="feedback__comment-wrap feedback__comment-wrap__captcha feedback__control">
+                        <input name="captcha" type="text"  class="feedback__comment feedback__comment-capcha js-feedback-captcha" maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <div class="feedback__action-block">
+                <!--<div class="feedback__limit">Осталось символов: <span class="js-feedback-limit">300</span></div>-->
+                <input type="button" class="feedback__button js-feedback-submit" value="Отправить">
+                <input type="button" class="feedback__button feedback__button_cancel js-feedback-cancel" value="Отмена">
+            </div>
+        </form>
+    </div>
+    <div class="feedback__overlay js-feedback-block"></div>
+</div>        <div class="g-counter">
+    <!--LiveInternet counter-->
+    <script type="text/javascript"><!--
+    new Image().src = "//counter.yadro.ru/hit;RBCRU?r"+
+        escape(document.referrer)+((typeof(screen)=="undefined")?"":
+            ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+        ";"+Math.random();//--></script>
+    <!--/LiveInternet-->
+    <script type="text/javascript">
+        RA.config.set('counters.li.id', 'RBCRU');
+    </script>
+</div>
+
+
+<div class="l-window">
+    <div class="l-row">
+        <div class="topline__wrapper">
+            <div class="topline fixed g-noprint js-filter-lock-block">
+                <div class="topline__video-block">
+
+                    <div class="live-tv">
+                        <div class="live-tv__video-container js-live-tv">
+                            <span class="live-tv__control live-tv__control-close js-live-tv__control js-live-tv__button-close"><span class="live-tv__control-close-icon"></span></span>
+                            <span class="live-tv__control live-tv__control-mute js-live-tv__control js-live-tv__mute live-tv__control-mute_off"><span class="live-tv__control-mute-icon"></span></span>
+                            <span class="live-tv__control live-tv__control-fullscreen js-live-tv__control js-live-tv__big-open"><span class="live-tv__control-fullscreen-icon"></span></span>
+                            <a id="live-tv" class="live-tv__conteiner"></a>
+                        </div>
+                    </div>
+                    <div class="live-tv__overdraw js-live-tv__overdraw">
+                        <div class="live-tv__overdraw__question js-live-tv-question">
+        <span class="live-tv__overdraw__play js-live-tv-yes">
+            <span class="live-tv__overdraw__button"></span>
+            <span class="live-tv__overdraw__paragraph">Прямой эфир</span>
+        </span>
+                        </div>
+                        <div class="live-tv__overdraw__loose js-live-tv-loose">
+                            <p class="live-tv__overdraw__error">
+                                К сожалению, ваш браузер <br/>
+                                не поддерживает<br/>
+                                потоковое видео.</p>
+                            <p class="live-tv__overdraw__error">Попробуйте</p>
+                            <a target="_blank" class="live-tv__overdraw__link" href="https://get.adobe.com/ru/flashplayer/">установить Flash-плеер</a>
+                            <div class="live-tv__overdraw__right">
+                                <div class="live-tv__control live-tv__control-close js-live-tv-error-close"></div>
+                            </div>
+                        </div>
+                        <div class="live-tv__overdraw__nokia js-live-tv__overdraw__nokia">
+                            <div class="live-tv__overdraw__right">
+                                <div class="live-tv__control live-tv__control-close js-live-tv-error-close"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="topline__content">
+                    <div class="topline__top js-topline"><div class="l-row topline__items-container js-topline-dropdown__items-container"><a class="topline__item topline__item_news-feed-handler js-news-feed-toggle__handler js-topline-dropdown_ignore js-topline-item"><span></span><span></span><span></span></a><a class="topline__item topline__item_logo js-topline-item" href="http://www.rbc.ru/"></a><span class="topline__region js-topline-item"><a class="topline__item js-regions-toggle__handler"><span class="js-region-current"><span class="topline__region-icon"></span></span></a></span><a href="http://tv.rbc.ru/?utm_source=topline" class="topline__item topline__item_important js-topline-item">Телеканал</a><a href="http://www.rbc.ru/newspaper/?utm_source=topline" class="topline__item topline__item_important js-topline-item">Газета</a><a href="http://www.rbc.ru/magazine/?utm_source=topline" class="topline__item topline__item_important js-topline-item">Журнал</a><a href="http://www.rbcplus.ru/?utm_source=topline" class="topline__item js-topline-item">РБК+</a><a href="http://money.rbc.ru/?utm_source=topline" class="topline__item js-topline-item">Деньги</a><a href="http://quote.rbc.ru/?utm_source=topline" class="topline__item js-topline-item">Quote</a><a href="https://www.autonews.ru/?utm_source=topline" class="topline__item js-topline-item">Авто</a><a href="http://sport.rbc.ru/?utm_source=topline" class="topline__item js-topline-item">Спорт</a><a href="http://realty.rbc.ru/?utm_source=topline" class="topline__item js-topline-item">Недвижимость</a><a href="http://style.rbc.ru/?utm_source=topline" class="topline__item js-topline-item">Стиль</a><a href="http://marketing.rbc.ru/?utm_source=topline" class="topline__item js-topline-item">Исследования</a><a href="http://biztorg.ru/offers/main?utm_source=topline" class="topline__item js-topline-item">Продажа бизнеса</a><a href="http://biztorg.ru/franchises/main?utm_source=topline" class="topline__item js-topline-item">Франшизы </a><a href="http://bc.rbc.ru/?utm_source=topline" class="topline__item js-topline-item">Конференции</a><a href="http://www.cnews.ru/?utm_source=topline" class="topline__item js-topline-item topline__item_cnews"><span>C</span><span class="topline__item_cnews__dot">&middot;</span><span>News</span></a></div><div class="topline__container"><div class="topline__item__wrap"><a href="http://azure.rbc.ru/?utm_source=rbctop&amp;utm_medium=menu&amp;utm_campaign=msazure_button" class="topline__item topline__item_special topline__item_special_blue js-yandex-counter" data-yandex-name="topline_2">Бизнес в цифре</a></div><span class="topline__dropdown"><a href="" class="topline__dropdown__handle js-topline-dropdown">
+                    Еще<span class="topline__dropdown__triangle">&#9660;</span></a><span class="topline__dropdown__list js-topline-dropdown__list"></span></span></div><div class="topline__search__menu"><form  action="http://www.rbc.ru/search/" class="topline__search"><input type="hidden" name="project" value="rbcnews"/><span class="topline__search__link topline__search__menu__link js-search-link"></span><div class="topline__search__body"><input class="topline__search__buttom" type="submit"  value="НАЙТИ" /><div class="topline__search__text"><div class="topline__search__input-wrap"><input type="text" name="query" value="" placeholder="Поиск по сайту" /></div></div></div></form></div></div><div class="topline__region-submenu js-topline-sub js-regions-toggle"><div class="g-clear"></div><div class="topline__region-detector g-hidden js-region-detector"><span class="topline__region-detector__text"><span class="topline__region-icon"></span> Ваш регион <span class="topline__region-title js-region-detector-title"></span>, верно?</span><a href="#" class="topline__subitem js-region-detector-button" data-answer="yes">Да</a><a href="#" class="topline__subitem topline__subitem_last js-region-detector-button" data-answer="no">Нет</a></div><div class="topline__submenu"><div class="topline__submenu__conteiner js-topline-sub-dropdown__items-container"><a href="http://www.rbc.ru/" class="topline__subitem topline__subitem_first js-region-item js-topline-sub-item" data-id="world"><span class="topline__region-icon"></span> Весь мир</a><a href="//ufa.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="ufa" data-cookie="russia/bashkortostan" data-title="Башкортостан" data-url="http://ufa.rbc.ru/">Башкортостан</a><a href="//vo.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="vo" data-cookie="russia/vologodskaya_obl" data-title="Вологодская область" data-url="http://vo.rbc.ru/">Вологодская область</a><a href="//ekb.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="ekb" data-cookie="russia/sverdlovskaya_obl" data-title="Екатеринбург" data-url="http://ekb.rbc.ru/">Екатеринбург</a><a href="//kaliningrad.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="kaliningrad" data-cookie="russia/kaliningradskaya_obl" data-title="Калининград" data-url="http://kaliningrad.rbc.ru/">Калининград</a><a href="//kuban.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="krasnodar" data-cookie="russia/krasnodarskiy_kray" data-title="Краснодарский край" data-url="http://kuban.rbc.ru/">Краснодарский край</a><a href="//nn.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="nn" data-cookie="russia/nijegorodskaya_obl" data-title="Нижний Новгород" data-url="http://nn.rbc.ru/">Нижний Новгород</a><a href="//nsk.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="nsk" data-cookie="russia_sfo" data-title="Новосибирск" data-url="http://nsk.rbc.ru/">Новосибирск</a><a href="//perm.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="perm" data-cookie="russia/permskij_kraj" data-title="Пермский край" data-url="http://perm.rbc.ru/">Пермский край</a><a href="//rostov.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="rostov" data-cookie="russia/rostovskaya_obl" data-title="Ростов-на-Дону" data-url="http://rostov.rbc.ru/">Ростов-на-Дону</a><a href="//www.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="spb_sz" data-cookie="russia/sankt-peterburg_i_oblast" data-title="Санкт-Петербург и область" data-url="http://www.rbc.ru/">Санкт-Петербург и область</a><a href="//rt.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="tatarstan" data-cookie="russia/tatarstan" data-title="Татарстан" data-url="http://rt.rbc.ru/">Татарстан</a><a href="//t.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="tyumen" data-cookie="russia/tyumenskaya_obl" data-title="Тюмень" data-url="http://t.rbc.ru/">Тюмень</a><a href="//chr.rbc.ru/" class="topline__subitem js-region-item js-topline-sub-item" data-id="chr" data-cookie="russia_chernozemje" data-title="Черноземье" data-url="http://chr.rbc.ru/">Черноземье</a></div><div style="white-space: nowrap;"><span class="topline__submenu__dropdown"><a href="" class="topline__submenu__dropdown__handle js-topline-sub-dropdown" style="display: none;">
+                Еще<span class="topline__submenu__dropdown__triangle">&#9660;</span></a><span class="topline__submenu__dropdown__list js-topline-sub-dropdown__list"></span></span></div></div></div>
+                    <div class="header">
+                        <div class="l-row">
+                            <div class="header__indicators__buttons">
+                                <a class="header__indicators__link" href="https://quote.rbc.ru/price/forecastall/">Прогнозы цен</a>
+                                <a class="header__indicators__link" href="https://cash.rbc.ru/cash/converter.html">Конвертер валют</a>
+                            </div>
+
+                            <div class="header__indicators__wrap">
+                                <div class="header__indicators__items js-indicators-topline">
+                                    <a href="https://cash.rbc.ru/?currency=3" title="USD Нал., 20:13" class="header__indicators__item">
+                                        <span class="header__indicators__title">USD <span class="header__indicators__title_gray"> Нал.</span></span>
+                                        <span class="header__indicators__ticker__val">57,69<span class="header__indicators__ticker__arrow header__indicators__green-icon"></span>            </span>
+                                        <span class="header__indicators__ticker__val">57,25<span class="header__indicators__ticker__arrow header__indicators__green-icon"></span></span>
+                                    </a>
+                                    <a href="https://cash.rbc.ru/?currency=2" title="EUR Нал., 20:13" class="header__indicators__item">
+                                        <span class="header__indicators__title">EUR <span class="header__indicators__title_gray"> Нал.</span></span>
+                                        <span class="header__indicators__ticker__val">61,31<span class="header__indicators__ticker__arrow header__indicators__green-icon"></span>            </span>
+                                        <span class="header__indicators__ticker__val">60,70<span class="header__indicators__ticker__arrow header__indicators__green-icon"></span></span>
+                                    </a>
+                                    <a href="https://quote.rbc.ru/exchanges/info/selt.0/59111/delay" title="USD Бирж., 07.04" class="header__indicators__item">
+                                        <span class="header__indicators__title">USD <span class="header__indicators__title_gray"> Бирж.</span></span>
+                                        <span class="header__indicators__ticker__val">57,25            </span>
+                                        <span class="header__indicators__ticker__val header__indicators__green">
+                +0,85
+            </span>
+                                    </a>
+                                    <a href="https://quote.rbc.ru/exchanges/info/selt.0/59090/delay" title="EUR Бирж., 07.04" class="header__indicators__item">
+                                        <span class="header__indicators__title">EUR <span class="header__indicators__title_gray"> Бирж.</span></span>
+                                        <span class="header__indicators__ticker__val">60,68            </span>
+                                        <span class="header__indicators__ticker__val header__indicators__green">
+                +0,66
+            </span>
+                                    </a>
+                                    <a href="https://quote.rbc.ru/exchanges/info/cb.0/72413/eod" title="USD ЦБ., 08.04" class="header__indicators__item">
+                                        <span class="header__indicators__title">USD <span class="header__indicators__title_gray"> ЦБ.</span></span>
+                                        <span class="header__indicators__ticker__val">56,92            </span>
+                                        <span class="header__indicators__ticker__val header__indicators__green">
+                +0,48
+            </span>
+                                    </a>
+                                    <a href="https://quote.rbc.ru/exchanges/info/cb.0/72383/eod" title="EUR ЦБ., 08.04" class="header__indicators__item">
+                                        <span class="header__indicators__title">EUR <span class="header__indicators__title_gray"> ЦБ.</span></span>
+                                        <span class="header__indicators__ticker__val">60,57            </span>
+                                        <span class="header__indicators__ticker__val header__indicators__green">
+                +0,49
+            </span>
+                                    </a>
+                                    <a href="https://quote.rbc.ru/exchanges/info/forex.0/46842/eod" title="EUR/USD, 07.04" class="header__indicators__item">
+                                        <span class="header__indicators__title">EUR/USD <span class="header__indicators__title_gray"> </span></span>
+                                        <span class="header__indicators__ticker__val">1,06            </span>
+                                        <span class="header__indicators__ticker__val header__indicators__red">
+                -0,01
+            </span>
+                                    </a>
+                                    <a href="https://quote.rbc.ru/exchanges/info/rusindex.0/61867/realtime" title="ММВБ, 07.04" class="header__indicators__item">
+                                        <span class="header__indicators__title">ММВБ <span class="header__indicators__title_gray"> </span></span>
+                                        <span class="header__indicators__ticker__val">2020,23            </span>
+                                        <span class="header__indicators__ticker__val header__indicators__red">
+                -1,68%
+            </span>
+                                    </a>
+                                    <a href="https://quote.rbc.ru/exchanges/info/rusindex.0/32543/realtime" title="РТС, 07.04" class="header__indicators__item">
+                                        <span class="header__indicators__title">РТС <span class="header__indicators__title_gray"> </span></span>
+                                        <span class="header__indicators__ticker__val">1113,45            </span>
+                                        <span class="header__indicators__ticker__val header__indicators__red">
+                -3,07%
+            </span>
+                                    </a>
+                                    <a href="https://quote.rbc.ru/exchanges/info/ipe.0/83350/delay" title="Brent, 07.04" class="header__indicators__item">
+                                        <span class="header__indicators__title">Brent <span class="header__indicators__title_gray"> </span></span>
+                                        <span class="header__indicators__ticker__val">55,26            </span>
+                                        <span class="header__indicators__ticker__val header__indicators__green">
+                +0,66%
+            </span>
+                                    </a>
+                                    <a href="https://quote.rbc.ru/exchanges/info/index.0/106064/delay" title="DJIA, 07.04" class="header__indicators__item">
+                                        <span class="header__indicators__title">DJIA <span class="header__indicators__title_gray"> </span></span>
+                                        <span class="header__indicators__ticker__val">20656,10            </span>
+                                        <span class="header__indicators__ticker__val header__indicators__red">
+                -0,03%
+            </span>
+                                    </a>
+                                    <a href="https://quote.rbc.ru/exchanges/info/index.0/106065/delay" title="Nasdaq, 07.04" class="header__indicators__item">
+                                        <span class="header__indicators__title">Nasdaq <span class="header__indicators__title_gray"> </span></span>
+                                        <span class="header__indicators__ticker__val">5877,81            </span>
+                                        <span class="header__indicators__ticker__val header__indicators__red">
+                -0,02%
+            </span>
+                                    </a>
+                                    <a href="https://quote.rbc.ru/exchanges/info/index.0/48032/delay" title="FTSE, 07.04" class="header__indicators__item">
+                                        <span class="header__indicators__title">FTSE <span class="header__indicators__title_gray"> </span></span>
+                                        <span class="header__indicators__ticker__val">7349,37            </span>
+                                        <span class="header__indicators__ticker__val header__indicators__green">
+                +0,63%
+            </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header__article js-header-article">
+
+                            <div class="header__article__content js-header-article-content"></div>
+                            <div class="header__loading js-article-loading" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="l-window-body js-filter-lock-block">
+
+
+            <div class="l-col-newsfeed g-noprint ">
+                <div class="news-feed__wrapper fixed js-news-feed-toggle js-news-feed-open js-sticky-block__news-feed js-filter-lock" data-cookie="rbc_newsfeed_toggle">
+                    <div class="custom-scroll__wrapper js-scrollable">
+                        <div class="custom-scroll__inner js-scrollable-content">
+                            <div class="news-feed">
+                                <div class="news-feed__header">
+                                    <a href="/short_news" class="news-feed__header__text" data-pub="false">Лента новостей</a>
+                                </div>
+                                <div class="news-feed__inner">
+                                    <script>
+                                        RA.config.set('newsfeed.dateRange', {
+                                            start: 1491669576,
+                                            end: 1491640443
+                                        });
+                                        RA.config.set('newsfeed.inDomItems', {
+                                            "58e912419a79475fd16ea375": { modif_date: 1491670565, time_t: 1491669576 },
+                                            "58e8c3a69a794770084267b4": { modif_date: 1491671215, time_t: 1491667256 },
+                                            "58e906eb9a7947bfa3fcd399": { modif_date: 1491670357, time_t: 1491667085 },
+                                            "58e8f6859a79475aaccd8eed": { modif_date: 1491666601, time_t: 1491664059 },
+                                            "58e8fae29a794716a159c34a": { modif_date: 1491670468, time_t: 1491663873 },
+                                            "58e8f47d9a7947538b91cfd5": { modif_date: 1491667852, time_t: 1491662589 },
+                                            "58e8f6c59a7947538b91cff2": { modif_date: 1491664008, time_t: 1491662538 },
+                                            "58e8e9d29a7947ac9c8f41a5": { modif_date: 1491662708, time_t: 1491659888 },
+                                            "58e8e8e59a7947666af02714": { modif_date: 1491666024, time_t: 1491659278 },
+                                            "58e8e23c9a79476a7f4d8cd5": { modif_date: 1491661624, time_t: 1491657649 },
+                                            "58e8e0999a7947666af0270a": { modif_date: 1491667833, time_t: 1491657543 },
+                                            "58e8dc6a9a79470b512f4c5c": { modif_date: 1491662365, time_t: 1491656021 },
+                                            "58e8dccc9a79472bc9975cde": { modif_date: 1491661835, time_t: 1491655892 },
+                                            "58e8d5049a7947589afe3441": { modif_date: 1491666129, time_t: 1491653906 },
+                                            "58e8ce759a7947df832a62eb": { modif_date: 1491654231, time_t: 1491653113 },
+                                            "58e8c8cb9a79478b2b0be72b": { modif_date: 1491662300, time_t: 1491652856 },
+                                            "58e8d0a69a7947027baa8fe9": { modif_date: 1491652905, time_t: 1491652786 },
+                                            "58e8cb8e9a794795a0155ee9": { modif_date: 1491655952, time_t: 1491651543 },
+                                            "58e8b6fa9a794723f9dec3c7": { modif_date: 1491663559, time_t: 1491651327 },
+                                            "58e8c3d69a794778258100d3": { modif_date: 1491656903, time_t: 1491649501 },
+                                            "58e8bf029a794730695712c3": { modif_date: 1491648860, time_t: 1491648270 },
+                                            "58e8bd2d9a7947815c487825": { modif_date: 1491650499, time_t: 1491647794 },
+                                            "58e8b7639a794728a2a20f75": { modif_date: 1491650397, time_t: 1491646312 },
+                                            "58e8adef9a7947d2d1030eef": { modif_date: 1491651435, time_t: 1491644625 },
+                                            "58e8b0b79a7947b9b56007a0": { modif_date: 1491650058, time_t: 1491644606 },
+                                            "58e8a7f99a79476bfe603ce7": { modif_date: 1491658708, time_t: 1491642417 },
+                                            "58e8a7179a794769e6ba8c5c": { modif_date: 1491642395, time_t: 1491642147 },
+                                            "58e8a2f09a79472cc8cc2b64": { modif_date: 1491649646, time_t: 1491641643 },
+                                            "58e8a1b89a794709f36d07d9": { modif_date: 1491649338, time_t: 1491640769 },
+                                            "58e7d3b99a79474b7a069216": { modif_date: 1491657114, time_t: 1491640443 },
+                                        });
+                                    </script>
+                                    <div class="news-feed__list">
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e912419a79475fd16ea375?from=newsfeed" style="display:none;" id="id_newsfeed_58e912419a79475fd16ea375" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e912419a79475fd16ea375"}'>
+        <span class="news-feed__item__title">
+            Часть серой ветки московского метро закрыли из-за инцидента с пассажиром
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">19:39, </span>
+            <span class="news-feed__item__date-category">
+                                    Общество
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://sport.rbc.ru/news/58e8c3a69a794770084267b4?from=newsfeed" style="display:none;" id="id_newsfeed_58e8c3a69a794770084267b4" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://sport.rbc.ru/news/58e8c3a69a794770084267b4"}'>
+        <span class="news-feed__item__title">
+            Чемпионат России по футболу. «Зенит» — «Анжи». Онлайн
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">19:00, </span>
+            <span class="news-feed__item__date-category">
+                                    Спорт
+                            </span>
+                                </span>
+                                        </a>
+                                        <div class="banner g-banner__newsfeed" data-banner-id="firstpage_left2"><!-- RBCMain_240x400_LEFT 1101 firstpage_left2 -->
+                                            <a target="_top" href="http://banner.rbc.ru/banredir.cgi?lid=firstpage_left2&_b=Media2/firstpage_left2_DFP" empty="true" style="display:none"></a>
+                                            <div id='div-gpt-ad-1431616921735-0' style='text-align:center;'>
+                                                <script type='text/javascript'>
+                                                    if (!/^https?:\/\/(rbc|www|test|staging|feature[^.]+)\./i.test(location.href)) {
+                                                        googletag.cmd.push(function() { rbc_dfp.display('div-gpt-ad-1431616921735-0'); });
+                                                    }
+                                                </script>
+                                            </div>
+                                            <!-- RBCNews_240x400_LEFT 1101 firstpage_left2 -->
+                                            <div id='div-gpt-ad-1436366263460-0' style='text-align:center;'>
+                                                <script type='text/javascript'>
+                                                    if (!/^https?:\/\/(rbc|www|test|staging|feature[^.]+)\./i.test(location.href) || (window.bannersVersion == 'v8' && /^\/search\/?/.test(location.pathname))) {
+                                                        googletag.cmd.push(function() {  rbc_dfp.display('div-gpt-ad-1436366263460-0'); });
+                                                    }
+                                                </script>
+                                            </div>
+
+                                            <div id = "__div_for_check_left" style = "display : none;"></div>
+                                            <script type = "text/javascript">
+                                                function __removeClass(element, classname){
+                                                    var re = new RegExp("(^|\\s)" + classname + "(\\s|$)", "g")
+                                                    element.className = element.className.replace(re, "$1").replace(/\s+/g, " ").replace(/(^ | $)/g, "");
+                                                }
+
+                                                if (!window.rbc_dfp) {
+
+                                                    try {
+                                                        googletag.pubads().clear('div-gpt-ad-1431616921735-0');
+                                                        googletag.pubads().clear('div-gpt-ad-1436366263460-0');
+                                                        window.PREVENT_REPAINT = true;
+                                                    } catch (e) {}
+
+                                                    document.MAX_ct0 ='INSERT_CLICK_URL';
+                                                    var m3_u = (location.protocol=='https:'?'https://cas.criteo.com/delivery/ajs.php?':'http://cas.criteo.com/delivery/ajs.php?');
+                                                    var m3_r = Math.floor(Math.random()*99999999999);
+                                                    document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+                                                    document.write ("zoneid=323014");
+                                                    document.write ('&amp;cb=' + m3_r);
+                                                    if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+                                                    document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+                                                    document.write ("&amp;loc=" + escape(window.location).substring(0,1600));
+                                                    if (document.context) document.write ("&context=" + escape(document.context));
+                                                    if ((typeof(document.MAX_ct0) != 'undefined') && (document.MAX_ct0.substring(0,4) == 'http')) {
+                                                        document.write ("&amp;ct0=" + escape(document.MAX_ct0));
+                                                    }
+                                                    if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+                                                    document.write ("'></scr"+"ipt>");
+
+                                                    var __div_for_check = document.getElementById('__div_for_check_left');
+                                                    var __parent_div = __div_for_check.parentNode;
+
+                                                    if (__parent_div && /\bbanner\b/i.test(__parent_div.className)) {
+                                                        __removeClass(__parent_div, "banner");
+                                                        __parent_div.removeAttribute("data-banner-id");
+                                                        __parent_div.style.cssText += "display : block !important;";
+                                                    }
+                                                }
+                                            </script></div>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e906eb9a7947bfa3fcd399?from=newsfeed"  id="id_newsfeed_58e906eb9a7947bfa3fcd399" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e906eb9a7947bfa3fcd399"}'>
+        <span class="news-feed__item__title">
+            СМИ сообщили о взрыве автобуса в сирийской провинции Хомс
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">18:58, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8f6859a79475aaccd8eed?from=newsfeed"  id="id_newsfeed_58e8f6859a79475aaccd8eed" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8f6859a79475aaccd8eed"}'>
+        <span class="news-feed__item__title">
+            Минобороны предложило послать экспертов по химоружию на авиабазу в Сирии
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">18:07, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/politics/08/04/2017/58e8fae29a794716a159c34a?from=newsfeed"  id="id_newsfeed_58e8fae29a794716a159c34a" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/politics/08/04/2017/58e8fae29a794716a159c34a"}'>
+        <span class="news-feed__item__title">
+            Трамп поздравил американских военных с успешной атакой на Сирию
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">18:04, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8f47d9a7947538b91cfd5?from=newsfeed"  id="id_newsfeed_58e8f47d9a7947538b91cfd5" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8f47d9a7947538b91cfd5"}'>
+        <span class="news-feed__item__title">
+            Казаки заблокировали волонтеров на открытии штаба Навального в Ростове
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">17:43, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://sport.rbc.ru/news/58e8f6c59a7947538b91cff2?from=newsfeed"  id="id_newsfeed_58e8f6c59a7947538b91cff2" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://sport.rbc.ru/news/58e8f6c59a7947538b91cff2"}'>
+        <span class="news-feed__item__title">
+            «Металлург» и СКА забросили девять шайб на двоих в первом матче финала
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">17:42, </span>
+            <span class="news-feed__item__date-category">
+                                    Спорт
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8e9d29a7947ac9c8f41a5?from=newsfeed"  id="id_newsfeed_58e8e9d29a7947ac9c8f41a5" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8e9d29a7947ac9c8f41a5"}'>
+        <span class="news-feed__item__title">
+            «Тотальный диктант» на Украине отменили из-за угроз националистов
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">16:58, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8e8e59a7947666af02714?from=newsfeed"  id="id_newsfeed_58e8e8e59a7947666af02714" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8e8e59a7947666af02714"}'>
+        <span class="news-feed__item__title">
+            «Разведка ДНР» сообщила об «исламском батальоне» в порту Мариуполя
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">16:47, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/politics/08/04/2017/58e8e23c9a79476a7f4d8cd5?from=newsfeed"  id="id_newsfeed_58e8e23c9a79476a7f4d8cd5" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/politics/08/04/2017/58e8e23c9a79476a7f4d8cd5"}'>
+        <span class="news-feed__item__title">
+            Порошенко подписал обновленную программу сотрудничества Украины с НАТО
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">16:20, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8e0999a7947666af0270a?from=newsfeed"  id="id_newsfeed_58e8e0999a7947666af0270a" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8e0999a7947666af0270a"}'>
+        <span class="news-feed__item__title">
+            В Москве ответили на отказ Джонсона от визита в Москву
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">16:19, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/business/08/04/2017/58e8dc6a9a79470b512f4c5c?from=newsfeed"  id="id_newsfeed_58e8dc6a9a79470b512f4c5c" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/business/08/04/2017/58e8dc6a9a79470b512f4c5c"}'>
+        <span class="news-feed__item__title">
+            Владельца производителя «Архыза» отправили под домашний арест
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">15:53, </span>
+            <span class="news-feed__item__date-category">
+                                    Бизнес
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/politics/08/04/2017/58e8dccc9a79472bc9975cde?from=newsfeed"  id="id_newsfeed_58e8dccc9a79472bc9975cde" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/politics/08/04/2017/58e8dccc9a79472bc9975cde"}'>
+        <span class="news-feed__item__title">
+            Баскские сепаратисты ETA официально начали процедуру разоружения
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">15:51, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/politics/08/04/2017/58e8d5049a7947589afe3441?from=newsfeed"  id="id_newsfeed_58e8d5049a7947589afe3441" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/politics/08/04/2017/58e8d5049a7947589afe3441"}'>
+        <span class="news-feed__item__title">
+            Глава британского МИДа отменил визит в Москву из-за ситуации в Сирии
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">15:18, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8ce759a7947df832a62eb?from=newsfeed"  id="id_newsfeed_58e8ce759a7947df832a62eb" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8ce759a7947df832a62eb"}'>
+        <span class="news-feed__item__title">
+            СМИ сообщили об аресте замдиректора музея «Петергоф» по делу о растрате
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">15:05, </span>
+            <span class="news-feed__item__date-category">
+                                    Общество
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://sport.rbc.ru/news/58e8c8cb9a79478b2b0be72b?from=newsfeed"  id="id_newsfeed_58e8c8cb9a79478b2b0be72b" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://sport.rbc.ru/news/58e8c8cb9a79478b2b0be72b"}'>
+        <span class="news-feed__item__title">
+            Кубок Гагарина. Финал. «Металлург» Мг — СКА. Онлайн
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">15:00, </span>
+            <span class="news-feed__item__date-category">
+                                    Спорт
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://sport.rbc.ru/news/58e8d0a69a7947027baa8fe9?from=newsfeed"  id="id_newsfeed_58e8d0a69a7947027baa8fe9" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://sport.rbc.ru/news/58e8d0a69a7947027baa8fe9"}'>
+        <span class="news-feed__item__title">
+            Мутко посетовал на невозможность взять директора РФС из-за низкого оклада
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">14:59, </span>
+            <span class="news-feed__item__date-category">
+                                    Спорт
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8cb8e9a794795a0155ee9?from=newsfeed"  id="id_newsfeed_58e8cb8e9a794795a0155ee9" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8cb8e9a794795a0155ee9"}'>
+        <span class="news-feed__item__title">
+            МИД сообщил о планах заявить Тиллерсону о недопустимости ударов по Сирии
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">14:39, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/photoreport/08/04/2017/58e8b6fa9a794723f9dec3c7?from=newsfeed"  id="id_newsfeed_58e8b6fa9a794723f9dec3c7" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/photoreport/08/04/2017/58e8b6fa9a794723f9dec3c7"}'>
+        <span class="news-feed__item__title">
+            На 86-м году жизни скончался космонавт Георгий Гречко. Фотогалерея
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">14:35, </span>
+            <span class="news-feed__item__date-category">
+                                    Фотогалерея
+                            </span>
+                        <span class="icons__photo"></span>        </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8c3d69a794778258100d3?from=newsfeed"  id="id_newsfeed_58e8c3d69a794778258100d3" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8c3d69a794778258100d3"}'>
+        <span class="news-feed__item__title">
+            Главком ВКС рассказал об ускоренной разработке ЗРК С-500
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">14:05, </span>
+            <span class="news-feed__item__date-category">
+                                    Технологии и медиа
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://sport.rbc.ru/news/58e8bf029a794730695712c3?from=newsfeed"  id="id_newsfeed_58e8bf029a794730695712c3" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://sport.rbc.ru/news/58e8bf029a794730695712c3"}'>
+        <span class="news-feed__item__title">
+            Льюис Хэмилтон выиграл поул на Гран-при Китая
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">13:44, </span>
+            <span class="news-feed__item__date-category">
+                                    Спорт
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8bd2d9a7947815c487825?from=newsfeed"  id="id_newsfeed_58e8bd2d9a7947815c487825" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8bd2d9a7947815c487825"}'>
+        <span class="news-feed__item__title">
+            На юго-западе Польши обрушился жилой дом
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">13:36, </span>
+            <span class="news-feed__item__date-category">
+                                    Общество
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8b7639a794728a2a20f75?from=newsfeed"  id="id_newsfeed_58e8b7639a794728a2a20f75" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8b7639a794728a2a20f75"}'>
+        <span class="news-feed__item__title">
+            Дочь космонавта Гречко назвала причину смерти отца
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">13:11, </span>
+            <span class="news-feed__item__date-category">
+                                    Общество
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/society/08/04/2017/58e8adef9a7947d2d1030eef?from=newsfeed"  id="id_newsfeed_58e8adef9a7947d2d1030eef" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/society/08/04/2017/58e8adef9a7947d2d1030eef"}'>
+        <span class="news-feed__item__title">
+            Умер космонавт Георгий Гречко
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">12:43, </span>
+            <span class="news-feed__item__date-category">
+                                    Общество
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8b0b79a7947b9b56007a0?from=newsfeed"  id="id_newsfeed_58e8b0b79a7947b9b56007a0" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8b0b79a7947b9b56007a0"}'>
+        <span class="news-feed__item__title">
+            Подозреваемого в организации взрыва в Ростове-на-Дону арестовали до июня
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">12:43, </span>
+            <span class="news-feed__item__date-category">
+                                    Общество
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8a7f99a79476bfe603ce7?from=newsfeed"  id="id_newsfeed_58e8a7f99a79476bfe603ce7" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8a7f99a79476bfe603ce7"}'>
+        <span class="news-feed__item__title">
+            В Киеве активисты заблокировали здание Россотрудничества
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">12:06, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://sport.rbc.ru/news/58e8a7179a794769e6ba8c5c?from=newsfeed"  id="id_newsfeed_58e8a7179a794769e6ba8c5c" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://sport.rbc.ru/news/58e8a7179a794769e6ba8c5c"}'>
+        <span class="news-feed__item__title">
+            РФС столкнулся с проблемами со спонсорами из-за неудач сборной
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">12:02, </span>
+            <span class="news-feed__item__date-category">
+                                    Спорт
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8a2f09a79472cc8cc2b64?from=newsfeed"  id="id_newsfeed_58e8a2f09a79472cc8cc2b64" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8a2f09a79472cc8cc2b64"}'>
+        <span class="news-feed__item__title">
+            Следователи завели уголовное дело после убийства полицейских в Ингушетии
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">11:54, </span>
+            <span class="news-feed__item__date-category">
+                                    Общество
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/rbcfreenews/58e8a1b89a794709f36d07d9?from=newsfeed"  id="id_newsfeed_58e8a1b89a794709f36d07d9" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8a1b89a794709f36d07d9"}'>
+        <span class="news-feed__item__title">
+            Фрегат «Адмирал Григорович» вернулся в Средиземное море
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">11:39, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                        <a href="http://www.rbc.ru/politics/08/04/2017/58e7d3b99a79474b7a069216?from=newsfeed"  id="id_newsfeed_58e7d3b99a79474b7a069216" class="news-feed__item chrome js-yandex-counter" data-yandex-name="from_news_feed" data-yandex-params='{url: "http://www.rbc.ru/politics/08/04/2017/58e7d3b99a79474b7a069216"}'>
+        <span class="news-feed__item__title news-feed__item__title_bold">
+            Перед терактом Джалилов рассказывал о планах достроить дом и жениться
+        </span>
+
+                                            <span class="news-feed__item__date">
+            <span class="news-feed__item__date-text">11:34, </span>
+            <span class="news-feed__item__date-category">
+                                    Политика
+                            </span>
+                                </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="custom-scroll"><span class="custom-scroll__trackbar"></span></span>
+                </div>
+            </div>
+
+
+
+            <div class="l-col-main">
+                <div class="l-col-main__inner g-print-full-width">
+                    <div class="js-rbcslider rbcslider fixed">
+
+
+
+                        <div class="rbcslider__slide js-rbcslider-slide absolute" data-category="Общество" data-category-nick="society"  data-id="58badd539a7947237c09eeb4"  data-url="http://www.rbc.ru/photoreport/04/03/2017/58badd539a7947237c09eeb4" data-index="0" data-shorturl="http://r.rbc.ru/7qnlFAElAmu" >
+                            <div class="l-row rbcslider__data">
+                                <div class="g-hidden header__article__content js-article-topline">
+                                    <div class="header__article__head">
+        <span class="header__article__head__title-block">
+                        <span class="header__article__head__title">
+                <span>
+                                            Презентация багги чеченского производства Кадырову. Фоторепортаж
+                                    </span>
+            </span>
+        </span>
+                                    </div>
+                                    <div class="header__article__social">
+                                        <div class="social-likes social-likes_notext social-likes__activate-no" data-counters="no"
+                                             data-title="Презентация багги чеченского производства Кадырову"    data-url="http://www.rbc.ru/photoreport/04/03/2017/58badd539a7947237c09eeb4"    >
+
+                                            <div class="facebook" title="Поделиться ссылкой на Фейсбуке"></div>
+                                            <div class="twitter" title="Поделиться ссылкой в Твиттере" data-via="ru_rbc"></div>
+                                            <div class="vkontakte" title="Поделиться ссылкой во Вконтакте"></div>
+                                        </div>    </div>
+                                </div>
+                                <div class="banner g-zindex-top g-banner__height-250 banner__filmstrip js-rbcslider-sticky-spacer" data-banner-id="new_news_shapka"><a target="_top" href="http://banner.rbc.ru/banredir.cgi?lid=new_news_shapka&_b=Media2/new_news_shapka_DFP" empty="true" style="display:none"></a>
+
+                                    <!-- /52237517/blillboard_all_test -->
+                                    <div id='div-gpt-ad-1449648123736-0'></div>
+
+                                    <!-- RBCNews_Billboard (1934 new_news_shapka) -->
+                                    <div id='div-gpt-ad-1436366404862-0'>
+                                        <script type='text/javascript'>
+                                            try {
+                                                var de = document.documentElement;
+                                                var width = 0, showBilboard = true;
+                                                if (typeof window.innerWidth != 'undefined') {
+                                                    width = window.innerWidth;
+                                                } else if (typeof de != 'undefined' && typeof de.clientWidth != 'undefined' && de.clientWidth != 0) {
+                                                    width = de.clientWidth;
+                                                } else {
+                                                    width = document.getElementsByTagName('body')[0].clientWidth;
+                                                }
+                                                var showBillboard = !(width <= 1024 && /^https?:\/\/news-clck\.yandex\.ru\/.*/i.test(document.referrer));
+                                            } catch (e) { showBillboard = true; }
+
+                                            if (showBillboard) {
+                                                /* disabled by synchron
+                                                 googletag.cmd.push(function() {
+                                                 rbc_dfp.display(['div-gpt-ad-1436366404862-0','div-gpt-ad-1449648123736-0']);
+                                                 });
+                                                 */
+                                                var __synchronBannsersIdNews = [
+                                                    'div-gpt-ad-1436366531196-0' // 240 right1
+                                                    ,'div-gpt-ad-1436366404862-0' // billboard
+                                                    ,'div-gpt-ad-1449648123736-0' // billboard traffic
+                                                    ,'div-gpt-ad-1436366263460-0' // 240 left
+                                                    ,'div-gpt-ad-1457944039646-0' // full
+                                                ];
+                                            } else {
+                                                var __synchronBannsersIdNews = [
+                                                    ,'div-gpt-ad-1436366531196-0' // 240 right1
+                                                    ,'div-gpt-ad-1436366263460-0' // 240 left
+                                                    ,'div-gpt-ad-1457944039646-0' // full
+                                                ];
+                                            }
+                                            if (width >= 1590) {
+                                                __synchronBannsersIdNews.push('div-gpt-ad-1436367492182-0');
+                                                /* branding refresh on change slide */
+                                                try { $(window).on('changeSlide', function() {if (window['repaint_53237797']) window['repaint_53237797']();}); } catch(e) {}
+                                            }
+                                            if (/58e238789a7947f42e875f91/.test(location.href)) {
+                                                $('#div-gpt-ad-1436366404862-0').closest('.banner').hide();
+                                            } else {
+                                                googletag.cmd.push(function() { rbc_dfp.display(__synchronBannsersIdNews);});
+                                            }
+
+
+                                            /* banner in newsline refresh on change slide */
+                                            try{
+                                                $(window).on('changeSlide', function() {
+                                                    if (window['destroy_1691']) window['destroy_1691']();
+                                                    if (window['repaint_53238037']) window['repaint_53238037']();
+                                                });
+                                            } catch(e) {}
+                                        </script>
+                                    </div>
+
+                                    <div class="banner" style="display:none;">
+                                        <script type="text/javascript">
+                                            <!--
+                                            function ml_ph(p){document.write('<div id="mlph'+p+'" style="display:none"><\/div>');}
+                                            function ml_c(p){document.write('<div style="visibility:hidden;position:absolute"><iframe id="ml_c'+p+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');}
+                                            function ml_getCode(n,p,s){
+                                                var d;
+                                                if(n<10){try{if(document.all && !window.opera){d = window.frames['ml_c'+p].document;}
+                                                else if(document.getElementById){d=document.getElementById('ml_c'+p).contentDocument;}}catch(e){}
+                                                    if(d){d.write('<scr'+'ipt src="'+s+'"><\/scr'+'ipt>');}
+                                                    else {setTimeout('ml_getCode('+(++n)+','+p+',"'+s+'")', 100);}
+                                                }}
+                                            var place_id = '1510';
+                                            var dreferrer = document.referrer; try { dreferrer = window.parent.document.referrer } catch(e) {}
+                                            try { dreferrer = dreferrer.substr(0, 256) } catch(e) { dreferrer = "" }
+                                            ml_ph(place_id); ml_c(place_id);
+                                            ml_getCode(1,place_id,'http://engine.rbc.medialand.ru/code?pid='+place_id+'&gid=2&oin=0&rid=' + Math.round(Math.random()*100000)+'&dreferer='+escape(dreferrer));
+                                            //-->
+                                        </script>
+                                    </div>
+
+                                    <div class="banner" style="display:none;">
+                                        <script type="text/javascript">
+                                            <!--
+                                            function ml_ph(p){document.write('<div id="mlph'+p+'" style="display:none"><\/div>');}
+                                            function ml_c(p){document.write('<div style="visibility:hidden;position:absolute"><iframe id="ml_c'+p+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');}
+                                            function ml_getCode(n,p,s){
+                                                var d;
+                                                if(n<10){try{if(document.all && !window.opera){d = window.frames['ml_c'+p].document;}
+                                                else if(document.getElementById){d=document.getElementById('ml_c'+p).contentDocument;}}catch(e){}
+                                                    if(d){d.write('<scr'+'ipt src="'+s+'"><\/scr'+'ipt>');}
+                                                    else {setTimeout('ml_getCode('+(++n)+','+p+',"'+s+'")', 100);}
+                                                }}
+                                            var place_id = '2195';
+                                            var dreferrer = document.referrer; try { dreferrer = window.parent.document.referrer } catch(e) {}
+                                            try { dreferrer = dreferrer.substr(0, 256) } catch(e) { dreferrer = "" }
+                                            ml_ph(place_id); ml_c(place_id);
+                                            ml_getCode(1,place_id,'http://engine.rbc.medialand.ru/code?pid='+place_id+'&gid=2&oin=0&rid=' + Math.round(Math.random()*100000)+'&dreferer='+escape(dreferrer));
+                                            //-->
+                                        </script>
+                                    </div>
+
+                                    <div id="ml_weborama_pixel"></div>
+                                    <script>
+                                        var wamid = '2641';
+                                        var typ = '3';
+                                        var Wvar=[];
+                                        Wvar.push("domain",location.host);
+                                        (function(){
+                                            return;
+                                            var w = document.createElement("script");
+                                            w.type = "text/javascript";
+                                            w.src = document.location.protocol + "//cstatic.weborama.fr/js/wam/customers/wamfactory_dpm.wildcard.min.js?rnd="+new Date().getTime();
+                                            w.async = true;
+                                            try {
+                                                document.getElementById('ml_weborama_pixel').appendChild(w);
+                                            } catch(e) {}
+                                        })();
+                                    </script>
+
+                                    <div id="r_cnt" style="display: none"></div>
+                                    <script>
+                                        var rnd = Math.round(Math.random() * 1000000);
+                                        var d = document.getElementById('r_cnt');
+                                        if (d) {
+                                            d.innerHTML = '<img src="http://r.rbc.ru/count/31GcYIFLc4a/?_rnd='+rnd+'" style="width: 1px; height: 1px;" />';
+                                            if (!window.rbc_dfp) d.innerHTML += '<img src="http://r.rbc.ru/count/67JW5u4Tiu7/?_rnd='+rnd+'" style="width: 1px; height: 1px;" />';
+                                        }
+                                    </script>
+                                </div>
+
+
+
+                                <div class="article  js-rbcslider-article">
+                                    <div class="l-row">
+                                        <div class="l-col-center">
+                                            <div class="l-col-center__inner">
+                                                <div class="article__fix-width">
+
+                                                    <div class="l-row article__header js-article-header">
+                                                        <div class="article__header__info-block">
+
+                                                            <a href="/society" class="article__header__category">Общество, </a>
+
+                                                            <span class="article__header__date">04 мар. 19:12</span>
+
+                                                            <div class="article__header__counter-block">
+                                                                <span class="article__header__counter js-insert-views-count">0</span>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="article__header__title js-slide-title">
+
+                                                            <span>Презентация багги чеченского производства Кадырову</span>        </div>
+                                                    </div>
+
+                                                    <div class="article__content">
+
+                                                        <div class="article__text">
+
+                                                            <div class="article__text__overview article__text__overview__no-bold"><span>В субботу на заводе «Чеченавто» в городе Аргун ​прошла презентация легких вездеходов двойного назначения. Первым образец боевого багги протестировал сам глава Чечни Рамзан Кадыров. На официальной церемонии также присутствовали депутат Госдумы Адам Делимханов, спикер чеченского парламента Магомед Даудов и руководитель администрации главы и правительства республики Султан Тагаев.
+
+Трехместный багги «Чаборз» на 95% состоит из российских комплектующих. Предварительная стоимость военного автомобиля составляет 1,5 млн руб, гражданского — около 1,1 млн. Разработка проекта принадлежит Международному учебному центру сил специального назначения и инжиниринговой компании «Ф-МоторСпорт». Производит автомобили завод «Чеченавто».
+
+Вторая часть презентации прошла на территории учебного центра в городе Гудермес, инструкторы которого провели тест-драйв. В частности, были отработаны прыжки по бездорожью и скоростное управление в условиях сильно пересеченной местности.</span></div>
+
+
+
+
+
+
+
+
+                                                            <div class="gallery_vertical">
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/4/84/754886428968844.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/4/45/754886428971454.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/2/47/754886428971472.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/9/70/754886428971709.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/3/45/754886428971453.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/4/39/754886428971394.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/6/45/754886428971456.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/6/63/754886428970636.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/6/46/754886428968466.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/1/48/754886428971481.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/0/45/754886428971450.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/7/46/754886428971467.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/4/55/754886428970554.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/9/47/754886428971479.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/5/54/754886428971545.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="gallery_vertical__item">
+                                                                    <div class="gallery_vertical__image-wrap">
+                                                                        <img src="http://s0.rbk.ru/v6_top_pics/resized/590xH/media/img/7/56/754886428971567.jpg" class="gallery_vertical__image" />
+                                                                    </div>
+                                                                    <div class="gallery_vertical__meta">
+
+                                                                        <div class="gallery_vertical__author">
+                                                                            Фото: Максим Бабенко для РБК
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="article__authors">
+                                                        <span class="article__authors__name">Автор:</span>
+                                                        Инна Сидоркова                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="l-col-right">
+                                            <div class="js-rbcslider-sticky-spacer">
+                                            </div>
+
+                                            <div class="js-rbcslider-sticky article__right-banners">
+                                                <div class="l-col-w-390">
+                                                    <div class="js-checkad-right-1491671710"></div>
+
+                                                    <div class="banner g-banner__article banner__container" data-banner-id="new_top_left"><!-- RBCNews_240*400_1st_right  1146 new_top_left -->
+                                                        <!-- Media2/new_top_left_DFP -->
+
+                                                        <div id='div-gpt-ad-1436366531196-0' style="text-align: center;">
+                                                            <script type='text/javascript'>
+                                                                if (window.bannersVersion == 'v8' && /^\/search\/?/.test(location.pathname)) {
+                                                                    googletag.cmd.push(function() { rbc_dfp.display('div-gpt-ad-1436366531196-0');});
+                                                                } else {
+                                                                    if (/58e238789a7947f42e875f91/.test(location.href)) {
+                                                                        $('#div-gpt-ad-1436366531196-0').closest('.banner').hide();
+                                                                    }
+                                                                    /* disabled by synchron
+                                                                     googletag.cmd.push(function() { rbc_dfp.display('div-gpt-ad-1436366531196-0');});
+                                                                     */
+                                                                }
+                                                            </script>
+                                                        </div>
+
+                                                        <div id = "__div_for_check" style = "display : none;"></div>
+                                                        <script type = "text/javascript">
+                                                            /*
+
+                                                             setTimeout(function() {
+                                                             function __removeClass(element, classname){
+                                                             var re = new RegExp("(^|\\s)" + classname + "(\\s|$)", "g")
+                                                             element.className = element.className.replace(re, "$1").replace(/\s+/g, " ").replace(/(^ | $)/g, "");
+                                                             }
+
+                                                             if (!window.rbc_dfp || 'none' == $('#__div_for_check').closest('.banner').parent().find('[class^="js-checkad"]').css('display')) {
+                                                             try {
+                                                             googletag.pubads().clear('div-gpt-ad-1436366531196-0');
+                                                             window.PREVENT_REPAINT = true;
+                                                             } catch (e) {}
+
+                                                             var adBlockRnd = parseInt(Math.random() * 10000000);
+
+                                                             var d = document.getElementById('div-gpt-ad-1436366531196-0');
+                                                             if (d) {
+                                                             function addPixel(url) {
+                                                             if (/^https?:\/\/.+/.test(url)) {
+                                                             var i = document.createElement('img');
+                                                             i.src = url;
+                                                             i.style.cssText = 'width: 1px; height: 1px; position: absolute; left: -2000px;';
+                                                             d.parentNode.insertBefore(i, d);
+                                                             }
+                                                             }
+                                                             var div = document.createElement('div');
+                                                             var a = document.createElement('a');
+                                                             a.href = "http://arvr.rbc.ru/cr/?sid=1&bt=21&ad=615510&pid=2509180&bid=4895858&bn=4895858&rnd" + adBlockRnd;
+                                                             a.style.cssText = 'display: inline !important; visibility: visible !important;';
+                                                             if (!/Firefox\/\d+/.test(navigator.userAgent)) a.target = '_blank';
+                                                             if (a.addEventListener) {
+                                                             a.addEventListener('click', function() { addPixel("http://r.rbc.ru/8W3G4fV8W36/?_rnd="+adBlockRnd);}, false);
+                                                             } else if (a.attachEvent) {
+                                                             a.attachEvent('onclick', function() { addPixel("http://r.rbc.ru/8W3G4fV8W36/?_rnd="+adBlockRnd);});
+                                                             }
+                                                             var i = document.createElement('img');
+                                                             i.src = "http://s.rbk.ru/files_static/rbc.ru/image/15949/240x600-2.jpg";
+                                                             i.width = 240;
+                                                             i.height = 600;
+                                                             i.style.cssText = 'width : 240px !important; height : 600px !important; display : block !important;';
+                                                             a.appendChild(i);
+                                                             div.appendChild(a);
+                                                             div.style.cssText = 'display : block !important;';
+                                                             d.parentNode.insertBefore(div, d);
+                                                             addPixel("http://arvr.rbc.ru/s/?sid=1&bt=21&ad=615510&pid=2509180&bid=4895858&bn=4895858&rnd=" + adBlockRnd);
+                                                             addPixel("http://r.rbc.ru/count/8W3G4fV8W36/?_rnd="+adBlockRnd);
+                                                             }
+
+                                                             var __div_for_check = document.getElementById('__div_for_check');
+                                                             var __parent_div = __div_for_check.parentNode;
+
+                                                             try {
+                                                             var __container_div = __parent_div.parentNode;
+                                                             if (__container_div.className == "banner__container") {
+                                                             var __link = __container_div.getElementsByClassName('banner__container__link')[0];
+                                                             if (__link) {
+                                                             __link.style.display = "none";
+                                                             }
+                                                             }
+                                                             } catch (e) {}
+
+                                                             if (__parent_div && /\bbanner\b/i.test(__parent_div.className)) {
+                                                             __removeClass(__parent_div, "banner");
+                                                             __parent_div.removeAttribute("data-banner-id");
+                                                             __parent_div.style.cssText += "display : block !important;";
+                                                             while (__parent_div = __parent_div.parentNode) {
+                                                             if (/l\-col\-w\-240/.test(__parent_div.className)) {
+                                                             __parent_div.style.cssText += "display : block !important;";
+                                                             }
+                                                             if (/(^|\s+)article__right\-banners(\s+|$)/.test(__parent_div.className)) {
+                                                             __parent_div.className = __parent_div.className.replace("article__right-banners", "");
+                                                             }
+                                                             if (/(^|\s+)js\-rbcslider\-banner(\s+|$)/.test(__parent_div.className)) {
+                                                             __parent_div.style.cssText += "display : block !important;";
+                                                             //__parent_div.className = __parent_div.className.replace("js-rbcslider-banner", "");
+                                                             break;
+                                                             }
+                                                             }
+                                                             }
+                                                             }
+                                                             }, 1000);
+
+                                                             */
+                                                        </script></div>
+
+
+
+
+                                                    <div class="g-banner-hide-by-exclusive">
+
+                                                    </div>
+
+
+                                                    <div class="js-rbcslider-sticky-second">
+                                                        <div class="main-article">
+                                                            <div class="g-hidden js-article-check-visibility" data-priority="2" data-yandex-name="main_right">
+                                                                <div class="main-article__header">
+                                                                    Главное
+                                                                </div>
+                                                                <div class="main-article__content">
+
+                                                                    <div class="item-small item-small_big">
+                                                                        <a href="http://www.rbc.ru/politics/08/04/2017/58e8fae29a794716a159c34a?from=main_right" class="item-small__link js-yandex-counter" data-yandex-name="from_main_right" data-yandex-params='{url: "http://www.rbc.ru/politics/08/04/2017/58e8fae29a794716a159c34a"}'>
+        <span class="item-small__title">
+                        Трамп поздравил американских военных с успешной атакой на Сирию
+        </span>
+                                                                        </a>
+                                                                        <span class="item-small__bottom">
+                            <a href="/politics" class="item-small__info">
+                                                                        Политика
+                                                </a>
+                                                                </span>
+
+                                                                    </div>
+
+                                                                    <div class="item-small">
+                                                                        <a href="http://www.rbc.ru/rbcfreenews/58e8e0999a7947666af0270a?from=main_right" class="item-small__link js-yandex-counter" data-yandex-name="from_main_right" data-yandex-params='{url: "http://www.rbc.ru/rbcfreenews/58e8e0999a7947666af0270a"}'>
+        <span class="item-small__title">
+                        В Москве ответили на отказ Джонсона от визита в Москву
+        </span>
+                                                                        </a>
+                                                                        <span class="item-small__bottom">
+                            <a href="/politics" class="item-small__info">
+                                                                        Политика
+                                                </a>
+                                                                </span>
+
+                                                                    </div>
+
+                                                                    <div class="item-small">
+                                                                        <a href="http://www.rbc.ru/politics/08/04/2017/58e8d5049a7947589afe3441?from=main_right" class="item-small__link js-yandex-counter" data-yandex-name="from_main_right" data-yandex-params='{url: "http://www.rbc.ru/politics/08/04/2017/58e8d5049a7947589afe3441"}'>
+        <span class="item-small__title">
+                        Глава британского МИДа отменил визит в Москву из-за ситуации в Сирии
+        </span>
+                                                                        </a>
+                                                                        <span class="item-small__bottom">
+                            <a href="/politics" class="item-small__info">
+                                                                        Политика
+                                                </a>
+                                                                </span>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="js-rbcslider-footer g-banner__news-footer g-relative">
+                                    <div class="l-row">
+
+                                        <div class="js-rbcslider-sub-news">
+                                            <div class="banner partners-news js-banner-no-remove">
+
+                                                <div id="unit_smi2_"><a href="http://smi2.ru/" target="_blank">Новости партнеров</a></div>
+                                                <script type="text/javascript" charset="utf-8">
+                                                    if (!window.smi2ids) {
+                                                        window.smi2ids = [88436, 88437, 88438, 88439, 88440];
+                                                        window.smi2slide = parseInt($.cookie('smi2_slide'));
+                                                        if (isNaN(window.smi2slide)) window.smi2slide = Math.round(Math.random() * 1000000);
+                                                        window.smi2slide++;
+                                                        window.smi2slide %= 2;
+                                                        $.cookie('smi2_slide', window.smi2slide, {path: '/'});
+                                                        window.smi2idx = 0;
+                                                    }
+
+
+                                                    (function() {
+                                                        var id;
+                                                        id = window.smi2ids[window.smi2idx];
+
+                                                        var d = document.getElementById('unit_smi2_');
+                                                        if (!d) return;
+                                                        if ($(d).is(':visible') && "0" == window.smi2slide) {
+                                                            d.id = 'unit_' + window.smi2ids[window.smi2idx];
+                                                            window.smi2idx = (window.smi2idx + 1) % window.smi2ids.length;
+                                                            $(window).ready(function() { $(d).closest('.js-rbcslider-footer').find('.js-readmore').hide(); });
+                                                        } else {
+                                                            $(d).hide();
+                                                            $(d).closest('.banner').hide();
+                                                            return;
+                                                        }
+
+                                                        var sc = document.createElement('script'); sc.type = 'text/javascript'; sc.async = true;
+                                                        sc.src = '//smi2.ru/data/js/' + id + '.js'; sc.charset = 'utf-8';
+                                                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sc, s);
+                                                    }());
+                                                </script>
+                                            </div>
+                                            <div class="js-readmore readmore"></div>
+                                        </div>
+
+
+                                        <div class="g-banner-hide-by-exclusive">
+                                            <div class="banner js-banner-no-remove" data-banner-id="top_informers"><!-- Media2/top_informers -->
+
+                                                <!-- Yandex.RTB R-A-123194-30 -->
+                                                <div class="banners__wrap-article">
+                                                    <div class="banners__yandex__article banners__yandex__article_v2">
+                                                        <div class="banners__yandex__article__header">
+            <span class="banners__yandex__article__header-text">
+                <a class="banners__yandex__article__header-link" href="https://direct.yandex.ru/?partner" target="_blank">&#1071;&#1085;&#1076;&#1077;&#1082;&#1089;. &#1044;&#1080;&#1088;&#1077;&#1082;&#1090;</a>
+            </span>
+                                                        </div>
+                                                        <div class="banners__yandex__article__items"><div id="yandex_rtb_R-A-123194-30"></div>
+
+                                                            <script type="text/javascript">
+                                                                (function() {
+
+                                                                    function yad_notifyEvent(div_id, type) {
+                                                                        try {
+                                                                            var w = window;
+                                                                            var data = {'pid' : div_id, 'type' : type};
+                                                                            if (typeof w.CustomEvent == 'function') { /* modern browsers */
+                                                                                event = new w.document.defaultView.CustomEvent('banner', { 'bannerData': data });
+                                                                                event.bannerData = data;
+                                                                            } else if (typeof w.Event == 'function') {
+                                                                                event = new w.Event('banner');
+                                                                                event.bannerData = data;
+                                                                            } else if (typeof w.document.createEvent == 'function') { /* IE 9+ */
+                                                                                event = w.document.createEvent('Event');
+                                                                                event.initEvent('banner', true, true);
+                                                                                event.bannerData = data;
+                                                                            }
+                                                                            if (event) w.document.dispatchEvent(event);
+                                                                        } catch(e) {}
+                                                                    }
+
+                                                                    function yad_hide(div) {
+                                                                        if (div) { try {
+                                                                            $(div).closest('.banners__wrap-article').hide();
+                                                                        } catch(e) {} }
+                                                                    }
+
+                                                                    var div = document.getElementById("yandex_rtb_R-A-123194-30");
+                                                                    if (div) {
+                                                                        var _blockId = (window.bannersVersion == 'v8' ? 'R-A-123194-34' : 'R-A-123194-30');
+                                                                        var rnd = Math.round(Math.random()*1000000000);
+                                                                        div.id = "yandex_rtb_" + _blockId  + "-" + rnd;
+                                                                        (function(r, w, d, n, s, t) {
+                                                                            w[n] = w[n] || [];
+                                                                            w[n].push(function() {
+                                                                                Ya.Context.AdvManager.render(
+                                                                                    { blockId: _blockId, renderTo: div.id, async: true, pageNumber: r }
+                                                                                );
+                                                                            });
+                                                                            t = d.getElementsByTagName("script")[0];
+                                                                            s = d.createElement("script");
+                                                                            s.type = "text/javascript";
+                                                                            s.src = "//an.yandex.ru/system/context.js";
+                                                                            s.async = true;
+                                                                            t.parentNode.insertBefore(s, t);
+                                                                        })(rnd, this, this.document, "yandexContextAsyncCallbacks");
+
+                                                                        (function() {
+                                                                            var div_counter = 0;
+                                                                            setTimeout(function() {
+                                                                                if (div.innerHTML.length) {
+                                                                                    yad_notifyEvent(div.id, 'show');
+                                                                                    return;
+                                                                                } else if (++div_counter < 10){
+                                                                                    setTimeout(arguments.callee, 500);
+                                                                                    return;
+                                                                                } else {
+                                                                                    yad_hide(div);
+                                                                                    yad_notifyEvent(div.id, 'empty');
+                                                                                    return;
+                                                                                }
+                                                                            }, 500);
+                                                                        })();
+                                                                    }
+                                                                })();
+
+                                                            </script>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="js-news-footer g-hidden">
+                        <div class="js-rbcslider-footer">
+                            <div class="banner g-white" data-banner-id="new_news_bot_2"><a target="_top" href="http://banner.rbc.ru/banredir.cgi?lid=new_news_bot_2&_b=Media2/new_news_bot_2_DFP" empty="true" style="display:none"></a><!-- RBCNews_Filmstrip 1937 (new_news_bot_2) -->
+                                <div id='div-gpt-ad-1436366028349-0'>
+                                    <script type='text/javascript'>
+                                        googletag.cmd.push(function() {
+                                            rbc_dfp.display('div-gpt-ad-1436366028349-0');
+                                        });
+                                    </script>
+                                </div></div>
+
+                            <div class="footer g-noprint">
+                                <div class="footer__table">
+                                    <div class="footer__tr">
+                                        <div class="footer__td footer__td_50">
+                                            <div class="footer__list-item">
+                                                <a href="http://www.rbcholding.ru/about.shtml" class="footer__link">О компании</a>
+                                            </div>
+                                            <div class="footer__list-item">
+                                                <a href="http://www.rbc.ru/contacts/" class="footer__link">Контактная информация</a>
+                                            </div>
+                                            <div class="footer__list-item">
+                                                <a href="http://www.rbc.ru/editors/" class="footer__link">Редакция</a>
+                                            </div>
+                                            <div class="footer__list-item last">
+                                                <a href="http://rbc.ru/advert/" class="footer__link">Размещение рекламы</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="footer__td footer__td_75">
+                                            <div class="footer__list-item footer__header">Региональные версии</div>
+
+                                            <div class="footer__inner-table">
+                                                <div class="footer__td footer__td_30">
+                                                    <div class="footer__list-item"><a href="http://ufa.rbc.ru/ufa/" class="footer__link">Башкортостан</a></div>
+                                                    <div class="footer__list-item"><a href="http://kaliningrad.rbc.ru/kaliningrad/" class="footer__link">Калининград</a></div>
+                                                    <div class="footer__list-item"><a href="http://nsk.rbc.ru/nsk/" class="footer__link">Новосибирск</a></div>
+                                                    <div class="footer__list-item"><a href="http://www.rbc.ru/spb_sz/" class="footer__link">С.-Петербург</a></div>
+                                                    <div class="footer__list-item last"><a href="http://chr.rbc.ru/chr/" class="footer__link">Черноземье</a></div>
+                                                </div>
+                                                <div class="footer__td footer__td_30">
+                                                    <div class="footer__list-item"><a href="http://vo.rbc.ru/vo/" class="footer__link">Вологда</a></div>
+                                                    <div class="footer__list-item"><a href="http://kuban.rbc.ru/krasnodar/" class="footer__link">Краснодар</a></div>
+                                                    <div class="footer__list-item"><a href="http://perm.rbc.ru/perm/" class="footer__link">Пермь</a></div>
+                                                    <div class="footer__list-item last"><a href="http://rt.rbc.ru/tatarstan/" class="footer__link">Татарстан</a></div>
+                                                </div>
+                                                <div class="footer__td footer__td_30">
+                                                    <div class="footer__list-item"><a href="http://ekb.rbc.ru/ekb/" class="footer__link">Екатеринбург</a></div>
+                                                    <div class="footer__list-item"><a href="http://nn.rbc.ru/nn/" class="footer__link">Н.Новгород</a></div>
+                                                    <div class="footer__list-item"><a href="http://rostov.rbc.ru/rostov/" class="footer__link">Ростов-на-Дону</a></div>
+                                                    <div class="footer__list-item last"><a href="http://t.rbc.ru/tyumen/" class="footer__link">Тюмень</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="footer__td footer__td_50">
+                                            <div class="footer__list-item footer__header">РБК в соцсетях</div>
+
+                                            <div class="footer__inner-table">
+                                                <div class="footer__td footer__td_30">
+                                                    <div class="footer__list-item">
+                                                        <a href="http://facebook.com/rbcru" class="footer__link footer__fs">Facebook</a>
+                                                    </div>
+                                                    <div class="footer__list-item">
+                                                        <a href="https://vk.com/rbc" class="footer__link footer__vk">ВКонтакте</a>
+                                                    </div>
+                                                    <div class="footer__list-item last">
+                                                        <a href="http://twitter.com/ru_rbc" class="footer__link footer__tw">Twitter</a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="footer__td footer__td_30">
+                                                    <div class="footer__list-item">
+                                                        <a href="http://www.odnoklassniki.ru/group/51670727852273" class="footer__link footer__odn">Одноклассники</a>
+                                                    </div>
+                                                    <div class="footer__list-item last">
+                                                        <a href="http://www.youtube.com/user/tvrbcnews" class="footer__link footer__yout">YouTube</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="footer__td footer__td_75 footer__td_last">
+                                            <div class="footer__list-item"><a href="/mobile/" class="footer__link footer__green js-footer-site-version">Мобильная версия сайта</a></div>
+                                            <div class="footer__list-item">
+                                                <a href="http://static.feed.rbc.ru/rbc/logical/footer/news.rss" class="footer__link">RSS</a>
+                                            </div>
+                                            <a href="https://app.rbc.ru/gpn/unsubscribe.html" class="footer__link js-popup-push-subscribe-button">Оповещения RBC.RU</a>            </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="footer__table">
+                                    <div class="footer__tr">
+                                        <div class="footer__td">
+                                            <div class="footer__inline-item footer__header">Другие продукты РБК</div>
+                                            <div class="footer__inline-item">
+                                                <a href="http://www.nic.ru/" class="footer__link">Домены и хостинг</a>
+                                            </div>
+                                            <div class="footer__inline-item">
+                                                <a href="http://www.public.ru/" class="footer__link">Медиапоиск и анализ</a>
+                                            </div>
+                                            <div class="footer__inline-item">
+                                                <a href="http://loveplanet.ru/" class="footer__link">Знакомства</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="footer__table">
+                                    <div class="footer__tr">
+                                        <div class="footer__td footer__td_50">
+                                            &copy;&nbsp;ЗАО&nbsp;&laquo;РОСБИЗНЕСКОНСАЛТИНГ&raquo;,
+                                            <nobr>1995–2017</nobr><br/>
+
+                                            <a href="mailto:letters@rbc.ru" class="footer__green">letters@rbc.ru</a>            </div>
+
+                                        <div class="footer__td footer__td_50">
+                                            Информация об&nbsp;ограничениях<br/>                &copy;&nbsp;<a href="http://www.rbc.ru/restrictions#reuters" class="footer__green" target="_blank">Reuters</a>, &copy;&nbsp;<a href="http://www.rbc.ru/restrictions#press" class="footer__green" target="_blank">AP</a>, &copy;&nbsp;<a href="http://www.rbc.ru/restrictions#interfax" class="footer__green" target="_blank">Интерфакс</a>            </div>
+
+                                        <div class="footer__td footer__td_50 footer__td_min-16">
+                                            <a href="http://www.rbc.ru/privacy/" class="footer__green">О&nbsp;соблюдении авторских&nbsp;прав</a>
+                                        </div>
+
+                                        <div class="footer__td footer__td_50 footer__td_min-25">
+                                            Материалы с <span class="footer__star">отметкой</span><br/> публикуются на&nbsp;правах рекламы
+                                        </div>
+
+                                        <div class="footer__td footer__td_50 footer__td_last">
+                                            <span class="footer__copy18"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="footer__table">
+                                    <div class="footer__tr">
+                                        <div class="footer__td footer__td_50 footer__gray">
+                                            Сообщения и&nbsp;материалы информационного агентства &laquo;РБК&raquo; (зарегистрировано Федеральной службой по надзору в&nbsp;сфере связи, информационных технологий и&nbsp;массовых коммуникаций (Роскомнадзор) 09.12.2015 за номером ИА №ФС77-63848) сопровождаются пометкой &laquo;РБК&raquo;. Иная&nbsp;<a href="#" class="footer__green js-popup-law-link">правовая&nbsp;информация</a>.
+                                        </div>
+                                        <div class="footer__td footer__td_50 footer__gray">
+                                            Чтобы отправить редакции сообщение, выделите часть текста в статье и нажмите Ctrl+Enter            </div>
+                                        <div class="footer__td footer__td_50 footer__td_last">
+                                            <div class="footer__counter">
+                                                <a href="http://www.liveinternet.ru/click" target=_blank><img src="//pics.rbc.ru/img/ver99/counter_liveinternet.gif" border=0 width=31 height=31 title="liveinternet.ru"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="js-popup-law g-zeropixel">
+                                <div class="popup__law g-noprint">
+                                    <div class="popup__law__title">ЗАО &laquo;РОСБИЗНЕСКОНСАЛТИНГ&raquo;</div>
+                                    <div class="popup__law__text">
+                                        <div class="popup__law__block">
+                                            <div class="popup__law__header">Генеральный директор</div>
+                                            Николай Петрович Молибог
+                                        </div>
+                                        <div class="popup__law__block">
+                                            <div class="popup__law__header">Адрес юридического лица и почтовый адрес</div>
+                                            Город Москва, улица Профсоюзная, дом 78, строение 1, почтовый индекс 117393
+                                        </div>
+                                    </div>
+                                    <div class="popup__law__bottom">
+                                        Электронная почта <a href="mailto:law-it@rbc.ru" class="popup__law__link">law-it@rbc.ru</a>, для направления юридически значимых сообщений<br/>и (или) заявлений о нарушении авторских и смежных прав
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .l-window-body -->
+    </div>
+</div><!-- .l-window -->
+
+
+<div class="g-zeropixel">
+    <div class="g-counter">
+        <script>RA.config.set('counters.tns.tmsec', 'rbcru_news');</script>
+
+        <!-- tns-counter.ru -->
+        <script type="text/javascript">
+            (function(win, doc, cb){
+                (win[cb] = win[cb] || []).push(function() {
+                    try {
+                        tnsCounterRbc_ru = new TNS.TnsCounter({
+                            'account':'rbc_ru',
+                            'tmsec': 'rbcru_news'
+                        });
+                    } catch(e){}
+                });
+
+                var tnsscript = doc.createElement('script');
+                tnsscript.type = 'text/javascript';
+                tnsscript.async = true;
+                tnsscript.src = ('https:' == doc.location.protocol ? 'https:' : 'http:') +
+                    '//www.tns-counter.ru/tcounter.js';
+                var s = doc.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(tnsscript, s);
+            })(window, this.document,'tnscounter_callback');
+        </script>
+        <noscript>
+            <img src="//www.tns-counter.ru/V13a****rbc_ru/ru/UTF-8/tmsec=rbcru_news/" width="0" height="0" alt="" />
+        </noscript>
+        <!--/ tns-counter.ru -->
+    </div>
+
+    <div class="g-counter">
+        <script>RA.config.set('counters.ya.idCounter', '16443139');</script>
+
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            var yaParams = {region: 'World'};
+            yaParams = {ab_test_main3: 'v8_lead'};
+            function getCookie(name) {
+                var matches = document.cookie.match(new RegExp(
+                    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+                ));
+                return matches ? decodeURIComponent(matches[1]) : undefined;
+            }
+
+            if(document.cookie.indexOf( "toprbc_device" ) >= 0){
+
+                yaParams.mobile_cookies = getCookie( "toprbc_device" );
+            }
+
+            (function (d, w, c) {
+                (w[c] = w[c] || []).push(function() {
+                    try {
+                        w.yaCounter16443139 = new Ya.Metrika({id:16443139, triggerEvent: true, enableAll: true, webvisor:true, params: window.yaParams||{}});
+                    } catch(e) { }
+                });
+
+                var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () { n.parentNode.insertBefore(s, n); };
+                s.type = "text/javascript";
+                s.async = true;
+                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+                if (w.opera == "[object Opera]") {
+                    d.addEventListener("DOMContentLoaded", f);
+                } else { f(); }
+            })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/16443139" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+    </div>
+
+    <!-- SMI2 pixel -->
+    <script type="text/javascript">
+        var ttsmi2_data = {
+            siteid: 40611,
+            count: 'site'
+        };
+        (function() {
+            var sc = document.createElement('script');
+            sc.type = 'text/javascript';
+            sc.async = true;
+            sc.src = '//target.smi2.net/client/target.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(sc, s);
+        }());
+    </script>
+    <!-- / SMI2 pixel -->
+
+    <!-- SMI2 pixel -->
+    <script type="text/javascript">
+        var ttagsmi2_data = {
+            tag: 20300,
+            ver: 2,
+            format: 'pixel',
+            cdt: '2016-12-22 12:59:14'
+        };
+        (function() {
+            var sc = document.createElement('script');
+            sc.type = 'text/javascript';
+            sc.async = true;
+            sc.src = '//target.smi2.net/client/ttag.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(sc, s);
+        }());
+    </script>
+    <!-- / SMI2 pixel -->
+</div>
+
+<script type="text/javascript">
+    var bannersConfig = [{"nick":"firstpage_left2","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"new_news_bot_2","refresh_timeout":1,"max_refresh_count":999,"tab_refresh":true,"is_disabled":false},{"nick":"news_spec","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"new_banner_right","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"new_news_shapka","refresh_timeout":3,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"new_top_left","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"fp_new_realty_teaser1","refresh_timeout":3,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"fp_new_auto_teaser1","refresh_timeout":3,"max_refresh_count":999,"tab_refresh":true,"is_disabled":false},{"nick":"new_banner_right_3","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"new_banner_right_2","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"right_spec_auto","refresh_timeout":3,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"new_banner_right_4","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"new_news_bot_2_4","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"right_spec_realty","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"new_news_bot_2_2","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"new_news_bot_2_3","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"new_news_shapka_3","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"new_news_shapka_2","refresh_timeout":3,"max_refresh_count":1,"tab_refresh":true,"is_disabled":false},{"nick":"new_news_shapka_4","refresh_timeout":3,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"rbc_mobile_top_4_pad","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"rbc_mobile_top_2_pad","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"rbc_mobile_bot_2","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"rbc_mobile_bot_2_pad","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"rbc_mobile_top_3_pad","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"rbc_mobile_top_3","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"rbc_mobile_top_2","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"rbc_mobile_top_4","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"top_smi2_2","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"top_smi2_3","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"top_informers","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"new_news_shapka_8","refresh_timeout":3,"max_refresh_count":0,"tab_refresh":true,"is_disabled":true},{"nick":"top_smi2","refresh_timeout":1,"max_refresh_count":0,"tab_refresh":true,"is_disabled":false},{"nick":"new_news_shapka_5","refresh_timeout":3,"max_refresh_count":0,"tab_refresh":true,"is_disabled":true},{"nick":"new_news_shapka_7","refresh_timeout":3,"max_refresh_count":0,"tab_refresh":true,"is_disabled":true},{"nick":"new_news_shapka_6","refresh_timeout":3,"max_refresh_count":0,"tab_refresh":true,"is_disabled":true}];
+</script>
+<script src="http://s.rbk.ru/v8_top_static/common/common-8.2.4/scripts/build/_main.js"></script>
+<script src="http://s.rbk.ru/v8_top_static/rbc7-8.2.4/scripts/build/_news.js"></script>
+<div class="js-popup-push g-zeropixel">
+    <div class="popup__push g-noprint">
+        <div class="popup__push__title">Оповещения RBC.RU</div>
+        <div class="popup__push__text">Вы можете получать оповещения от RBC.RU в вашем браузере</div>
+        <div><a href="https://app.rbc.ru/gpn/subscribe.html" class="popup__push__button js-popup-push-button">Подписаться</a></div>
+    </div>
+</div>
+
+<div class="js-popup-push-subscribe g-zeropixel">
+    <div class="popup__push g-noprint">
+        <div class="popup__push__title">Оповещения RBC.RU</div>
+        <div class="popup__push__text">Вы можете получать оповещения от RBC.RU в вашем браузере</div>
+        <div>
+            <a href="https://app.rbc.ru/gpn/subscribe.html" class="popup__push__button js-popup-push-subscribe-button-yes">Подписаться</a>
+            <a href="https://app.rbc.ru/gpn/unsubscribe.html" class="popup__push__button popup__push__button_gray js-popup-push-subscribe-button-no">Отменить подписку</a>
+        </div>
+    </div>
+</div>    <script src="http://s.rbk.ru/v8_top_static/rbc7-8.2.4/scripts/build/_main.js"></script>
+
+<!--AB: ab05554:B; -->
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"8bff0dff29","applicationID":"45928005","transactionName":"YgcDNUIEDxYHUEVbXFtNNBNZShYSERxHCh1BDRFPQgcCSxRGHl5aVxFOE1IGVkoFRkNAVlsWThFFBw0MBRxYXFdQGk8RWBU=","queueTime":0,"applicationTime":154,"atts":"TkAAQwoeHBg=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>
+

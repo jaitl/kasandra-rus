@@ -22,5 +22,4 @@ object SiteType {
   case object RbcSite extends SiteType("RBC")
   case object KpSite extends SiteType("KP")
   case object VestiSite extends SiteType("VESTI")
-  case object RePublickSite extends SiteType("REPUBLICK")
 }

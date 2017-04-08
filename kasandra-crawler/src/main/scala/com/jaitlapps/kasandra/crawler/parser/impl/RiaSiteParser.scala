@@ -9,11 +9,16 @@ object RiaSiteParser extends SiteParser {
   protected override def parseContent(doc: Document): String = {
     val content = doc.select(".b-content-body .b-article__body")
 
-    val strong = Option(content.select("strong"))
-    val spam = Option(content.select("div.b-inject"))
+    val strong = content.select("strong")
+    val spam = content.select("div.b-inject")
 
-    strong.foreach(element => element.remove())
-    spam.foreach(element => element.remove())
+    if (!strong.isEmpty) {
+      strong.remove()
+    }
+
+    if (!spam.isEmpty) {
+      spam.remove()
+    }
 
     if (content.text().startsWith(".")) {
       content.text().substring(1)
