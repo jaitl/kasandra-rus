@@ -12,8 +12,6 @@ object SiteType {
     case RbcSite.name => RbcSite
     case KpSite.name => KpSite
     case VestiSite.name => VestiSite
-    case GazetaSite.name => GazetaSite
-    case RePublickSite.name => RePublickSite
   }
 
   case object RtSite extends SiteType("RT")
@@ -24,6 +22,5 @@ object SiteType {
   case object RbcSite extends SiteType("RBC")
   case object KpSite extends SiteType("KP")
   case object VestiSite extends SiteType("VESTI")
-  case object GazetaSite extends SiteType("GAZETA")
   case object RePublickSite extends SiteType("REPUBLICK")
 }
