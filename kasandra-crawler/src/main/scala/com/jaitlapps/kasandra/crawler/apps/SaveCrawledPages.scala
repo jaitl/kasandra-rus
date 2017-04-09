@@ -71,11 +71,11 @@ object SaveCrawledPages extends App with StrictLogging with JsonExtension {
 
   saveResultFuture.onComplete {
     case Success(_) =>
-      logger.info("Save success finish")
+      logger.info("Save crawled success finish")
       file.close()
       system.terminate()
     case Failure(ex) =>
-      logger.error("Error during parse", ex)
+      logger.error("Error during save crawled", ex)
       file.close()
       system.terminate()
   }
