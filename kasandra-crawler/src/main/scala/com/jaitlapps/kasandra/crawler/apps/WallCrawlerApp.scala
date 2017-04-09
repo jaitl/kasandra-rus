@@ -1,4 +1,4 @@
-package com.jaitlapps.kasandra.crawler
+package com.jaitlapps.kasandra.crawler.apps
 
 import java.util.concurrent.Executors
 
@@ -10,10 +10,9 @@ import com.jaitlapps.kasandra.crawler.db.DbConnection
 import com.jaitlapps.kasandra.crawler.db.DbInit
 import com.jaitlapps.kasandra.crawler.models.CrawlSite
 import com.jaitlapps.kasandra.crawler.raw.db.RawCrawledPagesDaoSlick
-import com.jaitlapps.kasandra.crawler.site.actor.SiteCrawlerActor
-import com.jaitlapps.kasandra.crawler.site.actor.SiteCrawlerActor.SiteCrawlerConfig
-import com.jaitlapps.kasandra.crawler.site.actor.SiteDispatcherActor
-import com.jaitlapps.kasandra.crawler.site.db.CrawledSitePagesDaoSlick
+import com.jaitlapps.kasandra.crawler.wall.actor.WallCrawlerActor
+import com.jaitlapps.kasandra.crawler.wall.actor.WallCrawlerActor.WallCrawlerConfig
+import com.jaitlapps.kasandra.crawler.wall.actor.WallDispatcherActor
 import com.jaitlapps.kasandra.crawler.wall.db.CrawlWallDaoSlick
 import com.jaitlapps.kasandra.crawler.wall.db.WallLinksDaoSlick
 import com.typesafe.config.ConfigFactory
@@ -23,47 +22,44 @@ import scala.concurrent.ExecutionContext
 import scala.util.Failure
 import scala.util.Success
 
-object SiteCrawlerApp extends App with StrictLogging {
+object WallCrawlerApp extends App with StrictLogging {
   val system = ActorSystem("KasandraWallCrawlerSystem")
   implicit val executionContext = ExecutionContext.fromExecutor(Executors.newWorkStealingPool(10))
 
   val config = ConfigFactory.load()
-  val siteConfig = config.getConfig("site")
-  val siteCrawlerConfig = SiteCrawlerConfig(siteConfig.getConfig("crawler"))
+  val wallConfig = config.getConfig("wall")
+  val wallCrawlerConfig = WallCrawlerConfig(wallConfig.getConfig("crawler"))
 
   val dbConnection = new DbConnection
   val dbInit = new DbInit(dbConnection)
   val wallLinksDao = new WallLinksDaoSlick(dbConnection)
-  val crawledSitePagesDao = new CrawledSitePagesDaoSlick(dbConnection)
   val crawlWallDao = new CrawlWallDaoSlick(dbConnection)
   val rawCrawledPagesDao = new RawCrawledPagesDaoSlick(dbConnection)
 
-  val siteCrawlerActorCreator = new ActorCreator[CrawlSite] {
+  val wallCrawlerActorCreator: ActorCreator[CrawlSite] = new ActorCreator[CrawlSite] {
     override def create(factory: ActorRefFactory, name: String): (CrawlSite) => ActorRef =
       site => factory.actorOf(
-        props = SiteCrawlerActor.props(
+        props = WallCrawlerActor.props(
           site = site,
-          config = siteCrawlerConfig,
-          crawledSitePagesDao = crawledSitePagesDao,
+          crawlWallDao = crawlWallDao,
           wallLinksDao = wallLinksDao,
           rawCrawledPagesDao = rawCrawledPagesDao,
+          config = wallCrawlerConfig,
           executionContext = executionContext
         ),
         name = name
       )
   }
 
-  val siteDispatcherActor = system.actorOf(
-    props = SiteDispatcherActor.props(siteCrawlerActorCreator),
-    name = SiteDispatcherActor.name()
+  val wallDispatcherActor = system.actorOf(
+    props = WallDispatcherActor.props(wallCrawlerActorCreator),
+    name = WallDispatcherActor.name()
   )
 
-  dbInit.init()
-    .flatMap(_ => crawlWallDao.getCrawlWallList()
-      .map(_.map(wall => CrawlSite(wall.id, wall.siteType, wall.domain, wall.vkGroup))))
+  dbInit.init().flatMap(_ => crawlWallDao.findNotCrawledWalls())
     .onComplete {
-      case Success(sites) =>
-        siteDispatcherActor ! SiteDispatcherActor.StartSiteCrawl(sites)
+      case Success(walls) =>
+        wallDispatcherActor ! WallDispatcherActor.StartCrawling(walls)
       case Failure(ex) =>
         logger.error("Db init error", ex)
         system.terminate()

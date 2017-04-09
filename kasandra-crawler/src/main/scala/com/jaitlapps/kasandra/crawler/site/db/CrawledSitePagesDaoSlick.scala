@@ -17,4 +17,16 @@ class CrawledSitePagesDaoSlick(
   override def save(page: CrawledSitePage): Future[Int] = db.run {
     crawledSitePagesQuery += page
   }
+
+  override def list(offset: Int, limit: Int): Future[Seq[CrawledSitePage]] = db.run {
+    crawledSitePagesQuery
+      .sortBy(_.date asc)
+      .drop(offset)
+      .take(limit)
+      .result
+  }
+
+  override def count(): Future[Int] = db.run {
+    crawledSitePagesQuery.size.result
+  }
 }

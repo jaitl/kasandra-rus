@@ -6,4 +6,6 @@ import scala.concurrent.Future
 
 trait CrawledSitePagesDao {
   def save(page: CrawledSitePage): Future[Int]
+  def list(offset: Int, limit: Int): Future[Seq[CrawledSitePage]]
+  def count(): Future[Int]
 }

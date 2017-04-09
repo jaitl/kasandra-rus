@@ -1,4 +1,4 @@
-package com.jaitlapps.kasandra.crawler
+package com.jaitlapps.kasandra.crawler.apps
 
 import java.util.UUID
 

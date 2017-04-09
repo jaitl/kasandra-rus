@@ -36,7 +36,7 @@ object ParserApp extends App with StrictLogging {
   val crawledSitePagesDao = new CrawledSitePagesDaoSlick(dbConnection)
 
   val sites: Set[SiteType] = SiteType.list
-  val limit = 1000
+  val limit = 100
 
   val siteFuture = rawCrawledPagesDao.size(sites)
 
