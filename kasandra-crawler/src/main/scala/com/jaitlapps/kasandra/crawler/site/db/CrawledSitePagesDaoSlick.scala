@@ -1,5 +1,7 @@
 package com.jaitlapps.kasandra.crawler.site.db
 
+import java.sql.Timestamp
+
 import com.jaitlapps.kasandra.crawler.db.DbConnection
 import com.jaitlapps.kasandra.crawler.site.db.table.CrawledSitePage
 import com.jaitlapps.kasandra.crawler.site.db.table.CrawledSitePagesTable
@@ -26,7 +28,26 @@ class CrawledSitePagesDaoSlick(
       .result
   }
 
+  def list(offset: Int, limit: Int, start: Timestamp, end: Timestamp): Future[Seq[CrawledSitePage]] = db.run {
+    crawledSitePagesQuery
+      .sortBy(_.date asc)
+      .filter(_.date > start)
+      .filter(_.date < end)
+      .drop(offset)
+      .take(limit)
+      .result
+  }
+
+
   override def count(): Future[Int] = db.run {
     crawledSitePagesQuery.size.result
+  }
+
+  override def count(start: Timestamp, end: Timestamp): Future[Int] = db.run {
+    crawledSitePagesQuery
+      .filter(_.date > start)
+      .filter(_.date < end)
+      .size
+      .result
   }
 }
