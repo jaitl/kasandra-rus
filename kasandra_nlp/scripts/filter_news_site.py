@@ -4,8 +4,8 @@ from scripts.news import News
 
 news = []
 
-normalized_path = '/data/kasandra/year/98305.normalized.json'
-filtred_path = '/data/kasandra/year/lenta.rbc.ria.news.json'
+normalized_path = '/data/kasandra/year/2016.raw.json'
+filtred_path = '/data/kasandra/year/lenta.rbc.kp.vesti.2016.raw.json'
 
 print("load news")
 with open(normalized_path, encoding="utf8") as f:
@@ -24,7 +24,7 @@ for new in news:
 print(siteTypes)
 
 def site_type_filter(new):
-    return new.siteType == 'LENTA' or new.siteType == 'RBC' or new.siteType == 'RIA'
+    return new.siteType == 'LENTA' or new.siteType == 'RBC' or new.siteType == 'KP' or new.siteType == 'VESTI'
 
 
 print("filter news")

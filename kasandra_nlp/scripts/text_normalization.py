@@ -24,8 +24,8 @@ def normalize(new):
     return new
 
 
-raw_path = '/data/kasandra/year/104636.raw.json'
-normalized_path = '/data/kasandra/year/104636.normalized.json'
+raw_path = '/data/kasandra/year/lenta.rbc.kp.vesti.2016.raw.json'
+normalized_path = '/data/kasandra/year/lenta.rbc.kp.vesti.2016.normalized.json'
 
 raw_news = []
 news = []
@@ -64,4 +64,4 @@ with open(normalized_path, encoding="utf8", mode="w") as f:
         d_json = json.dumps(new.__dict__, separators=(',', ':'), ensure_ascii=False)
         f.write(d_json + '\n')
 
-print("end normalization, unique news: %s" % len(duplicates_names))
+print("end normalization, unique news: %s" % len(normalized_news))
