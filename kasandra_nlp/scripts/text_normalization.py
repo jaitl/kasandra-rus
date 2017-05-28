@@ -24,8 +24,8 @@ def normalize(new):
     return new
 
 
-raw_path = '/data/kasandra/year/lenta.rbc.kp.vesti.2016.raw.json'
-normalized_path = '/data/kasandra/year/lenta.rbc.kp.vesti.2016.normalized.json'
+raw_path = '/data/kasandra/year/raw.json'
+normalized_path = '/data/kasandra/year/all.normalized.json'
 
 raw_news = []
 news = []
