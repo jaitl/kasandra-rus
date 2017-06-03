@@ -5,11 +5,11 @@ import time
 
 from pymystem3 import Mystem
 
-from scripts.news import News
+from scripts.normalizing.news import News
 
 stopwords = set()
 
-with open('../res/stopwords.txt', mode="r", encoding="utf8") as file:
+with open('../../res/stopwords.txt', mode="r", encoding="utf8") as file:
     for line in file:
         stopwords.add(line.replace('\n', ''))
 

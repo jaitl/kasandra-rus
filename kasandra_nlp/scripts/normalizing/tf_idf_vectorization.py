@@ -3,7 +3,7 @@ import time
 from sklearn.externals import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from scripts.news import News
+from scripts.normalizing.news import News
 
 normalized_path = '/data/kasandra/year/lenta.rbc.ria.vesti.2016.normalized.json'
 tfidf_matrix_path = '/data/kasandra/year/lenta.rbc.ria.vesti.2016.pkl'

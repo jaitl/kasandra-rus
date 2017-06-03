@@ -1,6 +1,6 @@
 import json
 
-from scripts.news import News
+from scripts.normalizing.news import News
 
 news = []
 
