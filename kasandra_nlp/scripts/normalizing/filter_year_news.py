@@ -4,8 +4,8 @@ from scripts.normalizing.news import News
 
 news = []
 
-raw_path = '/data/kasandra/year/raw.json'
-filtred_path = '/data/kasandra/year/2016.raw.json'
+raw_path = '/data/kasandra/year/all.normalized.json'
+filtred_path = '/data/kasandra/year/2016.all.normalized.json'
 
 print("load news")
 with open(raw_path, encoding="utf8") as f:
