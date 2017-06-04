@@ -1,9 +1,6 @@
 from sklearn.cluster import KMeans
 from collections import Counter
-from sklearn.feature_extraction.text import HashingVectorizer
-from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.pipeline import make_pipeline
 import logging
 import time
 import sys
@@ -15,15 +12,14 @@ start_time = time.time()
 
 # Files
 dataset = '/data/kasandra/year/all.normalized.json'
+result_base = '/data/kasandra/year/result'
 
-use_hash = False
-n_clusters = 50
-n_features = 20000
+n_step = 100
+n_start = 100
+n_end = 500 + 1
 year = 2016
 
-name = '%s.%s' % (year, n_clusters)
-result_path = '/data/kasandra/year/result/%s.kmens.json' % name
-log_path = '/data/logs/%s.kmeans.logs' % name
+log_path = '/data/logs/%s.kmeans.logs' % year
 
 # Первая неделя марта
 (mart_start, mart_end) = (1425157200000, 1427835600000)
@@ -43,7 +39,6 @@ fh.setFormatter(formatter)
 root.addHandler(fh)
 
 logging.info("log file name: %s" % log_path)
-logging.info("use hash vectorizer: %s, n_clusters: %s, n_features: %s" % (use_hash, n_clusters, n_features))
 
 logging.info("Start load news...")
 
@@ -72,28 +67,25 @@ logging.info(
 start_vectorize = time.time()
 logging.info("Start vectorization...")
 
-if use_hash:
-    hasher = HashingVectorizer(n_features=n_features, stop_words=one_time_words, non_negative=True, norm=None,
-                               binary=False)
-    tfidf_transformer = TfidfTransformer(use_idf=True, norm='l2')  # , ngram_range=(1, 3)
-    tfidf_vectorizer = make_pipeline(hasher, tfidf_transformer)
-else:
-    tfidf_vectorizer = TfidfVectorizer(use_idf=True, tokenizer=lambda text: text.split(" "), stop_words=one_time_words,
-                                       max_df=0.5, min_df=2, norm='l2')  # , ngram_range=(1, 3)
+tfidf_vectorizer = TfidfVectorizer(use_idf=True, tokenizer=lambda text: text.split(" "), stop_words=one_time_words,
+                                   max_df=0.5, min_df=2, norm='l2')  # , ngram_range=(1, 3)
 
 tfidf_matrix = tfidf_vectorizer.fit_transform(mart_content)
+
 logging.info("vocabulary size: %s, vectorize time: %s s" % (tfidf_matrix.shape[1], time.time() - start_vectorize))
 
-start_clustering = time.time()
-logging.info("Start clustering...")
+for n in range(n_start, n_end, n_step):
+    result_path = result_base + '/%s.%s.kmeans.json' % (year, n)
 
-km = KMeans(n_clusters=n_clusters, n_jobs=-1).fit(tfidf_matrix)
-labels = km.labels_
+    start_clustering = time.time()
+    logging.info("Start clustering for n: %s..." % n)
 
-logging.info("clustering time: %s s" % (time.time() - start_clustering))
+    km = KMeans(n_clusters=n, n_jobs=-1).fit(tfidf_matrix)
+    labels = km.labels_
 
-logging.info("Start save result...")
-
-save_clusters(mart_news, labels, result_path)
+    logging.info("clustering time: %s s" % (time.time() - start_clustering))
+    logging.info("Start save result for n: %s..." % n)
+    save_clusters(mart_news, labels, result_path)
+    logging.info("End clustering for n: %s..." % n)
 
 logging.info("End script, total time: %s s" % (time.time() - start_time))
