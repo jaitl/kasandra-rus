@@ -6,126 +6,107 @@
 #
 import xlsxwriter
 
-workbook = xlsxwriter.Workbook('cluster_compare.xlsx')
-worksheet = workbook.add_worksheet()
-bold = workbook.add_format({'bold': 1})
-
-# Add the worksheet data that the charts will refer to.
-headings = ['Имя', 'Время', 'V мера', 'ARI', 'Силуэт']
 data = [
-    ("K-means", "tf_idf", 130, 396, 0.754, 0.374, 0.049),
-    ("K-means", "tf_idf_ngram_2", 130, 1880, 0.717, 0.276, 0.017),
-    ("K-means", "sem_group", 130, 273, 0.742, 0.376, 0.048),
-    ("K-means", "sem_group_2", 130, 1838, 0.698, 0.185, 0.012),
-    ("K-means", "lda_10k", 130, 203, 0.613, 0.085, 0.067),
-    ("K-means", "lda_20k", 130, 318, 0.603, 0.064, 0.053),
+    ("K-means", "tf_idf", 130, 396, 1, 397, 0.752, 0.390, 0.040, 5),
+    ("K-means", "tf_idf_ngram_2", 130, 1429, 9, 1438, 0.731, 0.331, 0.021, 5),
+    ("K-means", "sem_group", 130, 273, 270, 543, 0.735, 0.366, 0.044, 5),
+    ("K-means", "lda_10k", 130, 203, 8639, 8842, 0.613, 0.085, 0.067, 4),
+    ("K-means", "lda_20k", 130, 318, 17543, 17861, 0.603, 0.064, 0.053, 4),
 
-    ("DbScan", "tf_idf", 227, 6, 0.457, 0.014, 0.003),
-    ("DbScan", "tf_idf_ngram_2", 145, 7, 0.328, 0.015, 0.002),
-    ("DbScan", "sem_group", 227, 7, 0.501, 0.026, 0.009),
-    ("DbScan", "sem_group_2", 214, 8, 0.440, 0.013, 0.007),
-    ("DbScan", "lda_10k", 182, 3, 0.434, 0.023, 0.003),
-    ("DbScan", "lda_20k", 203, 5, 0.425, 0.031, 0.009),
+    ("DbScan", "tf_idf", 227, 6, 1, 7, 0.457, 0.014, 0.003, 2),
+    ("DbScan", "tf_idf_ngram_2", 145, 7, 9, 16, 0.328, 0.015, 0.002, 2),
+    ("DbScan", "sem_group", 227, 7, 270, 277, 0.501, 0.026, 0.009, 2),
+    ("DbScan", "lda_10k", 182, 3, 8639, 8642, 0.434, 0.023, 0.003, 2),
+    ("DbScan", "lda_20k", 203, 5, 17543, 17548, 0.425, 0.031, 0.009, 2),
 
-    ("Affinity Propagation", "tf_idf", 1164, 96, 0.706, 0.122, 0.022),
-    ("Affinity Propagation", "tf_idf_ngram_2", 1336, 138, 0.698, 0.105, 0.010),
-    ("Affinity Propagation", "sem_group", 1088, 89, 0.704, 0.126, 0.034),
-    ("Affinity Propagation", "sem_group_2", 1255, 97, 0.695, 0.110, 0.013),
-    ("Affinity Propagation", "lda_10k", 1052, 43, 0.645, 0.094, 0.055),
-    ("Affinity Propagation", "lda_20k", 1231, 79, 0.612, 0.101, 0.023),
+    ("Affinity Propagation", "tf_idf", 1164, 96, 1, 97, 0.706, 0.122, 0.024, 5),
+    ("Affinity Propagation", "tf_idf_ngram_2", 1336, 138, 9, 147, 0.699, 0.095, 0.021, 4),
+    ("Affinity Propagation", "sem_group", 1088, 89, 270, 359, 0.705, 0.126, 0.034, 5),
+    ("Affinity Propagation", "lda_10k", 1052, 43, 8639, 8682, 0.645, 0.094, 0.055, 3),
+    ("Affinity Propagation", "lda_20k", 1231, 79, 17543, 17622, 0.612, 0.101, 0.023, 3),
 
-    ("Agglomerative Clustering", "tf_idf", 130, 1816, 0.710, 0.311, 0.032),
-    ("Agglomerative Clustering", "tf_idf_ngram_2", 130, 11343, 0.690, 0.303, 0.028),
-    ("Agglomerative Clustering", "sem_group", 130, 851, 0.697, 0.291, 0.047),
-    ("Agglomerative Clustering", "sem_group_2", 130, 9343, 0.667, 0.264, 0.036),
-    ("Agglomerative Clustering", "lda_10k", 130, 416, 0.569, 0.069, 0.049),
-    ("Agglomerative Clustering", "lda_20k", 130, 641, 0.543, 0.061, 0.038),
+    ("Agglomerative Clustering", "tf_idf", 130, 1836, 1, 1837, 0.710, 0.280, 0.042, 4),
+    ("Agglomerative Clustering", "tf_idf_ngram_2", 130, 11343, 9, 11352, 0.690, 0.303, 0.028, 3),
+    ("Agglomerative Clustering", "sem_group", 130, 908, 270, 1178, 0.702, 0.276, 0.042, 3),
+    ("Agglomerative Clustering", "lda_10k", 130, 416, 8639, 9055, 0.569, 0.069, 0.049, 2),
+    ("Agglomerative Clustering", "lda_20k", 130, 641, 17543, 18184, 0.543, 0.061, 0.038, 2),
 
-    ("BIRCH", "tf_idf", 8479, 51, 0.672, 0.005, 0.007),
-    ("BIRCH", "tf_idf_ngram_2", 9434, 73, 0.667, 0.007, 0.010),
-    ("BIRCH", "sem_group", 7994, 32, 0.676, 0.009, 0.010),
-    ("BIRCH", "sem_group_2", 9135, 69, 0.671, 0.007, 0.009),
-    ("BIRCH", "lda_10k", 7168, 20, 0.676, 0.020, 0.014),
-    ("BIRCH", "lda_20k", 7542, 29, 0.673, 0.012, 0.012)
+    ("BIRCH", "tf_idf", 130, 1396, 1, 1397, 0.714, 0.341, 0.042, 5),
+    ("BIRCH", "tf_idf_ngram_2", 130, 9750, 9, 9759, 0.676, 0.304, 0.032, 4),
+    ("BIRCH", "sem_group", 130, 603, 270, 873, 0.702, 0.321, 0.037, 5),
+    ("BIRCH", "lda_10k", 130, 342, 8639, 8981, 0.573, 0.174, 0.072, 3),
+    ("BIRCH", "lda_20k", 130, 593, 17543, 18136, 0.590, 0.114, 0.032, 3)
 ]
 
+data = sorted(data, key=lambda x: x[5])
+
 names_alg = list(map(lambda x: x[0] + " " + x[1], data))
-time_alg = list(map(lambda x: x[3], data))
-mesure_alg = list(map(lambda x: x[4], data))
-ari_alg = list(map(lambda x: x[5], data))
-silhouette_alg = list(map(lambda x: x[6], data))
+time_alg = list(map(lambda x: x[5], data))
+mesure_alg = list(map(lambda x: x[6], data))
+ari_alg = list(map(lambda x: x[7], data))
+silhouette_alg = list(map(lambda x: x[8], data))
+score_alf = list(map(lambda x: x[9], data))
 
-worksheet.write_row('A1', headings, bold)
-worksheet.write_column('A2', names_alg)
-worksheet.write_column('B2', time_alg)
-worksheet.write_column('C2', mesure_alg)
-worksheet.write_column('D2', ari_alg)
-worksheet.write_column('E2', silhouette_alg)
+workbook = xlsxwriter.Workbook('cluster_compare.xlsx')
 
-# Create a new chart object. In this case an embedded chart.
-chart1 = workbook.add_chart({'type': 'scatter'})
 
-# http://xlsxwriter.readthedocs.io/working_with_charts.html#chart-series-option-marker
-for i in range(2, len(data) + 2):
-    # Configure the first series.
-    chart1.add_series({
-        'name':       '=Sheet1!$A$%s' % i,
-        'categories': '=Sheet1!$B$%s' % i,
-        'values':     '=Sheet1!$C$%s' % i,
-        'marker': {'type': 'circle'},
-        'data_labels': {'series_name': True}
-    })
+def add_worksheet(name):
+    worksheet = workbook.add_worksheet(name)
+    bold = workbook.add_format({'bold': 1})
 
-# Add a chart title and some axis labels.
-chart1.set_title ({'name': 'Аназиз качества кластеризакции'})
-chart1.set_x_axis({'name': 'Время (сек)'})
-chart1.set_y_axis({'name': 'V мера'})
+    # Add the worksheet data that the charts will refer to.
+    headings = ['Имя', 'Время', 'V мера', 'ARI', 'Силуэт', 'Экспертная оценка']
 
-# Insert the chart into the worksheet (with an offset).
-worksheet.insert_chart('D2', chart1, {'x_offset': 25, 'y_offset': 10})
+    worksheet.write_row('A1', headings, bold)
+    worksheet.write_column('A2', names_alg)
+    worksheet.write_column('B2', time_alg)
+    worksheet.write_column('C2', mesure_alg)
+    worksheet.write_column('D2', ari_alg)
+    worksheet.write_column('E2', silhouette_alg)
+    worksheet.write_column('F2', score_alf)
 
-# Create a new chart object. In this case an embedded chart.
-chart2 = workbook.add_chart({'type': 'scatter'})
+    return worksheet
 
-# http://xlsxwriter.readthedocs.io/working_with_charts.html#chart-series-option-marker
-for i in range(2, len(data) + 2):
-    # Configure the first series.
-    chart2.add_series({
-        'name':       '=Sheet1!$A$%s' % i,
-        'categories': '=Sheet1!$B$%s' % i,
-        'values':     '=Sheet1!$D$%s' % i,
-        'marker': {'type': 'circle'},
-        'data_labels': {'series_name': True}
-    })
 
-# Add a chart title and some axis labels.
-chart2.set_title ({'name': 'Аназиз качества кластеризакции'})
-chart2.set_x_axis({'name': 'Время (сек)'})
-chart2.set_y_axis({'name': 'ARI'})
+def add_chart(name, val, pos, numb, wh):
+    # Create a new chart object. In this case an embedded chart.
+    chart = workbook.add_chart({'type': 'scatter'})
 
-# Insert the chart into the worksheet (with an offset).
-worksheet.insert_chart('E2', chart2, {'x_offset': 25, 'y_offset': 10})
+    for i in range(numb[0], numb[1] + 1):
+        # Configure the first series.
+        chart.add_series({
+            'name': '=%s!$A$%s' % (wh.name, i),
+            'categories': '=%s!$B$%s' % (wh.name, i),
+            'values': '=%s!$%s$%s' % (wh.name, val, i),
+            'marker': {'type': 'circle'},
+            'data_labels': {'series_name': True, 'position': 'above'}
+        })
 
-# Create a new chart object. In this case an embedded chart.
-chart3 = workbook.add_chart({'type': 'scatter'})
+    # Add a chart title and some axis labels.
+    chart.set_title({'name': name})
+    chart.set_x_axis({'name': 'Время (сек)'})
+    chart.set_y_axis({'name': name})
+    wh.insert_chart(pos, chart, {'x_offset': 25, 'y_offset': 10})
 
-# http://xlsxwriter.readthedocs.io/working_with_charts.html#chart-series-option-marker
-for i in range(2, len(data) + 2):
-    # Configure the first series.
-    chart3.add_series({
-        'name':       '=Sheet1!$A$%s' % i,
-        'categories': '=Sheet1!$B$%s' % i,
-        'values':     '=Sheet1!$E$%s' % i,
-        'marker': {'type': 'circle'},
-        'data_labels': {'series_name': True}
-    })
 
-# Add a chart title and some axis labels.
-chart3.set_title ({'name': 'Аназиз качества кластеризакции'})
-chart3.set_x_axis({'name': 'Время (сек)'})
-chart3.set_y_axis({'name': 'Силуэт'})
+positions = ["D2", "E2", "F2"]
+rows = [(2, 14), (15, 21), (22, 25)]
 
-# Insert the chart into the worksheet (with an offset).
-worksheet.insert_chart('F2', chart3, {'x_offset': 25, 'y_offset': 10})
+worksheet = add_worksheet("V_мера")
+for p, r in zip(positions, rows):
+    add_chart("V мера", "C", p, r, worksheet)
+
+worksheet = add_worksheet("ARI")
+for p, r in zip(positions, rows):
+    add_chart("ARI", "D", p, r, worksheet)
+
+worksheet = add_worksheet("Силуэт")
+for p, r in zip(positions, rows):
+    add_chart("Силуэт", "E", p, r, worksheet)
+
+worksheet = add_worksheet("Экспертная_оценка")
+for p, r in zip(positions, rows):
+    add_chart("Экспертная оценка", "F", p, r, worksheet)
+
 
 workbook.close()
