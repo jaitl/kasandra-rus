@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Kasandra app</title>
+
+    <link rel="shortcut icon" href="{{ url_for('static',filename='ico/cloud.png') }}" type="image/png">
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Kasandra app</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('index') }}">Kasandra app</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="{{ 'active' if active_page == 'vectorization' else '' }}"><a href="{{ url_for('index') }}">Векторизация</a>
+                </li>
+                <li class="{{ 'active' if active_page == 'clustering' else '' }}"><a href="{{ url_for('clustering') }}">Кластеризация</a>
+                </li>
+                <li class="{{ 'active' if active_page == 'analysis' else '' }}"><a href="{{ url_for('analysis') }}">Анализ</a>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">{% block body %}{% endblock %}</div>
+
+<script src=" {{ url_for('static',filename='js/jquery-3.2.1.min.js') }}"></script>
+<script src=" {{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+<script src=" {{ url_for('static',filename='js/lodash.core.min.js') }}"></script>
+<script src=" {{ url_for('static',filename='js/app.js') }}"></script>
+
+</body>
+</html>

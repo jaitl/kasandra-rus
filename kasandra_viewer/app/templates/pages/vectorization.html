@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% set active_page = "vectorization" %}
+{% block body %}
+<h2>Векторизация коллекции документов</h2>
+<div class="row">
+    <div class="col-md-6">
+        <form id="vectorization">
+            <div class="form-group">
+                <label for="vect-alg">Алгоритм векторизации</label><br/>
+                <div class="btn-group" data-toggle="buttons" id="vect-alg">
+                    <label class="btn btn-primary active">
+                        <input type="radio" name="options" id="ifidf" autocomplete="off" checked>TF-IDF
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="options" id="sem_group" autocomplete="off">Абстрактно семантическая
+                        группа
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="options" id="sem_group_tfidf" autocomplete="off">Абстрактно семантическая
+                        группа c TF-IDF
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="news-corpus">Коллекция новостей</label>
+                <select class="form-control" id="news-corpus">
+                    {% for n in news %}
+                    <option value="{{ n[1] }}">{{ n[0] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="news-preview">Предпросмотор новостей</label>
+                <textarea class="form-control" rows="5" id="news-preview" readonly></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Вычислить</button>
+        </form>
+    </div>
+    <div class="col-md-6">
+        Матрица с результатами: <br/>
+    </div>
+</div>
+{% endblock %}
