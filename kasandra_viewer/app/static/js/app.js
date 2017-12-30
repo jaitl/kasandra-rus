@@ -1,20 +1,28 @@
-// init
-$(document).ready(function() {
-    $.get( "/news/" + $('#news-corpus').val(), function(data) {
-        $('#news-preview').val(data)
+function loadNews(alias) {
+    $.get("/news/" + alias, function (data) {
+        content = _.reduce(data, function (res, n) {
+            if (res.length === 0) {
+                return n
+            } else {
+                return res + "\n" + n
+            }
+        }, "")
+
+        $('#news-preview').val(content)
     });
+}
+
+// init
+$(document).ready(function () {
+    loadNews($('#news-corpus').val())
 });
 
-$(document).ready(function() {
-    $('#news-corpus').change(function() {
-    value = $(this).val()
-
-        $.get( "/news/" + value, function(data) {
-            $('#news-preview').val(data)
-        });
+$(document).ready(function () {
+    $('#news-corpus').change(function () {
+        loadNews($(this).val())
     });
 
-    $('#vectorization').submit(function(e) {
+    $('#vectorization').submit(function (e) {
         e.preventDefault();
 
         algorithm = $('#vect-alg .active input').attr('id')

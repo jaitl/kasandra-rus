@@ -1,21 +1,19 @@
-from flask import render_template
-from flask import jsonify
+from flask import jsonify, render_template
+
 from app import app
 
+from .lib import load_news
 
-news = [
-    ("Новости про олимпиаду", "olympiad", "Текст новости про олимпиаду"),
-    ("Новости про политику", "politics", "Текст новости про политику"),
-    ("Новости про знаменитостей", "celebrity", "Текст новости про знаменитостей")
-]
+news = load_news.load_news()
 
-titles = list(map(lambda x: (x[0], x[1]), news))
 
 @app.route('/')
 @app.route('/index')
 @app.route('/vectorization')
 def index():
-    return render_template("pages/vectorization.html", news = titles)
+    titles = map(lambda x: {"name": x['name'], "alias": x["alias"]}, news.values())
+
+    return render_template("pages/vectorization.html", titles=titles)
 
 
 @app.route('/vectorization/<algorithm>/<news_id>')
@@ -36,5 +34,7 @@ def analysis():
 
 @app.route('/news/<news_id>')
 def news_list(news_id):
-    n = list(filter(lambda x: x[1] == news_id, news))
-    return jsonify(n)
+    news_data = news[news_id]['news']
+    news_titles = list(map(lambda x: x['title'], news_data))
+
+    return jsonify(news_titles)

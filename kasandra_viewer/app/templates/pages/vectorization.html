@@ -12,26 +12,24 @@
                         <input type="radio" name="options" id="ifidf" autocomplete="off" checked>TF-IDF
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="options" id="sem_group" autocomplete="off">Абстрактно семантическая
-                        группа
+                        <input type="radio" name="options" id="sem_group" autocomplete="off">Абст. сем. группы
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="options" id="sem_group_tfidf" autocomplete="off">Абстрактно семантическая
-                        группа c TF-IDF
+                        <input type="radio" name="options" id="sem_group_tfidf" autocomplete="off">Абст. сем. группы c TF-IDF
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <label for="news-corpus">Коллекция новостей</label>
                 <select class="form-control" id="news-corpus">
-                    {% for n in news %}
-                    <option value="{{ n[1] }}">{{ n[0] }}</option>
+                    {% for n in titles %}
+                    <option value="{{ n['alias'] }}">{{ n['name'] }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="form-group">
-                <label for="news-preview">Предпросмотор новостей</label>
-                <textarea class="form-control" rows="5" id="news-preview" readonly></textarea>
+                <label for="news-preview">Заголовки новостей</label>
+                <textarea class="form-control" rows="15" id="news-preview" readonly></textarea>
             </div>
             <button type="submit" class="btn btn-success">Вычислить</button>
         </form>
