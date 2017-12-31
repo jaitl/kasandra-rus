@@ -2,9 +2,10 @@ from flask import jsonify, render_template
 
 from app import app
 
-from .lib import load_news
+from app.logic.load_news import load_news
+from app.logic.vectorization import do_vectorization
 
-news = load_news.load_news()
+news = load_news()
 
 
 @app.route('/')
@@ -18,8 +19,8 @@ def index():
 
 @app.route('/vectorization/<algorithm>/<news_id>')
 def vectorization(algorithm, news_id):
-    print(algorithm, news_id)
-    return 'ok'
+    vec_res = do_vectorization(algorithm, news[news_id]['news'])
+    return jsonify(vec_res)
 
 
 @app.route('/clustering')

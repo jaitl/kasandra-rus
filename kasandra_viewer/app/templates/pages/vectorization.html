@@ -9,13 +9,10 @@
                 <label for="vect-alg">Алгоритм векторизации</label><br/>
                 <div class="btn-group" data-toggle="buttons" id="vect-alg">
                     <label class="btn btn-primary active">
-                        <input type="radio" name="options" id="ifidf" autocomplete="off" checked>TF-IDF
+                        <input type="radio" name="options" id="tf_idf" autocomplete="off" checked>TF-IDF
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="options" id="sem_group" autocomplete="off">Абст. сем. группы
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="options" id="sem_group_tfidf" autocomplete="off">Абст. сем. группы c TF-IDF
+                        <input type="radio" name="options" id="sem_group_tf_idf" autocomplete="off">Cемантические группы c TF-IDF
                     </label>
                 </div>
             </div>
@@ -36,6 +33,7 @@
     </div>
     <div class="col-md-6">
         Матрица с результатами: <br/>
+        <div id="vec_res"></div>
     </div>
 </div>
 {% endblock %}

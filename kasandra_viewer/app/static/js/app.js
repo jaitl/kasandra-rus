@@ -31,6 +31,8 @@ $(document).ready(function () {
 
         url = "/vectorization/" + algorithm + "/" + news_id
 
-        $.get(url);
+        $.get(url, function(data) {
+            $("#vec_res").text(data)
+        });
     })
 });

@@ -1,11 +1,11 @@
 import json
 import os
 
-from .config import path_to_corpus
+import app.config as conf
 
 
 def load_news():
-    path = path_to_corpus()
+    path = conf.path_to_corpus()
     data = {}
 
     filenames = os.listdir(path)
