@@ -1,12 +1,10 @@
-{% extends "layout.html" %}
-{% set active_page = "vectorization" %}
-{% block body %}
+{% extends "layout.html" %} {% set active_page = "vectorization" %} {% block body %}
 <h2>Векторизация коллекции документов</h2>
 <div class="row">
     <div class="col-md-6">
         <form id="vectorization">
             <div class="form-group">
-                <label for="vect-alg">Алгоритм векторизации</label><br/>
+                <h4>Алгоритм векторизации</h4>
                 <div class="btn-group" data-toggle="buttons" id="vect-alg">
                     <label class="btn btn-primary active">
                         <input type="radio" name="options" id="tf_idf" autocomplete="off" checked>TF-IDF
@@ -17,23 +15,34 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="news-corpus">Коллекция новостей</label>
+                <h4>Словарь</h4>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="dict-count-checkbox">Ограничить количество слов
+                    </label>
+                </div>
+                <input type="text" class="form-control" id="dict-count" placeholder="Введите требуемое количество слов" disabled>
+            </div>
+            <div class="form-group">
+                <h4>Коллекция новостей</h4>
                 <select class="form-control" id="news-corpus">
                     {% for n in titles %}
                     <option value="{{ n['alias'] }}">{{ n['name'] }}</option>
                     {% endfor %}
                 </select>
+                <div id="news-count"></div>
             </div>
             <div class="form-group">
-                <label for="news-preview">Заголовки новостей</label>
-                <textarea class="form-control" rows="15" id="news-preview" readonly></textarea>
+                <h4>Список новостей</h4>
+                <div id="news-table"></div>
             </div>
             <button type="submit" class="btn btn-success">Вычислить</button>
         </form>
     </div>
-    <div class="col-md-6">
-        Матрица с результатами: <br/>
-        <div id="vec_res"></div>
+    <div class="col-md-6" id="vect_res_block">
+        <h4>Результаты векторизации:</h4>
+        <div id="res_info"></div>
+        <div id="res_matrix"></div>
     </div>
 </div>
 {% endblock %}

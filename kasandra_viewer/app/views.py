@@ -1,4 +1,4 @@
-from flask import jsonify, render_template
+from flask import jsonify, render_template, request
 
 from app import app
 
@@ -17,10 +17,13 @@ def index():
     return render_template("pages/vectorization.html", titles=titles)
 
 
-@app.route('/vectorization/<algorithm>/<news_id>')
-def vectorization(algorithm, news_id):
-    vec_res = do_vectorization(algorithm, news[news_id]['news'])
-    return jsonify(vec_res)
+@app.route('/vectorization/compute', methods=['POST'])
+def vectorization():
+    data = request.get_json(force=True)
+    print(data)
+    news_id = data['news_id']
+    res = do_vectorization(data, news[news_id]['news'])
+    return jsonify(res)
 
 
 @app.route('/clustering')
