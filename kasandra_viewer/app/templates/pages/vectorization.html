@@ -3,43 +3,13 @@
 <form id="vectorization">
     <div class="row">
         <div class="col-md-8">
-            <div class="form-group">
-                <h4>Коллекция новостей</h4>
-                <select class="form-control" id="news-corpus">
-                    {% for n in titles %}
-                    <option value="{{ n['alias'] }}">{{ n['name'] }}</option>
-                    {% endfor %}
-                </select>
-                <div id="news-count"></div>
-            </div>
-            <div class="form-group">
-                <h4>Список новостей</h4>
-                <div id="news-table"></div>
-            </div>
+            {% include 'pages/components/news_select.html' %}
         </div>
         <div class="col-md-4">
-            <div class="form-group">
-                <h4>Алгоритм векторизации</h4>
-                <div class="btn-group" data-toggle="buttons" id="vect-alg">
-                    <label class="btn btn-primary active">
-                        <input type="radio" name="options" id="tf_idf" autocomplete="off" checked>TF-IDF
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="options" id="sem_group_tf_idf" autocomplete="off">Cемантические группы c TF-IDF
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <h4>Словарь</h4>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" id="dict-count-checkbox">Ограничить количество слов
-                    </label>
-                </div>
-                <input type="text" class="form-control" id="dict-count" placeholder="Введите требуемое количество слов" disabled>
-            </div>
+            {% include 'pages/components/vect_algoritm.html' %}
+            {% include 'pages/components/words_count.html' %}
+            <button type="submit" class="btn btn-success">Вычислить</button>
         </div>
-        <button type="submit" class="btn btn-success">Вычислить</button>
     </div>
 </form>
 <div class="row" id="vect_res_block">

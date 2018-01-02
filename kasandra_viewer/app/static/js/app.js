@@ -35,17 +35,71 @@ function loadNews(alias) {
     });
 }
 
+function getWordCount() {
+    words_count = $("#dict-count").val()
+
+    if (limit_words) {
+        if (words_count.length == 0 || !$.isNumeric(words_count) || parseInt(words_count) <= 0) {
+            console.log("wrong format: " + words_count)
+            throw "wrong word count"
+        } else {
+            return parseInt(words_count)
+        }
+    }
+
+    return null
+}
+
+function getClusterCount(limit_cluster) {
+    cluster_count = $("#clust-count").val()
+
+    if (limit_cluster) {
+        if (cluster_count.length == 0 || !$.isNumeric(cluster_count) || parseInt(cluster_count) <= 0) {
+            console.log("wrong format: " + cluster_count)
+            throw "wrong cluster count"
+        } else {
+            return parseInt(cluster_count)
+        }
+    }
+
+    return null
+}
+
 // init
 $(document).ready(function () {
     loadNews($('#news-corpus').val())
     $("#vect_res_block").hide()
 });
 
+// common
 $(document).ready(function () {
     $('#news-corpus').change(function () {
         loadNews($(this).val())
     });
 
+    $("#dict-count-checkbox").change(function () {
+        if (this.checked) {
+            $("#dict-count").removeAttr('disabled');
+            $("#dict-count").prop('disabled', false)
+        } else {
+            $("#dict-count").val("")
+            $("#dict-count").prop('disabled', true)
+        }
+    })
+
+    $("#clust-from-group input[name=options]").change(function () {
+        if ($(this).attr('id') == "aff_prop") {
+            $("#clust-count").val("")
+            $("#clust-count").prop('disabled', true)
+        } else {
+            $("#clust-count").val("")
+            $("#clust-count").prop('disabled', false)
+        }
+    })
+})
+
+// vectorization
+$(document).ready(function () {
     $('#vectorization').submit(function (e) {
         e.preventDefault();
         $("#res_info").empty()
@@ -55,20 +109,15 @@ $(document).ready(function () {
         limit_words = $("#dict-count-checkbox").is(':checked')
 
         request = {
-            "algorithm": $('#vect-alg .active input').attr('id'),
+            "vect_algorithm": $('#vect-alg .active input').attr('id'),
             "news_id": $('#news-corpus').val(),
             "limit_words": limit_words
         }
 
-        words_count = $("#dict-count").val()
+        words_count = getWordCount(limit_words)
 
-        if (limit_words) {
-            if (words_count.length == 0 || !$.isNumeric(words_count) || parseInt(words_count) <= 0) {
-                console.log("wrong format: " + words_count)
-                return
-            } else {
-                request['words_count'] = parseInt(words_count)
-            }
+        if (words_count != null) {
+            request['words_count'] = words_count
         }
 
         $.post("/vectorization/compute", JSON.stringify(request),
@@ -83,14 +132,38 @@ $(document).ready(function () {
                 $("#vect_res_block").show()
             });
     })
+});
 
-    $("#dict-count-checkbox").change(function () {
-        if (this.checked) {
-            $("#dict-count").removeAttr('disabled');
-            $("#dict-count").prop('disabled', false)
-        } else {
-            $("#dict-count").val("")
-            $("#dict-count").prop('disabled', true)
+// clustering
+$(document).ready(function () {
+    $('#clustering').submit(function (e) {
+        e.preventDefault();
+
+        limit_words = $("#dict-count-checkbox").is(':checked')
+        cluster_algorithm = $('#clust-alg .active input').attr('id')
+
+        request = {
+            "vect_algorithm": $('#vect-alg .active input').attr('id'),
+            "news_id": $('#news-corpus').val(),
+            "limit_words": limit_words,
+            "cluster_algorithm": cluster_algorithm
         }
+
+        words_count = getWordCount(limit_words)
+
+        if (words_count != null) {
+            request['words_count'] = words_count
+        }
+
+        cluster_count = getClusterCount(cluster_algorithm == "kmeans")
+
+        if (cluster_count != null) {
+            request['cluster_count'] = cluster_count
+        }
+
+        $.post("/clustering/compute", JSON.stringify(request),
+            function (data) {
+                console.log(data)
+            })
     })
 });

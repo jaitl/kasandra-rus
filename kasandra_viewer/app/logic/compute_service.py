@@ -10,14 +10,14 @@ def do_vectorization(data, news):
     else:
         word_count = None
 
-    if data['algorithm']== "tf_idf":
+    if data['vect_algorithm']== "tf_idf":
         norm_texts = nomalize(news_content)
         (names, vect_res) = tf_idf(norm_texts, word_count)
-    elif data['algorithm'] == "sem_group_tf_idf":
+    elif data['vect_algorithm'] == "sem_group_tf_idf":
         norm_texts = nomalize(news_content, with_pos=True)
         (names, vect_res) = sem_groups(norm_texts, word_count)
     else:
-        raise Exception("unknown vectorization algorithm: %s" % data['algorithm'])
+        raise Exception("unknown vectorization algorithm: %s" % data['vect_algorithm'])
 
     vect_list = [[round(y, 3) for y in x] for x in vect_res.toarray()]
 

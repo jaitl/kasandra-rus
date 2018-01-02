@@ -3,7 +3,7 @@ from flask import jsonify, render_template, request
 from app import app
 
 from app.logic.load_news import load_news
-from app.logic.vectorization import do_vectorization
+from app.logic.compute_service import do_vectorization
 
 news = load_news()
 
@@ -28,7 +28,16 @@ def vectorization():
 
 @app.route('/clustering')
 def clustering():
-    return render_template("pages/clustering.html")
+    titles = map(lambda x: {"name": x['name'], "alias": x["alias"]}, news.values())
+
+    return render_template("pages/clustering.html", titles=titles)
+
+
+@app.route('/clustering/compute', methods=['POST'])
+def clustering_compute():
+    data = request.get_json(force=True)
+    print(data)
+    return 'ok'
 
 
 @app.route('/analysis')

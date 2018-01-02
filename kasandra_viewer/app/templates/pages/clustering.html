@@ -1,5 +1,16 @@
-{% extends "layout.html" %}
-{% set active_page = "clustering" %}
-{% block body %}
-<h2>Кластеризация</h2>
+{% extends "layout.html" %} {% set active_page = "clustering" %} {% block body %}
+<h2>Кластеризация коллекции документов</h2>
+<form id="clustering">
+    <div class="row">
+        <div class="col-md-8">
+            {% include 'pages/components/news_select.html' %}
+        </div>
+        <div class="col-md-4">
+            {% include 'pages/components/vect_algoritm.html' %}
+            {% include 'pages/components/words_count.html' %}
+            {% include 'pages/components/clust_algoritm.html' %}
+            <button type="submit" class="btn btn-success">Вычислить</button>
+        </div>
+    </div>
+</form>
 {% endblock %}
