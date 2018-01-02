@@ -1,8 +1,23 @@
 {% extends "layout.html" %} {% set active_page = "vectorization" %} {% block body %}
 <h2>Векторизация коллекции документов</h2>
-<div class="row">
-    <div class="col-md-6">
-        <form id="vectorization">
+<form id="vectorization">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <h4>Коллекция новостей</h4>
+                <select class="form-control" id="news-corpus">
+                    {% for n in titles %}
+                    <option value="{{ n['alias'] }}">{{ n['name'] }}</option>
+                    {% endfor %}
+                </select>
+                <div id="news-count"></div>
+            </div>
+            <div class="form-group">
+                <h4>Список новостей</h4>
+                <div id="news-table"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <h4>Алгоритм векторизации</h4>
                 <div class="btn-group" data-toggle="buttons" id="vect-alg">
@@ -23,26 +38,13 @@
                 </div>
                 <input type="text" class="form-control" id="dict-count" placeholder="Введите требуемое количество слов" disabled>
             </div>
-            <div class="form-group">
-                <h4>Коллекция новостей</h4>
-                <select class="form-control" id="news-corpus">
-                    {% for n in titles %}
-                    <option value="{{ n['alias'] }}">{{ n['name'] }}</option>
-                    {% endfor %}
-                </select>
-                <div id="news-count"></div>
-            </div>
-            <div class="form-group">
-                <h4>Список новостей</h4>
-                <div id="news-table"></div>
-            </div>
-            <button type="submit" class="btn btn-success">Вычислить</button>
-        </form>
+        </div>
+        <button type="submit" class="btn btn-success">Вычислить</button>
     </div>
-    <div class="col-md-6" id="vect_res_block">
-        <h4>Результаты векторизации:</h4>
-        <div id="res_info"></div>
-        <div id="res_matrix"></div>
-    </div>
+</form>
+<div class="row" id="vect_res_block">
+    <h4>Результаты векторизации:</h4>
+    <div id="res_info"></div>
+    <div id="res_matrix"></div>
 </div>
 {% endblock %}
