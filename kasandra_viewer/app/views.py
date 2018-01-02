@@ -3,7 +3,7 @@ from flask import jsonify, render_template, request
 from app import app
 
 from app.logic.load_news import load_news
-from app.logic.compute_service import do_vectorization
+from app.logic.compute_service import do_vectorization, do_clustering
 
 news = load_news()
 
@@ -37,7 +37,9 @@ def clustering():
 def clustering_compute():
     data = request.get_json(force=True)
     print(data)
-    return 'ok'
+    news_id = data['news_id']
+    res = do_clustering(data, news[news_id]['news'])
+    return jsonify(res)
 
 
 @app.route('/analysis')
