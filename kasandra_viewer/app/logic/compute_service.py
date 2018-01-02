@@ -3,6 +3,7 @@ from app.lib.vectorization import tf_idf, sem_groups
 from app.lib.clustering import kmeans, affinity_propagation
 
 from sklearn import metrics
+import uuid
 
 
 def compute_matrix(data, news):
@@ -60,13 +61,32 @@ def do_clustering(data, news):
 
     ss = metrics.silhouette_score(matrix, labels)
 
-    news_clusters = []
+    labels_list = sorted(list(set(labels.tolist())))
 
-    for num, lab, news_title in zip(range(1, len(news_titles) + 2), labels, news_titles):
-        news_clusters.append({"number": int(num), "label": int(lab), "news_title": news_title})
+    labels_map = { x: str(uuid.uuid4()) for x in labels_list}
+
+    clusters_three = []
+
+    for l in labels_list:
+        count = len([x for x in labels if x == l])
+        three_node = {
+            "id": labels_map[l],
+            "parent": "#",
+            "text": "Кластер %s (кол-во новостей: %s)" % (l + 1, count)
+        }
+        clusters_three.append(three_node)
+
+    for lab, news_title in zip(labels, news_titles):
+        three_node = {
+            "id": str(uuid.uuid4()),
+            "parent": labels_map[lab],
+            "text": news_title
+        }
+        clusters_three.append(three_node)
 
     result = {
-        "news_clusters": news_clusters,
+        "clusters_three": clusters_three,
+        "cluster_count": len(labels_list),
         "silhouette_score": round(ss, 3)
     }
 

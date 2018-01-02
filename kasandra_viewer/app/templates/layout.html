@@ -10,6 +10,8 @@
     <link rel="shortcut icon" href="{{ url_for('static',filename='ico/cloud.png') }}" type="image/png">
     <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/themes/default/style.min.css') }}" rel="stylesheet">
+    
 </head>
 
 <body>
@@ -43,6 +45,7 @@
 <div class="container">{% block body %}{% endblock %}</div>
 
 <script src=" {{ url_for('static',filename='js/jquery-3.2.1.min.js') }}"></script>
+<script src=" {{ url_for('static',filename='js/jstree.min.js') }}"></script>
 <script src=" {{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
 <script src=" {{ url_for('static',filename='js/lodash.core.min.js') }}"></script>
 <script src=" {{ url_for('static',filename='js/app.js') }}"></script>

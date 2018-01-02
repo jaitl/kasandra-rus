@@ -65,6 +65,12 @@ function getClusterCount(limit_cluster) {
     return null
 }
 
+function addThreeListner() {
+    $('#jtree_clusters').on("select_node.jstree", function (e, data) {
+        data.instance.toggle_node(data.node);
+    });
+}
+
 // init
 $(document).ready(function () {
     loadNews($('#news-corpus').val())
@@ -136,8 +142,13 @@ $(document).ready(function () {
 
 // clustering
 $(document).ready(function () {
+    $('#clustering_res_block').hide()
+
     $('#clustering').submit(function (e) {
         e.preventDefault();
+        $('#clustering_res_block').hide()
+        $('#jtree_clusters').jstree("destroy").empty();
+        $('#clustering_res_metrics').empty()
 
         limit_words = $("#dict-count-checkbox").is(':checked')
         cluster_algorithm = $('#clust-alg .active input').attr('id')
@@ -164,6 +175,18 @@ $(document).ready(function () {
         $.post("/clustering/compute", JSON.stringify(request),
             function (data) {
                 console.log(data)
+                $('#jtree_clusters').jstree({
+                    'core': {
+                        'data': data['clusters_three']
+                    }
+                })
+                addThreeListner()
+
+                $("#clustering_res_metrics").append("<div>Количество кластеров: " + data['cluster_count'] + "</div>")
+                $("#clustering_res_metrics").append("<div>Метрика силуэт: " + data['silhouette_score'] + "</div>")
+                $("#clustering_res_metrics").append("<br />")
+
+                $('#clustering_res_block').show()
             })
     })
 });

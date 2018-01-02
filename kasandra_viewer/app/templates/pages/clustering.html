@@ -7,10 +7,15 @@
         </div>
         <div class="col-md-4">
             {% include 'pages/components/vect_algoritm.html' %}
-            {% include 'pages/components/words_count.html' %}
-            {% include 'pages/components/clust_algoritm.html' %}
+            {% include 'pages/components/words_count.html' %} {% include 'pages/components/clust_algoritm.html'
+            %}
             <button type="submit" class="btn btn-success">Вычислить</button>
         </div>
     </div>
 </form>
+<div class="row" id="clustering_res_block">
+    <h4>Результаты кластеризации:</h4>
+    <div id="clustering_res_metrics"></div>
+    <div id="jtree_clusters"></div>
+</div>
 {% endblock %}
