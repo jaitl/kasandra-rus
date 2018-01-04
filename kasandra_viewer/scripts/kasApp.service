@@ -1,0 +1,8 @@
+[Unit]
+Description=Kasandra App
+[Service]
+ExecStart=/data/kasandra-rus/kasandra_viewer/scripts/runKasandraApp.sh
+Type=simple
+User=root
+[Install]
+WantedBy=multi-user.target
