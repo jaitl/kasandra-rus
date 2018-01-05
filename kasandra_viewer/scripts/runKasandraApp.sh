@@ -1,4 +1,3 @@
 #!/bin/bash
-export PATH=/root/anaconda3/bin:$PATH
 cd /data/kasandra-rus/kasandra_viewer
-nohup python run.py &
+/root/anaconda3/bin/python run.py 2> /data/logs/kasApp.log
