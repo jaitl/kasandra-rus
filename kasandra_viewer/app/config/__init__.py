@@ -25,3 +25,11 @@ def path_to_word_to_vec_model():
         http://rusvectores.org/ru/models/
     '''
     return config()['word2vec_model']
+
+def path_to_mystem():
+    path_mystem = config()['path_to_mystem']
+
+    if Path(path_mystem).exists():
+        return path_mystem
+    else:
+        return None

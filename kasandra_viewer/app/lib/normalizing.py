@@ -2,7 +2,7 @@ from pymystem3 import Mystem
 import re
 import os
 
-from app.config import path_to_res
+from app.config import path_to_res, path_to_mystem
 
 mystem_part = {
     'A': 'ADJ',  # прилагательное
@@ -59,7 +59,7 @@ def mystem_analisys(mystem, text):
 def nomalize(texts, with_pos=False):
     stopwords = load_stopwords()
     r = re.compile('^[А-ЯЙа-яй]*$')
-    mystem = Mystem(entire_input=False)
+    mystem = Mystem(entire_input=False, mystem_bin=path_to_mystem())
     tokens_corpuse = []
     for text in texts:
         words = filter(lambda x: r.match(x[0]), mystem_analisys(mystem, text))

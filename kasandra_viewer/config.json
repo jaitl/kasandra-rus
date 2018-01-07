@@ -1,3 +1,4 @@
 {
-    "word2vec_model": "/data/gensim/news_0_300_2.bin.gz"
+    "word2vec_model": "/data/gensim/news_0_300_2.bin.gz",
+    "path_to_mystem": "/data/mystem/mystem"
 }
