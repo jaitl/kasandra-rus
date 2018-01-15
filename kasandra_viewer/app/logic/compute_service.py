@@ -2,6 +2,7 @@ from app.lib.normalizing import nomalize
 from app.lib.vectorization import tf_idf, sem_groups
 from app.lib.clustering import kmeans, affinity_propagation
 from app.lib.cluster_specter import compute_for_cluster, generate_plot
+from app.lib.hirst import SelfSimilarityHirst
 
 from app.config import path_to_tmp_image
 
@@ -107,7 +108,15 @@ def do_analysis(data, news):
         cluster_data = list(news_data)
         news_and_vector = [(x[0], x[2]) for x in cluster_data]
         (cos_news, start_year, end_year) = compute_for_cluster(news_and_vector, matrix.shape)
-        path_to_image = path_to_tmp_image(str(uuid.uuid4()) + ".png")
-        generate_plot(cos_news, start_year, end_year, label + 1, path_to_image)
+
+        path_to_image_spect = path_to_tmp_image(str(uuid.uuid4()) + ".spect.png")
+        generate_plot(cos_news, start_year, end_year, label + 1, path_to_image_spect)
+
+        hirst = SelfSimilarityHirst()
+        h_res = hirst.compute(list(cos_news.items()))
+
+        path_to_image_hirst = path_to_tmp_image(str(uuid.uuid4()) + ".hirst.png")
+        h_res.plot(path_to_image_hirst)
+
 
     return 'ok'
