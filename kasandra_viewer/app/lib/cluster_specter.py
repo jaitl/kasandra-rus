@@ -65,10 +65,10 @@ def compute_for_cluster(cl_news, shape):
     return cos_news, start_year, end_year
 
 
-def generate_plot(cos_days, start_year, end_year, label, path):
-    # plt.rcParams['figure.figsize'] = (20.0, 8.0)
-    # plt.rcParams['font.size'] = 12
-    fig, ax = plt.subplots()
+def generate_plot(cos_days, start_year, end_year, label, path, figsize=(18, 8)):
+    fig = plt.figure(figsize=figsize)
+
+    ax = fig.gca()
 
     myFmt = mdates.DateFormatter('%d.%m.%Y')
     ax.xaxis.set_major_formatter(myFmt)
