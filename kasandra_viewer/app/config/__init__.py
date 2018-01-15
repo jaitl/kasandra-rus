@@ -33,3 +33,10 @@ def path_to_mystem():
         return path_mystem
     else:
         return None
+
+
+def path_to_tmp_image(img_name):
+    path_tmp = os.path.join(work_dir(), "app", "static", "tmp")
+
+    os.makedirs(path_tmp, exist_ok=True)
+    return os.path.join(work_dir(), "app", "static", "tmp", img_name)

@@ -1,9 +1,13 @@
 from app.lib.normalizing import nomalize
 from app.lib.vectorization import tf_idf, sem_groups
 from app.lib.clustering import kmeans, affinity_propagation
+from app.lib.cluster_specter import compute_for_cluster, generate_plot
+
+from app.config import path_to_tmp_image
 
 from sklearn import metrics
 import uuid
+from itertools import groupby
 
 
 def compute_matrix(data, news):
@@ -91,3 +95,19 @@ def do_clustering(data, news):
     }
 
     return result
+
+
+def do_analysis(data, news):
+    (names, matrix) = compute_matrix(data, news)
+    labels = compute_clusters(data, matrix)
+
+    news_info = sorted(zip(news, labels, matrix), key=lambda x: x[1])
+
+    for label, news_data in groupby(news_info, lambda x: x[1]):
+        cluster_data = list(news_data)
+        news_and_vector = [(x[0], x[2]) for x in cluster_data]
+        (cos_news, start_year, end_year) = compute_for_cluster(news_and_vector, matrix.shape)
+        path_to_image = path_to_tmp_image(str(uuid.uuid4()) + ".png")
+        generate_plot(cos_news, start_year, end_year, label + 1, path_to_image)
+
+    return 'ok'

@@ -1,5 +1,21 @@
 {% extends "layout.html" %}
 {% set active_page = "analysis" %}
 {% block body %}
-<h2>Анализ</h2>
+<h2>Анализ самоподобия коллекции документов</h2>
+<form id="analysis">
+    <div class="row">
+        <div class="col-md-8">
+            {% include 'pages/components/news_select.html' %}
+        </div>
+        <div class="col-md-4">
+            {% include 'pages/components/vect_algoritm.html' %}
+            {% include 'pages/components/words_count.html' %} {% include 'pages/components/clust_algoritm.html' %}
+            <button type="submit" class="btn btn-success">Вычислить</button>
+        </div>
+    </div>
+</form>
+<div class="row" id="analysis_res_block">
+    <h4>Результаты анализа:</h4>
+    <div class="analysis_tabs"></div>
+</div>
 {% endblock %}

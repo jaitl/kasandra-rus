@@ -190,3 +190,38 @@ $(document).ready(function () {
             })
     })
 });
+
+
+// analysis
+$(document).ready(function () {
+    $('#analysis').submit(function (e) {
+        e.preventDefault();
+
+        limit_words = $("#dict-count-checkbox").is(':checked')
+        cluster_algorithm = $('#clust-alg .active input').attr('id')
+
+        request = {
+            "vect_algorithm": $('#vect-alg .active input').attr('id'),
+            "news_id": $('#news-corpus').val(),
+            "limit_words": limit_words,
+            "cluster_algorithm": cluster_algorithm
+        }
+
+        words_count = getWordCount(limit_words)
+
+        if (words_count != null) {
+            request['words_count'] = words_count
+        }
+
+        cluster_count = getClusterCount(cluster_algorithm == "kmeans")
+
+        if (cluster_count != null) {
+            request['cluster_count'] = cluster_count
+        }
+
+        $.post("/analysis/compute", JSON.stringify(request),
+            function (data) {
+                console.log(data)
+            })
+    })
+});
