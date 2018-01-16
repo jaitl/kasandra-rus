@@ -91,3 +91,4 @@ def generate_plot(cos_days, start_year, end_year, label, path, figsize=(18, 8)):
     ax.legend(loc='upper right')
     fig.autofmt_xdate(rotation=60)
     fig.savefig(path)
+    plt.close(fig)

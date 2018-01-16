@@ -9,6 +9,7 @@ from app.config import path_to_tmp_image
 from sklearn import metrics
 import uuid
 from itertools import groupby
+import numpy as np
 
 
 def compute_matrix(data, news):
@@ -98,25 +99,49 @@ def do_clustering(data, news):
     return result
 
 
+def norm_int(int_dd):
+    if int_dd is None or np.isnan(int_dd):
+        return 0
+    else:
+        return round(int_dd, 3)
+
+
 def do_analysis(data, news):
     (names, matrix) = compute_matrix(data, news)
     labels = compute_clusters(data, matrix)
 
     news_info = sorted(zip(news, labels, matrix), key=lambda x: x[1])
 
+    results = []
+
     for label, news_data in groupby(news_info, lambda x: x[1]):
         cluster_data = list(news_data)
         news_and_vector = [(x[0], x[2]) for x in cluster_data]
         (cos_news, start_year, end_year) = compute_for_cluster(news_and_vector, matrix.shape)
 
-        path_to_image_spect = path_to_tmp_image(str(uuid.uuid4()) + ".spect.png")
+        spect_name = str(uuid.uuid4()) + ".spect.png"
+
+        path_to_image_spect = path_to_tmp_image(spect_name)
         generate_plot(cos_news, start_year, end_year, label + 1, path_to_image_spect)
 
         hirst = SelfSimilarityHirst()
         h_res = hirst.compute(list(cos_news.items()))
 
-        path_to_image_hirst = path_to_tmp_image(str(uuid.uuid4()) + ".hirst.png")
+        hirst_name = str(uuid.uuid4()) + ".hirst.png"
+
+        path_to_image_hirst = path_to_tmp_image(hirst_name)
         h_res.plot(path_to_image_hirst)
 
+        titles = [x[0]['title'] for x in cluster_data]
+        cluster_result = {
+            "label": int(label + 1),
+            "titles": titles,
+            "spect_img": spect_name,
+            "hirst_img": hirst_name,
+            "y": "y = %s * x + %s" % (norm_int(h_res.slope), norm_int(h_res.intercept)),
+            "correlation": norm_int(h_res.correlation_coefficient),
+            "h": norm_int(h_res.hirst_coefficient)
+        }
+        results.append(cluster_result)
 
-    return 'ok'
+    return {"result": results}

@@ -219,9 +219,19 @@ $(document).ready(function () {
             request['cluster_count'] = cluster_count
         }
 
-        $.post("/analysis/compute", JSON.stringify(request),
-            function (data) {
+        $.ajax({
+            type:    "POST",
+            url:     "/analysis/compute",
+            data:    JSON.stringify(request),
+            success: function(data) {
                 console.log(data)
-            })
+            },
+            // vvv---- This is the new bit
+            error:   function(jqXHR, textStatus, errorThrown) {
+                console.log("Error, status = " + textStatus + ", " +
+                        "error thrown: " + errorThrown
+                  );
+            }
+          });
     })
 });

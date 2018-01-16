@@ -61,6 +61,7 @@ class HistResult:
         ax.plot(x1, y1)
         
         fig.savefig(path)
+        plt.close(fig)
 
 
 class SelfSimilarityHirst:
