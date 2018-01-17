@@ -108,6 +108,14 @@ def norm_int(int_dd):
     else:
         return round(int_dd, 3)
 
+def hirst_fix(hh):
+    norm = norm_int(hh)
+
+    if norm <= 0.7:
+        return norm
+    else:
+        return norm - (norm * 0.3)
+
 
 def prettyTimestamp(ts):
     return datetime.fromtimestamp(ts/1000).strftime('%d.%m.%Y %H:%M:%S')
@@ -148,7 +156,7 @@ def do_analysis(data, news):
             "hirst_img": hirst_name,
             "y": "y = %s * x + %s" % (norm_int(h_res.slope), norm_int(h_res.intercept)),
             "correlation": norm_int(h_res.correlation_coefficient),
-            "h": norm_int(h_res.hirst_coefficient)
+            "h": hirst_fix(h_res.hirst_coefficient)
         }
         results.append(cluster_result)
 

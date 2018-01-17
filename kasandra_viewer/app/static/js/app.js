@@ -29,13 +29,14 @@ function createClusterAnalysisTab(elem) {
     content = ""
 
     content += '<h4>График спектра кластера:</h4>'
+    content += '<img id="spec" src="' + spect_png + '" width="800"/><br/>'
+
+    content += '<br/><h4>График тренда самоподобия:</h4>'
     content += '<img id="hurst" src="' + hurst_png + '" width="800"/><br/>'
     content += '<p><b>Линейное уравнение:</b> ' + elem.y + '</p>'
     content += '<p><b>Коэффициент корреляции:</b> ' + elem.correlation + '</p>'
     content += '<p><b>Коэффициент Хёрста:</b> ' + elem.h + '</p>'
 
-    content += '<br/><h4>График тренда самоподобия:</h4>'
-    content += '<img id="spec" src="' + spect_png + '" width="800"/><br/>'
 
     content += '<br/><h4>Список новостей в кластере:</h4>'
     content += '<div class="cluster_titles_alisys">' + documentTerminMatrix(['Заголовок новости', 'Дата публикации'], elem.titles) + '</div>'
