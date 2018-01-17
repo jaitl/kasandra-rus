@@ -50,6 +50,8 @@ def compute_clusters(data, matrix):
 def do_vectorization(data, news):
     (names, vect_res) = compute_matrix(data, news)
 
+    print(vect_res.shape)
+
     vect_list = [[round(y, 3) for y in x] for x in vect_res.toarray()]
 
     result = {

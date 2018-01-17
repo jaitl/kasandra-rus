@@ -18,7 +18,7 @@ word_vectors = init_word3vec()
 
 def similar(word):
     try:
-        sim = word_vectors.most_similar(positive=[w])
+        sim = word_vectors.most_similar(positive=[word])
         return list(map(lambda x: x[0], sim))
     except Exception as e:
         return [word]
