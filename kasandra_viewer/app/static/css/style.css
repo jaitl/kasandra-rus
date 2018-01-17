@@ -7,3 +7,9 @@ body {
   overflow: scroll;
   height: 500px;
 }
+
+.cluster_titles_alisys {
+  overflow: scroll;
+  height: 300px;
+  width: 800px;
+}

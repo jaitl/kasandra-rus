@@ -8,6 +8,7 @@ from app.config import path_to_tmp_image
 
 from sklearn import metrics
 import uuid
+from datetime import datetime
 from itertools import groupby
 import numpy as np
 
@@ -106,6 +107,10 @@ def norm_int(int_dd):
         return round(int_dd, 3)
 
 
+def prettyTimestamp(ts):
+    return datetime.fromtimestamp(ts/1000).strftime('%d.%m.%Y %H:%M:%S')
+
+
 def do_analysis(data, news):
     (names, matrix) = compute_matrix(data, news)
     labels = compute_clusters(data, matrix)
@@ -132,9 +137,10 @@ def do_analysis(data, news):
         path_to_image_hirst = path_to_tmp_image(hirst_name)
         h_res.plot(path_to_image_hirst)
 
-        titles = [x[0]['title'] for x in cluster_data]
+        titles = [ [x[0]['title'], prettyTimestamp(x[0]['date'])] for x in cluster_data]
         cluster_result = {
             "label": int(label + 1),
+            "label_name": "Кластер №%s (размер: %s новостей)" %(int(label + 1), len(titles)),
             "titles": titles,
             "spect_img": spect_name,
             "hirst_img": hirst_name,

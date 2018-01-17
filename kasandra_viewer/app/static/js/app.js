@@ -20,6 +20,35 @@ function documentTerminMatrix(title, matrix) {
     return start + tableTitleRes + tableBodyRes + end
 }
 
+function createClusterAnalysisTab(elem) {
+    id = "cluster" + elem.label
+
+    hurst_png = 'static/tmp/' + elem.hirst_img
+    spect_png = 'static/tmp/' + elem.spect_img
+
+    content = ""
+
+    content += '<h4>График спектра кластера:</h4>'
+    content += '<img id="hurst" src="' + hurst_png + '" width="800"/><br/>'
+    content += '<p><b>Линейное уравнение:</b> ' + elem.y + '</p>'
+    content += '<p><b>Коэффициент корреляции:</b> ' + elem.correlation + '</p>'
+    content += '<p><b>Коэффициент Хёрста:</b> ' + elem.h + '</p>'
+
+    content += '<br/><h4>График тренда самоподобия:</h4>'
+    content += '<img id="spec" src="' + spect_png + '" width="800"/><br/>'
+
+    content += '<br/><h4>Список новостей в кластере:</h4>'
+    content += '<div class="cluster_titles_alisys">' + documentTerminMatrix(['Заголовок новости', 'Дата публикации'], elem.titles) + '</div>'
+
+    panelStart = '<div class="panel panel-default">';
+    panelEnd = '</div>'
+
+    tapHeader = '<div class="panel-heading" role="tab" id="' + "head_" + id + '"><h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#' + id + '" aria-expanded="true" aria-controls="' + id + '">' + elem.label_name + '</a></h4></div>'
+    tabBody = '<div id="' + id + '" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="' + "head_" + id + '"><div class="panel-body">' + content + '</div></div>'
+
+    return panelStart + tapHeader + tabBody + panelEnd
+}
+
 function loadNews(alias) {
     $.get("/news/" + alias, function (data) {
 
@@ -194,8 +223,13 @@ $(document).ready(function () {
 
 // analysis
 $(document).ready(function () {
+
+    $('#analysis_res_block').hide();
+
     $('#analysis').submit(function (e) {
         e.preventDefault();
+        $('#analysis_res_block').hide();
+        $("#accordion").empty()
 
         limit_words = $("#dict-count-checkbox").is(':checked')
         cluster_algorithm = $('#clust-alg .active input').attr('id')
@@ -225,8 +259,17 @@ $(document).ready(function () {
             data:    JSON.stringify(request),
             success: function(data) {
                 console.log(data)
+
+                accordion_data = _.reduce(data.result, function (total, elem, numb) {
+                    return total += createClusterAnalysisTab(elem)
+                }, "");
+
+                $("#accordion").html(accordion_data)
+
+                $('.panel-collapse').collapse('toggle');
+
+                $('#analysis_res_block').show();
             },
-            // vvv---- This is the new bit
             error:   function(jqXHR, textStatus, errorThrown) {
                 console.log("Error, status = " + textStatus + ", " +
                         "error thrown: " + errorThrown
