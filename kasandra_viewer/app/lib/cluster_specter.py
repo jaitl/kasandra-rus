@@ -8,6 +8,10 @@ from datetime import datetime, timedelta
 from dateutil import tz
 from scipy.sparse import vstack
 from scipy import spatial
+
+import matplotlib
+matplotlib.use('agg')
+
 from matplotlib.dates import MO
 
 import numpy as np
