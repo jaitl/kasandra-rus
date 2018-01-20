@@ -7,6 +7,7 @@ pip install flask
 pip install pymystem3
 pip install sklearn
 pip install gensim
+pip install matplotlib
 ```
 
 ## Run local

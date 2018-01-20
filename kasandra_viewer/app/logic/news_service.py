@@ -30,8 +30,13 @@ def load_news():
 news = load_news()
 
 
+def reload_news():
+    global news
+    news = load_news()
+
+
 def get_corpuses_name_len():
-    name_count = [(x['name'], len(x['news'])) for x in news.values()]
+    name_count = [(x['name'], x["alias"], len(x['news'])) for x in news.values()]
     return name_count
 
 

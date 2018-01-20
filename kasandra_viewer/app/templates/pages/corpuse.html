@@ -1,0 +1,41 @@
+{% extends "layout.html" %} {% set active_page = "corpuse" %} {% block body %}
+<h2>Коллекции документов</h2>
+
+<br/>
+<h4>Список загруженных колелкций</h4>
+<div id="corpuse_list"></div>
+
+<br/>
+<h4>Загрузить коллекцию</h4>
+<form action="corpuse/upload" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <input type="file" name="file">
+    </div>
+    <input type="submit" value="Загрузить" class="btn btn-success">
+</form>
+<br/>
+<h4>Формат файла:</h4>
+<pre>
+{
+    "name": "Имя",
+    "alias": "sha_rus_fedor_50",
+    "news": [{
+            "siteType": "LENTA",
+            "date": 1472430279000,
+            "content": "Контент новости",
+            "id": "c00af44e-65f0-434d-88ad-84fa91d397d2",
+            "url": "https://lenta.ru/news/2016/08/29/iran/",
+            "title": "Аятолла Хаменеи рассказал о попытках США оставить Иран без комплексов С-300"
+        },
+        {
+            "siteType": "RBC",
+            "date": 1461927977000,
+            "content": "Контент новости",
+            "id": "ee611274-faee-4030-836e-a9f4aba744de",
+            "url": "http://www.rbc.ru/finances/29/04/2016/572322679a79478c77793268",
+            "title": "ЦБ сохранил ключевую ставку на уровне 11%"
+        }
+    ]
+}
+</pre>
+{% endblock %}

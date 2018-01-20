@@ -4,7 +4,7 @@ function documentTerminMatrix(title, matrix) {
 
     tableTitle = _.reduce(title, function (res, n) {
         return res + "<th scope='col'>" + n + "</th>"
-    }, "<th scope='col'>№ документа</th>")
+    }, "<th scope='col'>№</th>")
 
     tableTitleRes = "<thead><tr>" + tableTitle + "</tr></thead>"
 
@@ -103,8 +103,10 @@ function addThreeListner() {
 
 // init
 $(document).ready(function () {
-    loadNews($('#news-corpus').val())
-    $("#vect_res_block").hide()
+    if ($('#news-corpus').length > 0) {
+        loadNews($('#news-corpus').val())
+        $("#vect_res_block").hide()
+    }
 });
 
 // common
@@ -285,7 +287,7 @@ $(document).ready(function () {
     if ($('#corpuse_list'.length > 0)) {
         $.get("/corpuse/list", function(data) {
             $('#corpuse_list').empty()
-            $('#corpuse_list').append(documentTerminMatrix(['Коллекция', 'Количество новостей'], data.news))
+            $('#corpuse_list').append(documentTerminMatrix(['Коллекция', 'Алиас', 'Количество новостей'], data.news))
         })
     }
 });
