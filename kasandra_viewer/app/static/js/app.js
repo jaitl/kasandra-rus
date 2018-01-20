@@ -279,3 +279,13 @@ $(document).ready(function () {
           });
     })
 });
+
+// news corpuse
+$(document).ready(function () {
+    if ($('#corpuse_list'.length > 0)) {
+        $.get("/corpuse/list", function(data) {
+            $('#corpuse_list').empty()
+            $('#corpuse_list').append(documentTerminMatrix(['Коллекция', 'Количество новостей'], data.news))
+        })
+    }
+});

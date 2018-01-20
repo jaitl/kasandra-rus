@@ -3,6 +3,7 @@ from app.lib.vectorization import tf_idf, sem_groups
 from app.lib.clustering import kmeans, affinity_propagation
 from app.lib.cluster_specter import compute_for_cluster, generate_plot
 from app.lib.hirst import SelfSimilarityHirst
+from app.logic.news_service import get_news_content, get_news_titles, get_news_data
 
 from app.config import path_to_tmp_image
 
@@ -13,8 +14,8 @@ from itertools import groupby
 import numpy as np
 
 
-def compute_matrix(data, news):
-    news_content = list(map(lambda x: x['content'], news))
+def compute_matrix(data):
+    news_content = get_news_content(data['news_id'])
 
     if data['limit_words'] == True:
         word_count = data['words_count']
@@ -47,8 +48,8 @@ def compute_clusters(data, matrix):
     return labels
 
 
-def do_vectorization(data, news):
-    (names, vect_res) = compute_matrix(data, news)
+def do_vectorization(data):
+    (names, vect_res) = compute_matrix(data)
 
     print(vect_res.shape)
 
@@ -63,9 +64,9 @@ def do_vectorization(data, news):
     return result
 
 
-def do_clustering(data, news):
-    news_titles = list(map(lambda x: x['title'], news))
-    (names, matrix) = compute_matrix(data, news)
+def do_clustering(data):
+    news_titles = get_news_titles(data['news_id'])
+    (names, matrix) = compute_matrix(data)
     labels = compute_clusters(data, matrix)
 
     ss = metrics.silhouette_score(matrix, labels)
@@ -113,11 +114,12 @@ def prettyTimestamp(ts):
     return datetime.fromtimestamp(ts/1000).strftime('%d.%m.%Y %H:%M:%S')
 
 
-def do_analysis(data, news):
-    (names, matrix) = compute_matrix(data, news)
+def do_analysis(data):
+    news_corpuse = get_news_data(data['news_id'])
+    (names, matrix) = compute_matrix(data)
     labels = compute_clusters(data, matrix)
 
-    news_info = sorted(zip(news, labels, matrix), key=lambda x: x[1])
+    news_info = sorted(zip(news_corpuse, labels, matrix), key=lambda x: x[1])
 
     results = []
 
